@@ -1,0 +1,48 @@
+#app
+    position: relative
+    flex-grow: 1
+    display: flex
+    flex-direction: column
+
+.wrapper
+    flex-grow: 1
+
+.section
+    padding: 40px 0
+    @include media(md)
+        padding: 30px 0
+
+.cont
+    margin: 0 auto
+    width: 100%
+    padding: 0 15px
+    max-width: 1400px + 30px
+    @include media(lg)
+        max-width: 1188px + 30px
+    @include media(md)
+        max-width: calc(852px + 30px)
+    @include media(sm)
+        max-width: calc(648px + 30px)
+    @include media(xs)
+        max-width: calc(468px + 30px)
+    @include media(xxs)
+        padding-right: 20px
+        padding-left: 20px
+        max-width: calc(392px + 40px)
+
+.title
+    font-size: 32px
+    line-height: 36px
+    font-weight: 700
+    @include media(md)
+        font-size: 26px
+        line-height: 30px
+
+.v-enter-active, .v-leave-active
+    transition: opacity $transition-duration ease
+
+.v-enter-from, .v-leave-to
+    opacity: 0
+
+.error
+    color: $orange

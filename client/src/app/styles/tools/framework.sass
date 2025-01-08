@@ -1,3 +1,5 @@
+@use "../variables.sass" as *
+
 #app
     position: relative
     flex-grow: 1
@@ -6,11 +8,6 @@
 
 .wrapper
     flex-grow: 1
-
-.section
-    padding: 40px 0
-    @include media(md)
-        padding: 30px 0
 
 .cont
     margin: 0 auto
@@ -30,19 +27,8 @@
         padding-left: 20px
         max-width: calc(392px + 40px)
 
-.title
-    font-size: 32px
-    line-height: 36px
-    font-weight: 700
-    @include media(md)
-        font-size: 26px
-        line-height: 30px
-
 .v-enter-active, .v-leave-active
     transition: opacity $transition-duration ease
 
 .v-enter-from, .v-leave-to
     opacity: 0
-
-.error
-    color: $orange

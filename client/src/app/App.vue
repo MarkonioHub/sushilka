@@ -1,14 +1,14 @@
-<template>
-  <router-view></router-view>
-</template>
-
-<script>
-
-export default {
-  name: 'App',
-}
+<script setup lang="ts">
+  import HeaderBase from '@/widgets/HeaderBase/ui/HeaderBase.vue'
+  import FooterBase from '@/widgets/FooterBase/ui/FooterBase.vue'
 </script>
 
-<style>
+<template>
+  <HeaderBase />
+  <div class="wrapper">
+    <router-view></router-view>
+  </div>
+  <FooterBase />
+</template>
 
-</style>
+<style></style>

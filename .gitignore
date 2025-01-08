@@ -1,9 +1,0 @@
-/client/node_modules
-/client/dist
-
-# local env files
-/client/.env.local
-/client/.env.*.local
-
-# Editor directories and files
-/client/.idea

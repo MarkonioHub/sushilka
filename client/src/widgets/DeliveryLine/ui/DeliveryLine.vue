@@ -1,7 +1,5 @@
 <script setup></script>
 
-<template>
-  <div>offers</div>
-</template>
+<template></template>
 
 <style scoped></style>

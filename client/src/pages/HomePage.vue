@@ -1,12 +1,9 @@
 <script setup>
-
-import HeaderBase from "@/entities/header/ui/HeaderBase.vue";
+import SliderOffers from '@/widgets/SliderOffers/ui/SliderOffers.vue'
 </script>
 
 <template>
-  <HeaderBase/>
+  <SliderOffers />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

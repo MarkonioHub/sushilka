@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import IconSvg from '@/shared/ui/IconSvg.vue'
+import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
 </script>
 
 <template>
@@ -9,18 +10,25 @@ import IconSvg from '@/shared/ui/IconSvg.vue'
         <div class="header__logo">
           <img src="../images/logo.png" alt="" class="header__logo-image" />
         </div>
-        <div class="header__list">
+        <div class="header__list mob-hide">
           <div class="header__item">
-            <IconSvg :name="'placemark'" class="header__item-icon"/>
-            <div class="header__item-span">Киров</div>
+            <ButtonUnderline>
+              <IconSvg :name="'placemark'" :className="'icon-left'" />
+              <span>Киров</span>
+            </ButtonUnderline>
           </div>
           <div class="header__item">
-            <img src="" alt="" class="header__item-icon">
-            <div class="header__item-span">ru</div>
+            <ButtonUnderline :className="'uppercase'">
+              <IconSvg :name="'placemark'" :className="'icon-left'"/>
+              <span>ru</span>
+            </ButtonUnderline>
           </div>
         </div>
-        <a href="tel:78332436436" class="header__phone">+7(8332)436-436</a>
-        <div class="header__login">Войти</div>
+        <a href="tel:78332436436" class="header__phone mob-hide">+7(8332)436-436</a>
+        <ButtonUnderline>
+          <IconSvg :name="'login'" :className="'icon-login'" />
+          <span>Войти</span>
+        </ButtonUnderline>
       </div>
     </div>
   </header>
@@ -36,6 +44,8 @@ import IconSvg from '@/shared/ui/IconSvg.vue'
   display: flex
   align-items: center
   font-size: 16px
+  @include media(sm)
+    justify-content: space-between
 
 .header__logo
   margin-right: 40px
@@ -68,9 +78,16 @@ import IconSvg from '@/shared/ui/IconSvg.vue'
   border-bottom: 1px dashed $black
 
 .header__phone
+  margin-right: 40px
   margin-left: auto
+  text-decoration: none
+  transition-property: color
+  transition-duration: $transition-duration
+  &:hover
+    color: $orange
 
-.header__login
-  margin-left: 40px
+.mob-hide
+  @include media(sm)
+    display: none
 
 </style>

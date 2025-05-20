@@ -4,7 +4,7 @@ import IconSvg from "@/shared/ui/IconSvg.vue"
 
 <template>
   <section class="delivery-line">
-    <div class="delivery-line__cont cont">
+    <div class="cont">
       <div class="delivery-line__area">
         <IconSvg :name="'placemark'" :className="'icon-grey'" class="delivery-line__icon" />
         <div class="delivery-line__current">
@@ -23,8 +23,6 @@ import IconSvg from "@/shared/ui/IconSvg.vue"
 <style scoped lang="sass">
 .delivery-line
   margin-top: 20px
-
-.delivery-line__cont
 
 .delivery-line__area
   display: flex

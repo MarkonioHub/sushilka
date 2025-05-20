@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import IconSvg from '@/shared/ui/IconSvg.vue'
-import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
+  import IconSvg from '@/shared/ui/IconSvg.vue'
+  import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
 </script>
 
 <template>
   <header class="header">
-    <div class="header__cont cont">
+    <div class="cont">
       <div class="header__area">
         <div class="header__logo">
           <img src="../images/logo.png" alt="" class="header__logo-image" />

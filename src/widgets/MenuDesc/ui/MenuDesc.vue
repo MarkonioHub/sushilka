@@ -19,10 +19,6 @@
 <style scoped lang="sass">
 .menu-desc
   padding: 15px 0
-  position: sticky
-  top: 0
-  &.top
-    background: white
 
 .menu-desc__nav
   display: flex

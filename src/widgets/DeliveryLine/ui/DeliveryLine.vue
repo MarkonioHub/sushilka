@@ -29,6 +29,7 @@ import IconSvg from "@/shared/ui/IconSvg.vue"
   align-items: center
   box-shadow: $box-shadow
   border-radius: $border-radius
+  background: $card-background
   padding: 10px 20px
   @include media(sm)
     display: block

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useSliderOffersStore = defineStore('SliderOffers', {
   state: () => ({
-      slides: []
+    slides: [],
   }),
   actions: {
     async getSlides() {
@@ -14,5 +14,5 @@ export const useSliderOffersStore = defineStore('SliderOffers', {
         console.error('Error fetching /slider-offers:', error)
       }
     },
-  }
+  },
 })

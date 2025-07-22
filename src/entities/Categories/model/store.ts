@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useCategoriesStore = defineStore('Categories', {
   state: () => ({
-    categories: []
+    categories: [],
   }),
   actions: {
     async getCategories() {
@@ -14,5 +14,5 @@ export const useCategoriesStore = defineStore('Categories', {
         console.error('Error fetching /products:', error)
       }
     },
-  }
+  },
 })

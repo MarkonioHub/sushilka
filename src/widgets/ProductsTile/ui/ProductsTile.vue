@@ -1,36 +1,48 @@
 <script setup lang="ts">
-  import ProductCard from "@/entities/Product/ui/ProductCard.vue"
-  import { useProductsStore } from "@/entities/Product/model/store.ts"
-  import { useCategoriesStore } from "@/entities/Categories/model/store.ts"
+import ProductCard from '@/entities/Product/ui/ProductCard.vue'
+import { useProductsStore } from '@/entities/Product/model/store.ts'
+import { useCategoriesStore } from '@/entities/Categories/model/store.ts'
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 
-  const productsStore = useProductsStore()
-  if (!productsStore.products.length) productsStore.getProducts()
+const store = useProductsStore()
+if (!store.products.length) store.getProducts()
 
-  const categoriesStore = useCategoriesStore()
-  if (!categoriesStore.categories.length) categoriesStore.getCategories()
+const storeCategory = useCategoriesStore()
+if (!storeCategory.categories.length) storeCategory.getCategories()
+
+const route = useRoute()
+
+const currentProducts = computed(() => {
+  const categorySlug = route.params.id
+  if (categorySlug) {
+    const currentCategory = storeCategory.categories.find(
+      (category: object) => category?.slug === categorySlug,
+    )
+    if (currentCategory)
+      return store.products.filter(
+        (product: object) => currentCategory?.products.indexOf(product?.id) > -1,
+      )
+  } else {
+    return store.products.slice(0, 12)
+  }
+  return []
+})
 </script>
 
 <template>
-  <div class="products-tile">
+  <section class="products-tile">
     <div class="cont">
-      <div class="products-tile__categories">
-        <RouterLink :to="`/${category.slug}`" class="products-tile__category" v-for="(category, index) in categoriesStore.categories" :key="index">
-          {{ category.name }}
-        </RouterLink>
-        <div class="products-tile__basket">
-          <div class="products-tile__basket-price"></div>
-        </div>
-      </div>
       <div class="products-tile__list">
-        <ProductCard :product="product" v-for="(product, index) in productsStore.products" :key="index" />
+        <ProductCard :product="product" v-for="(product, index) in currentProducts" :key="index" />
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped lang="sass">
 .products-tile
-  margin-bottom: 60px
+  margin-bottom: 40px
 
 .products-tile__list
   display: grid

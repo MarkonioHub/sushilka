@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import ButtonUnderline from "@/shared/ui/ButtonUnderline.vue"
+import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
 </script>
 
 <template>

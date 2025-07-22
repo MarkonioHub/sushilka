@@ -1,12 +1,12 @@
 <script setup lang="ts">
-  import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent } from 'vue'
 
-  const props = defineProps({
-    name: { type: String, required: true },
-    className: { type: String },
-  })
+const props = defineProps({
+  name: { type: String, required: true },
+  className: { type: String },
+})
 
-  const Icon = defineAsyncComponent(() => import(`@/shared/assets/icons/${props.name}.svg`))
+const Icon = defineAsyncComponent(() => import(`@/shared/assets/icons/${props.name}.svg`))
 </script>
 
 <template>

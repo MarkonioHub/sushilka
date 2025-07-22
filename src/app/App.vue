@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import HeaderBase from '@/widgets/HeaderBase/ui/HeaderBase.vue'
-  import FooterBase from '@/widgets/FooterBase/ui/FooterBase.vue'
+import HeaderBase from '@/widgets/HeaderBase/ui/HeaderBase.vue'
+import FooterBase from '@/widgets/FooterBase/ui/FooterBase.vue'
 </script>
 
 <template>

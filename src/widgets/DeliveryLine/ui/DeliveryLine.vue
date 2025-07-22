@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconSvg from "@/shared/ui/IconSvg.vue"
+import IconSvg from '@/shared/ui/IconSvg.vue'
 </script>
 
 <template>
@@ -9,7 +9,9 @@ import IconSvg from "@/shared/ui/IconSvg.vue"
         <IconSvg :name="'placemark'" :className="'icon-grey'" class="delivery-line__icon" />
         <div class="delivery-line__current">
           <div class="delivery-line__current-name">Точка самовывоза</div>
-          <div class="delivery-line__current-value">Сушилка Атлант Воровского, 114 (тел: 444-943)</div>
+          <div class="delivery-line__current-value">
+            Сушилка Атлант Воровского, 114 (тел: 444-943)
+          </div>
         </div>
         <div class="delivery-line__type">
           <button class="delivery-line__type-btn">Доставка</button>
@@ -71,5 +73,4 @@ import IconSvg from "@/shared/ui/IconSvg.vue"
   &.active
     background-color: $orange
     color: $white
-
 </style>

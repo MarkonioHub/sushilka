@@ -1,4 +1,4 @@
-export const formatPrice = (price: string) => {
+export const formatPrice = (price) => {
   if (price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'
   } else {

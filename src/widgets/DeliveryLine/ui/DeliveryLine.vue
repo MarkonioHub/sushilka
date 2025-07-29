@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import IconSvg from '@/shared/ui/IconSvg.vue'
 </script>
 

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import {useTemplateRef, onMounted, onUnmounted} from 'vue'
 import { useCategoriesStore } from '@/entities/Categories/model/store.ts'
 import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
@@ -6,7 +6,7 @@ import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
 const store = useCategoriesStore()
 if (!store.categories.length) store.getCategories()
 
-const categoriesLine = useTemplateRef<HTMLDivElement>('categories-line')
+const categoriesLine = useTemplateRef('categories-line')
 
 onMounted(() => {
   window.addEventListener('scroll', scrollHandler, { passive: true })

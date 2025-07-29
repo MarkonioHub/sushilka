@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { useSliderOffersStore } from '@/widgets/SliderOffers/model/store.ts'
 import { EffectFade, Navigation, Pagination, Autoplay } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'

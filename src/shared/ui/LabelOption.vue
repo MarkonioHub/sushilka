@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 const props = defineProps({
   text: String,
   name: String,
@@ -27,6 +27,7 @@ function updateValue (newValue) {
 
 <style scoped lang="sass">
 .label-option
+  height: 100%
   cursor: pointer
   .label-option__input:checked ~ .label-option__view
     background-color: $select-background
@@ -36,13 +37,16 @@ function updateValue (newValue) {
   display: none
 
 .label-option__view
+  height: 100%
   background-color: $card-background
   display: flex
   align-items: center
   justify-content: center
+  text-align: center
   border-radius: $border-radius
   border: 2px solid $color-border
-  font-size: 16px
+  font-size: 12px
+  line-height: 14px
   padding: 5px
   transition-duration: $transition-duration
   transition-property: border-color, background-color

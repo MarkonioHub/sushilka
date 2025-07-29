@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import ic_badge from '../images/ic_badge.png'
 import ic_clock from '../images/ic_clock.png'
 import ic_lorry from '../images/ic_lorry.png'

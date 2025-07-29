@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
 </script>
 

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { defineAsyncComponent } from "vue"
 
 const vk = defineAsyncComponent(() => import('../images/vk.svg'))

@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import { computed, ref } from "vue"
+<script setup>
+import { computed, ref, watch } from "vue"
 import { formatPrice } from "@/shared/helpers/formatPrice.ts"
 import LabelOption from "@/shared/ui/LabelOption.vue"
 
@@ -7,7 +7,11 @@ const props = defineProps({
   product: { type: Object, required: true },
 })
 
-const selectedParam = ref(props.product["parameters"][0])
+let selectedParam = ref(props.product["parameters"][0])
+
+watch(props, (newProps) => {
+  selectedParam = ref(newProps.product["parameters"][0])
+})
 
 const paramsListClassMod = computed(() => {
   if (props.product["parameters"]?.length === 2) {
@@ -26,7 +30,6 @@ const price = computed(() => {
     return props.product["price"]
   }
 })
-
 </script>
 
 <template>
@@ -164,14 +167,14 @@ const price = computed(() => {
 
 .product-card__name
   margin-bottom: 10px
-  font-size: 18px
-  line-height: 24px
+  font-size: 16px
+  line-height: 20px
   font-weight: 500
 
 .product-card__description
   margin-bottom: 10px
-  font-size: 16px
-  line-height: 1.4
+  font-size: 13px
+  line-height: 16px
   word-break: break-word
   letter-spacing: -.3px
   color: grey
@@ -189,6 +192,7 @@ const price = computed(() => {
 .product-card__params-list
   flex-grow: 1
   display: grid
+  align-items: center
   gap: 10px
   &.double
     grid-template-columns: repeat(2, 1fr)

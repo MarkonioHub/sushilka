@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import ProductCard from '@/entities/Product/ui/ProductCard.vue'
 import { useProductsStore } from '@/entities/Product/model/store.ts'
 import { useCategoriesStore } from '@/entities/Categories/model/store.ts'
@@ -16,13 +16,9 @@ const route = useRoute()
 const currentProducts = computed(() => {
   const categorySlug = route.params.id
   if (categorySlug) {
-    const currentCategory = storeCategory.categories.find(
-      (category: object) => category?.slug === categorySlug,
-    )
+    const currentCategory = storeCategory.categories.find((category) => category?.slug === categorySlug)
     if (currentCategory)
-      return store.products.filter(
-        (product: object) => currentCategory?.products.indexOf(product?.id) > -1,
-      )
+      return store.products.filter((product) => currentCategory?.products.indexOf(product?.id) > -1,)
   } else {
     return store.products.slice(0, 12)
   }

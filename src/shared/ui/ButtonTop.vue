@@ -1,7 +1,7 @@
-<script setup lang="ts">
+<script setup>
 import { useTemplateRef, onMounted, onUnmounted } from 'vue'
 
-const buttonTop = useTemplateRef<HTMLButtonElement>('button-top')
+const buttonTop = useTemplateRef('button-top')
 let lastScrollTop = 0
 let isScrollDown = true
 

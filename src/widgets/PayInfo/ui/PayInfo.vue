@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {defineAsyncComponent} from "vue"
 
 const ic_visa = defineAsyncComponent(() => import('../images/ic_visa.svg'))

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import IconSvg from '@/shared/ui/IconSvg.vue'
 </script>
 
@@ -6,7 +6,7 @@ import IconSvg from '@/shared/ui/IconSvg.vue'
   <section class="delivery-line">
     <div class="cont">
       <div class="delivery-line__area">
-        <IconSvg :name="'placemark'" :className="'icon-grey'" class="delivery-line__icon" />
+        <IconSvg :name="'placemark'" :className="'icon icon-grey'" class="delivery-line__icon" />
         <div class="delivery-line__current">
           <div class="delivery-line__current-name">Точка самовывоза</div>
           <div class="delivery-line__current-value">

@@ -1,12 +1,14 @@
-<script setup>
-import {useTemplateRef, onMounted, onUnmounted} from 'vue'
-import { useCategoriesStore } from '@/entities/Categories/model/store.ts'
+<script setup lang="ts">
+import { useTemplateRef, onMounted, onUnmounted } from 'vue'
+import { useCategoriesStore } from '@/entities/Categories/model/store'
 import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
+import { useRoute } from "vue-router"
 
 const store = useCategoriesStore()
 if (!store.categories.length) store.getCategories()
 
 const categoriesLine = useTemplateRef('categories-line')
+const route = useRoute()
 
 onMounted(() => {
   window.addEventListener('scroll', scrollHandler, { passive: true })
@@ -30,13 +32,11 @@ function scrollHandler() {
     <div class="cont">
       <div class="categories-line__area">
         <div class="categories-line__list">
-          <ButtonUnderline :to="'/'">
-            <span>Популярное</span>
-          </ButtonUnderline>
           <ButtonUnderline
-            :to="`/catalog/${category.slug}`"
             v-for="(category, index) in store.categories"
             :key="index"
+            :to="`/catalog/${category.slug}`"
+            :className="index === 0 && !route.params.categorySlug ? 'active' : ''"
           >
             <span>{{ category.name }}</span>
           </ButtonUnderline>

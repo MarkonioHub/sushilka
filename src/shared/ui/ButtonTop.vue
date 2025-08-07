@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useTemplateRef, onMounted, onUnmounted } from 'vue'
 
 const buttonTop = useTemplateRef('button-top')

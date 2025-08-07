@@ -1,9 +1,10 @@
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   to: { type: String },
   href: { type: String },
-  className: { type: String },
+  className: { type: String, default: '' },
   target: { type: String },
+  disabled: { type: Boolean, default: false },
 })
 </script>
 
@@ -12,7 +13,6 @@ const props = defineProps({
     :to="props.to"
     v-if="props.to"
     :class="'button-underline' + ` ${className}`"
-    activeClass="active"
   >
     <slot></slot>
   </RouterLink>

@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
+import type { Categories } from "./types.ts"
 
 export const useCategoriesStore = defineStore('Categories', {
-  state: () => ({
+  state: (): Categories => ({
     categories: [],
   }),
   actions: {

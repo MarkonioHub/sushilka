@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
+import type { Products } from './types'
 
 export const useProductsStore = defineStore('Products', {
-  state: () => ({
-    products: [],
+  state: (): Products => ({
+    products: []
   }),
   actions: {
     async getProducts() {

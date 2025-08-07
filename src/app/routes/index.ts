@@ -6,7 +6,13 @@ import NotFoundPage from '@/pages/NotFoundPage.vue'
 
 const routes = [
   { path: '/', component: HomePage },
-  { path: '/catalog/:id', component: HomePage },
+  {
+    path: '/catalog/:categorySlug',
+    component: HomePage,
+    children: [
+      { path: ':productSlug', component: HomePage },
+    ]
+  },
   { path: '/offers', component: OffersPage },
   { path: '/:pathMatch(.*)*', component: NotFoundPage },
 ]
@@ -14,6 +20,8 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  linkActiveClass: 'active',
+  linkExactActiveClass: 'active-exact',
 })
 
 export default router

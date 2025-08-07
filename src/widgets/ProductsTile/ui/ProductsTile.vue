@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import ProductCard from '@/entities/Product/ui/ProductCard.vue'
-import { useProductsStore } from '@/entities/Product/model/store.ts'
-import { useCategoriesStore } from '@/entities/Categories/model/store.ts'
+import { useProductsStore } from '@/entities/Product/model/store'
+import { useCategoriesStore } from '@/entities/Categories/model/store'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 
@@ -14,15 +14,18 @@ if (!storeCategory.categories.length) storeCategory.getCategories()
 const route = useRoute()
 
 const currentProducts = computed(() => {
-  const categorySlug = route.params.id
-  if (categorySlug) {
-    const currentCategory = storeCategory.categories.find((category) => category?.slug === categorySlug)
-    if (currentCategory)
-      return store.products.filter((product) => currentCategory?.products.indexOf(product?.id) > -1,)
+  const categorySlug = route.params.categorySlug
+  let currentCategory = undefined
+
+  currentCategory = categorySlug
+    ? storeCategory.categories.find((category) => category?.slug === categorySlug)
+    : storeCategory.categories[0]
+
+  if (currentCategory) {
+    return store.products.filter((product) => currentCategory?.products.indexOf(product?.id) > -1,)
   } else {
-    return store.products.slice(0, 12)
+    return []
   }
-  return []
 })
 </script>
 
@@ -30,7 +33,11 @@ const currentProducts = computed(() => {
   <section class="products-tile">
     <div class="cont">
       <div class="products-tile__list">
-        <ProductCard :product="product" v-for="(product, index) in currentProducts" :key="index" />
+        <ProductCard
+          v-for="(product, index) in currentProducts"
+          :product="product"
+          :key="index"
+        />
       </div>
     </div>
   </section>

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import SliderOffers from '@/widgets/SliderOffers/ui/SliderOffers.vue'
 import DeliveryLine from '@/widgets/DeliveryLine/ui/DeliveryLine.vue'
 import MenuDesc from '@/widgets/MenuDesc/ui/MenuDesc.vue'
@@ -9,6 +9,7 @@ import PayInfo from '@/widgets/PayInfo/ui/PayInfo.vue'
 import SeoBox from '@/widgets/SeoBox/ui/SeoBox.vue'
 import SocialLine from '@/widgets/SocialLine/ui/SocialLine.vue'
 import ButtonTop from "@/shared/ui/ButtonTop.vue"
+import ProductModal from "@/entities/Product/ui/ProductModal.vue"
 </script>
 
 <template>
@@ -22,6 +23,7 @@ import ButtonTop from "@/shared/ui/ButtonTop.vue"
   <SeoBox />
   <SocialLine />
   <ButtonTop />
+  <ProductModal />
 
 </template>
 

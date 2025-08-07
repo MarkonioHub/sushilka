@@ -1,25 +1,34 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref, watch } from "vue"
-import { formatPrice } from "@/shared/helpers/formatPrice.ts"
+import { formatPrice } from "@/shared/helpers/formatPrice"
+import { useRoute } from "vue-router"
+import { useCategoriesStore } from "@/entities/Categories/model/store"
+import { useParamsListClassMod } from '@/shared/composables/useParamsListClassMod'
 import LabelOption from "@/shared/ui/LabelOption.vue"
 
 const props = defineProps({
-  product: { type: Object, required: true },
+  product: { type: Object, required: true }
 })
+
+const storeCategory = useCategoriesStore()
+if (!storeCategory.categories.length) storeCategory.getCategories()
+
+const route = useRoute()
 
 let selectedParam = ref(props.product["parameters"][0])
+let paramsListClassMod = useParamsListClassMod(props.product["parameters"])
 
 watch(props, (newProps) => {
-  selectedParam = ref(newProps.product["parameters"][0])
+  selectedParam = newProps.product["parameters"][0]
+  paramsListClassMod = useParamsListClassMod(newProps.product["parameters"])
+}, { deep: true })
+
+const categorySlug = computed(() => {
+  return route.params.categorySlug ? route.params.categorySlug : storeCategory.categories[0]?.slug
 })
 
-const paramsListClassMod = computed(() => {
-  if (props.product["parameters"]?.length === 2) {
-    return "double"
-  } else if (props.product["parameters"]?.length === 3) {
-    return "triple"
-  }
-  return ""
+const productPath = computed(() => {
+   return `/catalog/${categorySlug.value}/${props.product?.slug}`
 })
 
 const price = computed(() => {
@@ -45,7 +54,7 @@ const price = computed(() => {
           {{ tag.text }}
         </div>
       </div>
-      <RouterLink :to="'/'" class="product-card__picture">
+      <RouterLink :to="productPath" class="product-card__picture">
         <img :src="props.product?.image" alt="" class="product-card__image" />
       </RouterLink>
       <div class="product-card__buttons">
@@ -68,7 +77,7 @@ const price = computed(() => {
         </div>
       </div>
     </div>
-    <RouterLink :to="'/'" class="product-card__inner">
+    <RouterLink :to="productPath" class="product-card__inner">
       <div class="product-card__name">{{ props.product?.name }}</div>
       <div class="product-card__description" v-html="props.product?.description"></div>
     </RouterLink>
@@ -83,8 +92,7 @@ const price = computed(() => {
             v-model="selectedParam"
             :name="`product-${props.product['id']}-param`"
             :text="param"
-            :checked="key === 0"
-            :key=key
+            :key=param
           />
         </div>
         <div class="product-card__params-btn">Опции</div>

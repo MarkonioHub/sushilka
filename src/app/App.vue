@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import HeaderBase from '@/widgets/HeaderBase/ui/HeaderBase.vue'
 import FooterBase from '@/widgets/FooterBase/ui/FooterBase.vue'
 </script>

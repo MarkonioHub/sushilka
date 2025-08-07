@@ -1,14 +1,13 @@
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
-  text: String,
+  text: { type: String, required: true },
   name: String,
-  checked: Boolean,
-  modelValue: String
 })
 
+const model = defineModel()
 const emit = defineEmits(['update:modelValue'])
 
-function updateValue (newValue) {
+function updateValue (newValue: string) {
   emit('update:modelValue', newValue)
 }
 </script>
@@ -18,7 +17,7 @@ function updateValue (newValue) {
     <input class="label-option__input" type="radio"
       :name="props.name"
       :value="props.text"
-      :checked="modelValue === props.text"
+      :checked="model === props.text"
       @change="updateValue(props.text)"
     />
     <span class="label-option__view">{{ props.text }}</span>
@@ -29,12 +28,12 @@ function updateValue (newValue) {
 .label-option
   height: 100%
   cursor: pointer
-  .label-option__input:checked ~ .label-option__view
-    background-color: $select-background
-    border: 2px solid $select-background
 
 .label-option__input
   display: none
+  &:checked ~ .label-option__view
+    background-color: $select-background
+    border: 2px solid $select-background
 
 .label-option__view
   height: 100%

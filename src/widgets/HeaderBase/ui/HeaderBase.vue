@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import IconSvg from '@/shared/ui/IconSvg.vue'
 import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
 </script>
@@ -13,13 +13,13 @@ import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
         <div class="header__list mob-hide">
           <div class="header__item">
             <ButtonUnderline>
-              <IconSvg :name="'placemark'" :className="'icon-left'" />
+              <IconSvg :name="'placemark'" :className="'icon icon-orange icon-margin-right'" />
               <span>Киров</span>
             </ButtonUnderline>
           </div>
           <div class="header__item">
             <ButtonUnderline :className="'uppercase'">
-              <IconSvg :name="'placemark'" :className="'icon-left'" />
+              <IconSvg :name="'placemark'" :className="'icon icon-orange icon-margin-right'" />
               <span>ru</span>
             </ButtonUnderline>
           </div>

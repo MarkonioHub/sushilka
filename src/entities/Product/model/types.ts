@@ -6,10 +6,16 @@ export interface Product {
   parameters: string[]
   "parameter-single": string
   price: string | string[]
-  tags: string[]
+  tags: Tag[]
   image: string
 }
 
 export interface Products {
   products: Product[]
+}
+
+interface Tag {
+  text: string
+  background: string
+  color: string
 }

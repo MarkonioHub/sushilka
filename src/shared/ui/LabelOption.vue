@@ -4,21 +4,17 @@ const props = defineProps({
   name: String,
 })
 
-const model = defineModel()
-const emit = defineEmits(['update:modelValue'])
-
-function updateValue (newValue: string) {
-  emit('update:modelValue', newValue)
-}
+const selectedParam = defineModel()
 </script>
 
 <template>
   <label class="label-option">
-    <input class="label-option__input" type="radio"
+    <input
+      class="label-option__input"
+      type="radio"
       :name="props.name"
       :value="props.text"
-      :checked="model === props.text"
-      @change="updateValue(props.text)"
+      v-model="selectedParam"
     />
     <span class="label-option__view">{{ props.text }}</span>
   </label>

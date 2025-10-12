@@ -1,27 +1,61 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue"
+import {computed, ref, watch} from "vue"
 import { formatPrice } from "@/shared/helpers/formatPrice"
 import { useRoute } from "vue-router"
-import { useCategoriesStore } from "@/entities/Categories/model/store"
-import { useParamsListClassMod } from '@/shared/composables/useParamsListClassMod'
-import LabelOption from "@/shared/ui/LabelOption.vue"
+import { storeToRefs } from "pinia"
 
-const props = defineProps({
-  product: { type: Object, required: true }
-})
+import { useParamsListClassMod } from '@/shared/composables/useParamsListClassMod'
+import { usePriceByParams } from "@/shared/composables/usePriceByParams.ts"
+
+import { useMessagesStore } from "@/widgets/InfoMessages/model/store.ts"
+import { useCategoriesStore } from "@/entities/Categories/model/store"
+import { useBasketStore } from "@/entities/Basket/model/store.ts"
+
+import IconSvg from "@/shared/ui/IconSvg.vue"
+import ProductCounter from "@/features/Counter/ui/ProductCounter.vue"
+import LabelOption from "@/shared/ui/LabelOption.vue"
+import ButtonBase from "@/shared/ui/ButtonBase.vue"
+
+import type { Product } from "@/entities/Product/model/types.ts"
+
+const props = defineProps<{
+  product: Product,
+}>()
 
 const storeCategory = useCategoriesStore()
 if (!storeCategory.categories.length) storeCategory.getCategories()
 
+const basket = useBasketStore()
+const { productsBasket } = storeToRefs(basket)
+const messageStore = useMessagesStore()
 const route = useRoute()
 
 let selectedParam = ref(props.product["parameters"][0])
-let paramsListClassMod = useParamsListClassMod(props.product["parameters"])
+let paramsListClassMod = ref(useParamsListClassMod(props.product["parameters"]))
 
-watch(props, (newProps) => {
-  selectedParam = newProps.product["parameters"][0]
-  paramsListClassMod = useParamsListClassMod(newProps.product["parameters"])
-}, { deep: true })
+watch(() => props.product, (newVal) => {
+  selectedParam = ref(newVal["parameters"][0])
+  paramsListClassMod = ref(useParamsListClassMod(newVal["parameters"]))
+});
+
+const currentProductInBasket = computed(() => {
+  return productsBasket.value.find((basketProduct) => basketProduct.id === props.product.id && basketProduct.selectedParameter === selectedParam.value)
+})
+
+const price = computed( () => {
+  return usePriceByParams(props.product, selectedParam.value) * (productCount.value || 1)
+})
+
+const productCount = computed( {
+  get() {
+    return currentProductInBasket.value?.quantity || 0
+  },
+  set(newValue) {
+    if (currentProductInBasket.value?.quantity) {
+      currentProductInBasket.value.quantity = newValue
+    }
+  }
+})
 
 const categorySlug = computed(() => {
   return route.params.categorySlug ? route.params.categorySlug : storeCategory.categories[0]?.slug
@@ -31,14 +65,18 @@ const productPath = computed(() => {
    return `/catalog/${categorySlug.value}/${props.product?.slug}`
 })
 
-const price = computed(() => {
-  if (Array.isArray(props.product["price"])) {
-    const index = props.product["parameters"].indexOf(selectedParam.value)
-    return props.product["price"][index]
-  } else {
-    return props.product["price"]
+function addProductInBasket () {
+  basket.addProduct(props.product.id, selectedParam.value, 1)
+}
+
+async function saveLink () {
+  try {
+    await navigator.clipboard.writeText(`${window.location.origin}${productPath.value}`)
+  } catch (err) {
+    console.error('Failed to copy text: ', err)
   }
-})
+  messageStore.addMessage('Ссылка скопирована')
+}
 </script>
 
 <template>
@@ -59,27 +97,16 @@ const price = computed(() => {
       </RouterLink>
       <div class="product-card__buttons">
         <div class="product-card__button">
-          <svg viewBox="0 0 16 16" fill="none">
-            <path
-              d="M1.24264 8.24264L8 15L14.7574 8.24264C15.553 7.44699 16 6.36786 16 5.24264V5.05234C16 2.8143 14.1857 1 11.9477 1C10.7166 1 9.55233 1.55959 8.78331 2.52086L8 3.5L7.21669 2.52086C6.44767 1.55959 5.28338 1 4.05234 1C1.8143 1 0 2.8143 0 5.05234V5.24264C0 6.36786 0.44699 7.44699 1.24264 8.24264Z"
-              fill="#b2bbbd"
-            />
-          </svg>
+          <IconSvg :name="'heart'" />
         </div>
-        <div class="product-card__button">
-          <svg viewBox="0 0 512 512">
-            <path
-              d="M512,255.995L277.045,65.394v103.574c-17.255,0-36.408,0-57.542,0c-208.59,0-249.35,153.44-201.394,266.128
-              c9.586-103.098,142.053-100.701,237.358-100.701c7.247,0,14.446,0,21.578,0v112.211L512,255.995z"
-              fill="#b2bbbd"
-            />
-          </svg>
+        <div class="product-card__button" @click="saveLink">
+          <IconSvg :name="'share'" />
         </div>
       </div>
     </div>
     <RouterLink :to="productPath" class="product-card__inner">
-      <div class="product-card__name">{{ props.product?.name }}</div>
-      <div class="product-card__description" v-html="props.product?.description"></div>
+      <div class="product-card__name">{{ props.product.name }}</div>
+      <div class="product-card__description" v-html="props.product.description"></div>
     </RouterLink>
     <div class="product-card__bottom">
       <div class="product-card__params">
@@ -92,14 +119,28 @@ const price = computed(() => {
             v-model="selectedParam"
             :name="`product-${props.product['id']}-param`"
             :text="param"
-            :key=param
+            :key=key
           />
         </div>
-        <div class="product-card__params-btn">Опции</div>
+        <ButtonBase
+          :className="'button-orange'"
+          :to="productPath"
+          class="product-card__params-btn"
+        >
+          Опции
+        </ButtonBase>
       </div>
       <div class="product-card__line">
         <div class="product-card__price">{{ formatPrice(price) }}</div>
-        <button class="product-card__add">В корзину</button>
+        <ProductCounter
+          v-if="productCount"
+          :name="`product-card-counter-${props.product.id}`"
+          v-model="productCount"
+          :minValue="0"
+        />
+        <ButtonBase class="product-card__add" @click="addProductInBasket" v-else>
+          В корзину
+        </ButtonBase>
       </div>
     </div>
   </div>
@@ -121,10 +162,11 @@ const price = computed(() => {
   position: absolute
   top: 10px
   left: 10px
-  right: 40px
+  right: 50px
   display: flex
   flex-wrap: wrap
   gap: 10px
+  pointer-events: none
 
 .product-card__tag
   display: flex
@@ -137,7 +179,7 @@ const price = computed(() => {
   font-size: 12px
   line-height: 100%
   text-transform: uppercase
-  padding: 2px 10px
+  padding: 4px 10px 3px
 
 .product-card__picture
   display: block
@@ -156,6 +198,7 @@ const price = computed(() => {
   gap: 10px
 
 .product-card__button
+  cursor: pointer
   width: 30px
   height: 30px
   border-radius: 50%
@@ -194,7 +237,7 @@ const price = computed(() => {
   padding: 0 12px
   display: flex
   gap: 10px
-  align-items: center
+  align-items: stretch
   justify-content: space-between
 
 .product-card__params-list
@@ -213,11 +256,7 @@ const price = computed(() => {
 
 .product-card__params-btn
   flex-shrink: 0
-  padding: 6px 12px
-  box-shadow: 0 0 0 1px #e53a24
-  background-color: #e53a24
-  color: #ffffff
-  border-radius: $border-radius
+  width: auto
 
 .product-card__line
   margin-top: 15px
@@ -233,6 +272,7 @@ const price = computed(() => {
 
 .product-card__add
   font-size: 18px
+  line-height: 20px
   font-weight: 500
   text-transform: uppercase
 </style>

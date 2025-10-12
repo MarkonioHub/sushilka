@@ -10,6 +10,7 @@ import SeoBox from '@/widgets/SeoBox/ui/SeoBox.vue'
 import SocialLine from '@/widgets/SocialLine/ui/SocialLine.vue'
 import ButtonTop from "@/shared/ui/ButtonTop.vue"
 import ProductModal from "@/entities/Product/ui/ProductModal.vue"
+import BasketMob from "@/entities/Basket/ui/BasketMob.vue"
 </script>
 
 <template>
@@ -24,7 +25,7 @@ import ProductModal from "@/entities/Product/ui/ProductModal.vue"
   <SocialLine />
   <ButtonTop />
   <ProductModal />
-
+  <BasketMob />
 </template>
 
 <style scoped></style>

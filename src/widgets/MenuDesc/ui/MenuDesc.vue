@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
+import ButtonBase from '@/shared/ui/ButtonBase.vue'
 </script>
 
 <template>
   <nav class="menu-desc">
     <div class="cont">
       <nav class="menu-desc__nav">
-        <ButtonUnderline to="/" className="solid">Главная</ButtonUnderline>
-        <ButtonUnderline to="/stock" className="solid">Акции</ButtonUnderline>
-        <ButtonUnderline to="/reviews" className="solid">Отзывы</ButtonUnderline>
-        <ButtonUnderline to="/vacations" className="solid">Вакансии</ButtonUnderline>
-        <ButtonUnderline to="/about" className="solid">О нас</ButtonUnderline>
+        <ButtonBase to="/" :className="'button-underline solid'">Главная</ButtonBase>
+        <ButtonBase to="/stock" :className="'button-underline solid'">Акции</ButtonBase>
+        <ButtonBase to="/reviews" :className="'button-underline solid'">Отзывы</ButtonBase>
+        <ButtonBase to="/vacations" :className="'button-underline solid'">Вакансии</ButtonBase>
+        <ButtonBase to="/about" :className="'button-underline solid'">О нас</ButtonBase>
       </nav>
     </div>
   </nav>

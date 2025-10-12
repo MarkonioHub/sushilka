@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import HeaderBase from '@/widgets/HeaderBase/ui/HeaderBase.vue'
 import FooterBase from '@/widgets/FooterBase/ui/FooterBase.vue'
+import InfoMessages from "@/widgets/InfoMessages/ui/InfoMessages.vue"
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import FooterBase from '@/widgets/FooterBase/ui/FooterBase.vue'
     <router-view></router-view>
   </div>
   <FooterBase />
+  <InfoMessages />
 </template>
 
 <style></style>

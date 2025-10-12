@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { useTemplateRef, onMounted, onUnmounted } from 'vue'
+import {useTemplateRef, onMounted, onUnmounted, computed} from 'vue'
 import { useCategoriesStore } from '@/entities/Categories/model/store'
-import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
+import ButtonBase from '@/shared/ui/ButtonBase.vue'
 import { useRoute } from "vue-router"
+import { formatPrice } from "@/shared/helpers/formatPrice.ts"
+import { usePriceFull } from "@/shared/composables/useBasketPrice.ts"
 
 const store = useCategoriesStore()
 if (!store.categories.length) store.getCategories()
 
 const categoriesLine = useTemplateRef('categories-line')
 const route = useRoute()
+
+const { priceFull } = usePriceFull()
 
 onMounted(() => {
   window.addEventListener('scroll', scrollHandler, { passive: true })
@@ -25,6 +29,15 @@ function scrollHandler() {
     categoriesLine?.value?.classList.remove('white')
   }
 }
+
+const categoriesLineBasketClassName = computed(() => {
+  return priceFull.value !== 0 ? "categories-line__basket active" : "categories-line__basket"
+})
+
+function getButtonClassName(index: Number) {
+  return index === 0 && !route.params.categorySlug ? 'button-underline active' : 'button-underline'
+}
+
 </script>
 
 <template>
@@ -32,16 +45,16 @@ function scrollHandler() {
     <div class="cont">
       <div class="categories-line__area">
         <div class="categories-line__list">
-          <ButtonUnderline
+          <ButtonBase
             v-for="(category, index) in store.categories"
             :key="index"
             :to="`/catalog/${category.slug}`"
-            :className="index === 0 && !route.params.categorySlug ? 'active' : ''"
+            :className=getButtonClassName(index)
           >
             <span>{{ category.name }}</span>
-          </ButtonUnderline>
+          </ButtonBase>
         </div>
-        <div class="categories-line__basket">
+        <RouterLink to="/basket" :class="categoriesLineBasketClassName">
           <svg
             class="categories-line__basket-icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -61,8 +74,10 @@ function scrollHandler() {
               S84,72.791,84,75z"
             />
           </svg>
-          <div class="categories-line__basket-price"></div>
-        </div>
+          <div class="categories-line__basket-price" v-if="priceFull">
+            {{ formatPrice(priceFull) }}
+          </div>
+        </RouterLink>
       </div>
     </div>
   </section>
@@ -100,12 +115,23 @@ function scrollHandler() {
   margin-left: 20px
   display: flex
   align-items: center
+  gap: 5px
   flex-shrink: 0
   border: 1px solid #b2bbbd
   border-radius: 50%
   padding: 5px
+  text-decoration: none
+  pointer-events: none
   @include media(md)
     display: none
+  &.active
+    pointer-events: all
+    border-radius: $border-radius
+    background-color: $orange
+    color: $white
+    border: 1px solid $orange
+    .categories-line__basket-icon
+      fill: $white
 
 .categories-line__basket-icon
   width: 24px

@@ -80,11 +80,7 @@ function scrollToTop () {
   transition-property: opacity
   transition-duration: $transition-duration
   @include media(md)
-    width: 40px
-    height: 40px
-    border-radius: 8px
-    right: 20px
-    bottom: 20px
+    display: none
   svg
     width: 25px
     height: 25px

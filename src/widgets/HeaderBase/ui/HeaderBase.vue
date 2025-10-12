@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import IconSvg from '@/shared/ui/IconSvg.vue'
-import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
+import ButtonBase from '@/shared/ui/ButtonBase.vue'
 </script>
 
 <template>
@@ -12,23 +12,23 @@ import ButtonUnderline from '@/shared/ui/ButtonUnderline.vue'
         </div>
         <div class="header__list mob-hide">
           <div class="header__item">
-            <ButtonUnderline>
+            <ButtonBase :className="'button-underline'">
               <IconSvg :name="'placemark'" :className="'icon icon-orange icon-margin-right'" />
               <span>Киров</span>
-            </ButtonUnderline>
+            </ButtonBase>
           </div>
           <div class="header__item">
-            <ButtonUnderline :className="'uppercase'">
+            <ButtonBase :className="'button-underline uppercase'">
               <IconSvg :name="'placemark'" :className="'icon icon-orange icon-margin-right'" />
               <span>ru</span>
-            </ButtonUnderline>
+            </ButtonBase>
           </div>
         </div>
         <a href="tel:78332436436" class="header__phone mob-hide">+7(8332)436-436</a>
-        <ButtonUnderline>
+        <ButtonBase :className="'button-underline'">
           <IconSvg :name="'login'" :className="'icon-login'" />
           <span>Войти</span>
-        </ButtonUnderline>
+        </ButtonBase>
       </div>
       <div class="header__mob">
         <div class="header__burger">

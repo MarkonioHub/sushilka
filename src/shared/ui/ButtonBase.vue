@@ -12,24 +12,47 @@ const props = defineProps({
   <RouterLink
     :to="props.to"
     v-if="props.to"
-    :class="'button-underline' + ` ${className}`"
+    :class="className"
   >
     <slot></slot>
   </RouterLink>
   <a
     :href="props.href"
     v-else-if="props.href"
-    :class="'button-underline' + ` ${className}`"
+    :class="className"
     :target="props.target"
   >
     <slot></slot>
   </a>
-  <button v-else :class="'button-underline' + ` ${className}`">
+  <button v-else :class="className">
     <slot></slot>
   </button>
 </template>
 
 <style lang="sass">
+.button-orange
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 100%
+  text-decoration: none
+  padding: 6px 12px
+  font-size: 14px
+  line-height: 100%
+  background-color: #e53a24
+  color: #ffffff
+  border-radius: $border-radius
+  transition-property: background-color
+  transition-duration: $transition-duration
+  &:hover
+    background-color: #dd1700
+  &_big
+    padding: 16px 10px 14px
+    border-radius: 30px
+    font-size: 18px
+    font-weight: 700
+    text-transform: uppercase
+
 .button-underline
   display: flex
   align-items: center

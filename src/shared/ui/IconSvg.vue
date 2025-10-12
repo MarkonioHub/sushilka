@@ -18,6 +18,21 @@ const Icon = defineAsyncComponent(() => import(`@/shared/assets/icons/${props.na
   width: 16px
   height: 16px
 
+.icon-20px
+  width: 20px
+  height: 20px
+
+.icon-btn
+  cursor: pointer
+  transition-duration: 0.1s
+  transition-property: transform
+  &:active
+    transform: scale(1.2)
+  &.disabled
+    cursor: none
+    pointer-events: none
+    opacity: 0.3
+
 .icon-grey
   fill: $grey
 

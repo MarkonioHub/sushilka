@@ -34,9 +34,9 @@ const currentProducts = computed(() => {
     <div class="cont">
       <div class="products-tile__list">
         <ProductCard
-          v-for="(product, index) in currentProducts"
+          v-for="(product, key) in currentProducts"
           :product="product"
-          :key="index"
+          :key="key"
         />
       </div>
     </div>

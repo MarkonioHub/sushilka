@@ -27,6 +27,8 @@
 <style scoped lang="sass">
 .footer
   background: #f1f1f1
+  @include media(md)
+    padding-bottom: 60px
 
 .footer__list
   display: flex

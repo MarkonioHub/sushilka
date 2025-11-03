@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { computed, ref } from "vue"
+import { computed } from "vue"
 
 import type { ProductBasket } from "@/entities/Basket/model/types.ts"
 
 import { useProductsStore } from "@/entities/Product/model/store.ts"
 import { usePriceByParams } from "@/shared/composables/usePriceByParams.ts"
 import { formatPrice } from "@/shared/helpers/formatPrice.ts"
+import { useBasketStore } from "@/entities/Basket/model/store.ts"
+import { storeToRefs } from "pinia"
 
-import ProductCounter from "@/features/Counter/ui/ProductCounter.vue"
+import ProductCounter from "@/features/ProductCounter/ui/ProductCounter.vue"
 import IconSvg from "@/shared/ui/IconSvg.vue"
-import {useBasketStore} from "@/entities/Basket/model/store.ts"
-import {storeToRefs} from "pinia"
 
 const props = defineProps<{
   productBasket: ProductBasket,
@@ -20,16 +20,13 @@ const basket = useBasketStore()
 const { productsBasket } = storeToRefs(basket)
 
 const productsStore = useProductsStore()
-const products = computed(() => {
-  return productsStore.products
-})
 
 const selectedParameter = computed(() => {
   return props.productBasket.selectedParameter
 })
 
 const product = computed(() => {
-  return products.value.find((product) => product.id === props.productBasket.id)
+  return productsStore.getProductById(props.productBasket.id)
 })
 
 const productBasket = computed(() => {
@@ -41,8 +38,10 @@ const productCount = computed( {
     return productBasket.value?.quantity || 0
   },
   set(newValue) {
-    if (productBasket.value?.quantity) {
-      productBasket.value.quantity = newValue
+    if (newValue > 0) {
+      basket.addProduct(product.value?.id || '', selectedParameter.value, newValue, true)
+    } else {
+      basket.removeProduct(product.value?.id || '', selectedParameter.value)
     }
   }
 })
@@ -59,6 +58,10 @@ const cardName = computed(() => {
   }
 })
 
+function removeProduct () {
+  basket.removeProduct(product.value?.id || '', selectedParameter.value)
+}
+
 </script>
 
 <template>
@@ -72,12 +75,12 @@ const cardName = computed(() => {
       class="basket-card__counter"
       v-model="productCount"
       :name="`basket-card-counter-${props.productBasket.id}`"
-      :minValue="1"
+      :min-value="0"
     />
     <div class="basket-card__price">
       {{ formatPrice(price) }}
     </div>
-    <IconSvg :name="'delete'" class="basket-card__delete" @click="$emit('close')" />
+    <IconSvg :name="'delete'" class="basket-card__delete" @click="removeProduct" />
   </div>
 </template>
 

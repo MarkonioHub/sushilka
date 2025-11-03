@@ -7,7 +7,7 @@ import { usePriceFull } from "@/shared/composables/useBasketPrice.ts"
 import { formatPrice } from "@/shared/helpers/formatPrice.ts"
 
 import ButtonBase from "@/shared/ui/ButtonBase.vue"
-import {pluralize} from "@/shared/helpers/pluralize.ts";
+import {pluralize} from "@/shared/helpers/pluralize.ts"
 
 const basket = useBasketStore()
 const { productsBasket } = storeToRefs(basket)

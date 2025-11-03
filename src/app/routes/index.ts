@@ -1,9 +1,10 @@
 import { createWebHistory, createRouter } from 'vue-router'
 
-import HomePage from '@/pages/HomePage.vue'
-import OffersPage from '@/pages/OffersPage.vue'
-import NotFoundPage from '@/pages/NotFoundPage.vue'
-import BasketPage from "@/pages/BasketPage.vue"
+const HomePage = () => import('@/pages/HomePage.vue')
+const StocksPage = () => import('@/pages/StocksPage.vue')
+const NotFoundPage = () => import('@/pages/NotFoundPage.vue')
+const BasketPage = () => import("@/pages/BasketPage.vue")
+const ContentPage = () => import("@/pages/ContentPage.vue")
 
 const routes = [
   { path: '/', component: HomePage },
@@ -14,7 +15,8 @@ const routes = [
       { path: ':productSlug', component: HomePage },
     ]
   },
-  { path: '/offers', component: OffersPage },
+  { path: '/stocks', component: StocksPage },
+  { path: '/content/:contentSlug', component: ContentPage },
   { path: '/basket', component: BasketPage },
   { path: '/:pathMatch(.*)*', component: NotFoundPage },
 ]

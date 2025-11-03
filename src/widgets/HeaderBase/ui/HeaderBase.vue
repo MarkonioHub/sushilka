@@ -7,9 +7,9 @@ import ButtonBase from '@/shared/ui/ButtonBase.vue'
   <header class="header">
     <div class="cont">
       <div class="header__area">
-        <div class="header__logo">
+        <RouterLink to="/" class="header__logo">
           <img src="../images/logo.png" alt="" class="header__logo-image" />
-        </div>
+        </RouterLink>
         <div class="header__list mob-hide">
           <div class="header__item">
             <ButtonBase :className="'button-underline'">

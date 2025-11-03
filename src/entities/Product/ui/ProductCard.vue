@@ -2,7 +2,6 @@
 import {computed, ref, watch} from "vue"
 import { formatPrice } from "@/shared/helpers/formatPrice"
 import { useRoute } from "vue-router"
-import { storeToRefs } from "pinia"
 
 import { useParamsListClassMod } from '@/shared/composables/useParamsListClassMod'
 import { usePriceByParams } from "@/shared/composables/usePriceByParams.ts"
@@ -12,47 +11,49 @@ import { useCategoriesStore } from "@/entities/Categories/model/store"
 import { useBasketStore } from "@/entities/Basket/model/store.ts"
 
 import IconSvg from "@/shared/ui/IconSvg.vue"
-import ProductCounter from "@/features/Counter/ui/ProductCounter.vue"
+import ProductCounter from "@/features/ProductCounter/ui/ProductCounter.vue"
 import LabelOption from "@/shared/ui/LabelOption.vue"
 import ButtonBase from "@/shared/ui/ButtonBase.vue"
 
-import type { Product } from "@/entities/Product/model/types.ts"
+import { useProductsStore } from "@/entities/Product/model/store.ts"
 
-const props = defineProps<{
-  product: Product,
-}>()
+const props = defineProps({
+  id: { type: String, required: true }
+})
 
 const storeCategory = useCategoriesStore()
-if (!storeCategory.categories.length) storeCategory.getCategories()
 
 const basket = useBasketStore()
-const { productsBasket } = storeToRefs(basket)
 const messageStore = useMessagesStore()
 const route = useRoute()
+const productsStore = useProductsStore()
 
-let selectedParam = ref(props.product["parameters"][0])
-let paramsListClassMod = ref(useParamsListClassMod(props.product["parameters"]))
+const product = computed(() => {
+  return productsStore.getProductById(props.id)
+})
 
-watch(() => props.product, (newVal) => {
-  selectedParam = ref(newVal["parameters"][0])
-  paramsListClassMod = ref(useParamsListClassMod(newVal["parameters"]))
-});
+let selectedParameter = ref(product.value?.parameters[0])
+watch(() => props.id, () => {
+  selectedParameter = ref(product.value?.parameters[0])
+})
 
-const currentProductInBasket = computed(() => {
-  return productsBasket.value.find((basketProduct) => basketProduct.id === props.product.id && basketProduct.selectedParameter === selectedParam.value)
+const paramsListClassMod = computed(() => {
+  return useParamsListClassMod(product.value?.parameters || [])
 })
 
 const price = computed( () => {
-  return usePriceByParams(props.product, selectedParam.value) * (productCount.value || 1)
+  return usePriceByParams(product.value, selectedParameter.value || '') * (productQuantity.value || 1)
 })
 
-const productCount = computed( {
+const productQuantity = computed( {
   get() {
-    return currentProductInBasket.value?.quantity || 0
+    return basket.getProductQuantity(props.id, selectedParameter.value || '') || 0
   },
   set(newValue) {
-    if (currentProductInBasket.value?.quantity) {
-      currentProductInBasket.value.quantity = newValue
+    if (newValue > 0) {
+      basket.addProduct(product.value?.id || '', selectedParameter.value, newValue, true)
+    } else {
+      basket.removeProduct(product.value?.id || '', selectedParameter.value)
     }
   }
 })
@@ -62,11 +63,11 @@ const categorySlug = computed(() => {
 })
 
 const productPath = computed(() => {
-   return `/catalog/${categorySlug.value}/${props.product?.slug}`
+   return `/catalog/${categorySlug.value}/${product.value?.slug}`
 })
 
 function addProductInBasket () {
-  basket.addProduct(props.product.id, selectedParam.value, 1)
+  if (product.value) basket.addProduct(product.value.id, selectedParameter.value, 1)
 }
 
 async function saveLink () {
@@ -82,10 +83,10 @@ async function saveLink () {
 <template>
   <div class="product-card">
     <div class="product-card__top">
-      <div class="product-card__tags" v-if="props.product?.tags">
+      <div class="product-card__tags" v-if="product?.tags">
         <div
           class="product-card__tag"
-          v-for="(tag, index) in props.product?.tags"
+          v-for="(tag, index) in product?.tags"
           :key="index"
           :style="`background-color: ${tag.background}; color: ${tag.color}`"
         >
@@ -93,7 +94,7 @@ async function saveLink () {
         </div>
       </div>
       <RouterLink :to="productPath" class="product-card__picture">
-        <img :src="props.product?.image" alt="" class="product-card__image" />
+        <img :src="product?.image" alt="" class="product-card__image" />
       </RouterLink>
       <div class="product-card__buttons">
         <div class="product-card__button">
@@ -105,19 +106,19 @@ async function saveLink () {
       </div>
     </div>
     <RouterLink :to="productPath" class="product-card__inner">
-      <div class="product-card__name">{{ props.product.name }}</div>
-      <div class="product-card__description" v-html="props.product.description"></div>
+      <div class="product-card__name">{{ product?.name }}</div>
+      <div class="product-card__description" v-html="product?.description"></div>
     </RouterLink>
     <div class="product-card__bottom">
       <div class="product-card__params">
-        <div class="product-card__param-single" v-if="props.product['parameter-single']">
-          {{ props.product['parameter-single'] }}
+        <div class="product-card__param-single" v-if="product?.parameterSingle">
+          {{ product?.parameterSingle }}
         </div>
-        <div :class="`product-card__params-list ${paramsListClassMod}`" v-else-if="props.product['parameters']">
+        <div :class="`product-card__params-list ${paramsListClassMod}`" v-else-if="product?.parameters">
           <LabelOption
-            v-for="(param, key) in props.product['parameters']"
-            v-model="selectedParam"
-            :name="`product-${props.product['id']}-param`"
+            v-for="(param, key) in product?.parameters"
+            v-model="selectedParameter"
+            :name="`product-${product?.id}-param`"
             :text="param"
             :key=key
           />
@@ -133,9 +134,9 @@ async function saveLink () {
       <div class="product-card__line">
         <div class="product-card__price">{{ formatPrice(price) }}</div>
         <ProductCounter
-          v-if="productCount"
-          :name="`product-card-counter-${props.product.id}`"
-          v-model="productCount"
+          v-if="productQuantity"
+          :name="`product-card-counter-${props.id}`"
+          v-model="productQuantity"
           :minValue="0"
         />
         <ButtonBase class="product-card__add" @click="addProductInBasket" v-else>
@@ -146,7 +147,7 @@ async function saveLink () {
   </div>
 </template>
 
-<style scoped lang="sass">
+<style lang="sass">
 .product-card
   box-shadow: $box-shadow
   border-radius: $border-radius
@@ -207,9 +208,15 @@ async function saveLink () {
   justify-content: center
   box-shadow: $box-shadow
   background: $card-background
+  &:hover
+    path
+      fill: $orange
   svg
     width: 16px
     height: 16px
+  path
+    transition-duration: $transition-duration
+    transition-property: fill
 
 .product-card__inner
   display: block

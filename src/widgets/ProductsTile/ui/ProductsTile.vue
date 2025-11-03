@@ -6,10 +6,7 @@ import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 
 const store = useProductsStore()
-if (!store.products.length) store.getProducts()
-
 const storeCategory = useCategoriesStore()
-if (!storeCategory.categories.length) storeCategory.getCategories()
 
 const route = useRoute()
 
@@ -35,7 +32,7 @@ const currentProducts = computed(() => {
       <div class="products-tile__list">
         <ProductCard
           v-for="(product, key) in currentProducts"
-          :product="product"
+          :id="product.id"
           :key="key"
         />
       </div>

@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { useTemplateRef, onMounted, onUnmounted } from 'vue'
+import { useBasketStore } from "@/entities/Basket/model/store.ts"
+import { storeToRefs } from "pinia"
+
+const basket = useBasketStore()
+const { productsBasket } = storeToRefs(basket)
 
 const buttonTop = useTemplateRef('button-top')
 let lastScrollTop = 0
@@ -45,7 +50,7 @@ function scrollToTop () {
 </script>
 
 <template>
-  <button class="button-top" @click="scrollToTop" ref="button-top">
+  <button :class="productsBasket.length ? 'button-top button-top_offset' : 'button-top'" @click="scrollToTop" ref="button-top">
     <svg
       fill="#ffffff"
       version="1.1"
@@ -79,14 +84,21 @@ function scrollToTop () {
   opacity: 0
   transition-property: opacity
   transition-duration: $transition-duration
-  @include media(md)
-    display: none
+  @include media(lg)
+    border-radius: 6px
+    width: 30px
+    height: 30px
+    bottom: 20px
+    right: 10px
   svg
     width: 25px
     height: 25px
-    @include media(md)
+    @include media(lg)
       width: 18px
       height: 18px
   &.active
     opacity: 1
+  &_offset
+    @include media(lg)
+      bottom: 80px
 </style>

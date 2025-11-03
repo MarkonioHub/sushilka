@@ -4,7 +4,7 @@ export interface Product {
   slug: string
   description: string
   parameters: string[]
-  "parameter-single": string
+  "parameterSingle": string
   price: string | string[]
   tags: Tag[]
   image: string

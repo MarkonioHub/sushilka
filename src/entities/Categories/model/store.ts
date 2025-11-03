@@ -12,7 +12,7 @@ export const useCategoriesStore = defineStore('Categories', {
         if (!response.ok) throw new Error(response.statusText)
         this.categories = await response.json()
       } catch (error) {
-        console.error('Error fetching /products:', error)
+        console.error('Error fetching /categories:', error)
       }
     },
   },

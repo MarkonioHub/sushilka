@@ -15,5 +15,8 @@ export const useProductsStore = defineStore('Products', {
         console.error('Error fetching /products:', error)
       }
     },
+    getProductById(id: string) {
+      return this.products.find((product) => product.id === id)
+    }
   },
 })

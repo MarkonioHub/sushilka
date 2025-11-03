@@ -7,7 +7,6 @@ import { formatPrice } from "@/shared/helpers/formatPrice.ts"
 import { usePriceFull } from "@/shared/composables/useBasketPrice.ts"
 
 const store = useCategoriesStore()
-if (!store.categories.length) store.getCategories()
 
 const categoriesLine = useTemplateRef('categories-line')
 const route = useRoute()

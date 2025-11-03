@@ -22,7 +22,6 @@ import BasketMob from "@/entities/Basket/ui/BasketMob.vue"
   <ProductsTile />
   <PayInfo />
   <SeoBox />
-  <SocialLine />
   <ButtonTop />
   <ProductModal />
   <BasketMob />

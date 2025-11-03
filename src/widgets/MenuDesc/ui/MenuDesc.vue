@@ -7,7 +7,7 @@ import ButtonBase from '@/shared/ui/ButtonBase.vue'
     <div class="cont">
       <nav class="menu-desc__nav">
         <ButtonBase to="/" :className="'button-underline solid'">Главная</ButtonBase>
-        <ButtonBase to="/stock" :className="'button-underline solid'">Акции</ButtonBase>
+        <ButtonBase to="/stocks" :className="'button-underline solid'">Акции</ButtonBase>
         <ButtonBase to="/reviews" :className="'button-underline solid'">Отзывы</ButtonBase>
         <ButtonBase to="/vacations" :className="'button-underline solid'">Вакансии</ButtonBase>
         <ButtonBase to="/about" :className="'button-underline solid'">О нас</ButtonBase>

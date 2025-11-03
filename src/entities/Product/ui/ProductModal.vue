@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue"
+import {computed, defineAsyncComponent, ref, watch} from "vue"
 import { useParamsListClassMod } from "@/shared/composables/useParamsListClassMod.ts"
 import { useRoute } from "vue-router"
 import { useProductsStore } from '@/entities/Product/model/store'
@@ -10,18 +10,13 @@ import router from "@/app/routes"
 
 import type { Product } from '../model/types'
 
-import ModalCustom from "@/shared/ui/ModalCustom.vue"
+const ModalCustom = defineAsyncComponent(() => import('@/shared/ui/ModalCustom.vue'))
 import LabelOption from "@/shared/ui/LabelOption.vue"
-import ProductCounter from "@/features/Counter/ui/ProductCounter.vue"
-import ButtonBase from "@/shared/ui/ButtonBase.vue";
+import ProductCounter from "@/features/ProductCounter/ui/ProductCounter.vue"
+import ButtonBase from "@/shared/ui/ButtonBase.vue"
 
 const route = useRoute()
 const store = useProductsStore()
-const products = computed(() => {
-  return store.products
-})
-if (!products.value.length) store.getProducts()
-
 const basket = useBasketStore()
 
 const product = computed(() => {
@@ -29,7 +24,7 @@ const product = computed(() => {
   return store.products.find((product: Product) => product?.slug === productSlug)
 })
 const price = ref('')
-const selectedParam = ref('')
+const selectedParameter = ref('')
 const productCount = ref(1)
 
 const paramsListClassMod = computed(() => {
@@ -40,13 +35,13 @@ const priceFull = computed(() => {
   return price.value ? Number(price.value) * productCount.value : 0
 })
 
-watch(selectedParam, (newSelectedParam) => {
-  price.value = usePriceByParams(product.value, newSelectedParam)
+watch(selectedParameter, (newSelectedParameter) => {
+  price.value = usePriceByParams(product.value, newSelectedParameter)
 }, { deep: true })
 
 watch(product, (newProduct) => {
-  selectedParam.value = newProduct?.parameters[0] || ''
-  price.value = usePriceByParams(newProduct, selectedParam.value)
+  selectedParameter.value = newProduct?.parameters[0] || ''
+  price.value = usePriceByParams(newProduct, selectedParameter.value)
 }, { deep: true })
 
 function closeModal () {
@@ -60,7 +55,7 @@ function closeModal () {
 
 function addProductInBasket () {
   if (product.value) {
-    basket.addProduct(product.value.id, selectedParam.value, productCount.value)
+    basket.addProduct(product.value.id, selectedParameter.value, productCount.value)
     closeModal()
   }
 }
@@ -74,13 +69,13 @@ function addProductInBasket () {
         <div class="product-modal__title">{{ product?.name }}</div>
         <div class="product-modal__description" v-html="product?.description"></div>
         <div class="product-modal__params">
-          <div class="product-modal__params-single" v-if="product['parameter-single']">
-            {{ product['parameter-single'] }}
+          <div class="product-modal__params-single" v-if="product?.parameterSingle">
+            {{ product?.parameterSingle }}
           </div>
           <div :class="`product-modal__params-list ${paramsListClassMod}`" v-else-if="product['parameters']">
             <LabelOption
               v-for="(param, key) in product['parameters']"
-              v-model="selectedParam"
+              v-model="selectedParameter"
               :name="`product-modal-${product['id']}-param`"
               :text="param"
               :key=key

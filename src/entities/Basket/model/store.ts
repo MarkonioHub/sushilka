@@ -39,8 +39,13 @@ export const useBasketStore = defineStore('Basket', {
       localStorage.setItem('sushilka-basket', JSON.stringify(this.productsBasket))
     },
     getProductQuantity(id: string, selectedParameter: string) {
-      return this.productsBasket.find((basketProduct) =>
-        basketProduct.id === id && basketProduct.selectedParameter === selectedParameter)?.quantity
+      if (selectedParameter) {
+        return this.productsBasket.find((basketProduct) =>
+          basketProduct.id === id && basketProduct.selectedParameter === selectedParameter)?.quantity
+      } else {
+        return this.productsBasket.find((basketProduct) =>
+          basketProduct.id === id)?.quantity
+      }
     },
     setUserId(userId: number) {
       this.userId = userId

@@ -1,5 +1,5 @@
-import {defineStore} from "pinia";
-import type { Stocks } from "@/widgets/StockTile/model/types.ts"
+import {defineStore} from "pinia"
+import type { Stocks } from "@/entities/Stock/model/types.ts"
 
 export const useStocksStore = defineStore('stocks', {
   state: (): Stocks => ({

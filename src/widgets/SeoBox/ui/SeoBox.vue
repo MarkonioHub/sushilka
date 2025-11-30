@@ -19,6 +19,7 @@
 
 <style scoped lang="sass">
 .seo-box
+  margin-top:  auto
   margin-bottom: 20px
 
 .seo-box__area

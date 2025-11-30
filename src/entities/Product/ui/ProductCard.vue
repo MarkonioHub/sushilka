@@ -42,7 +42,7 @@ const paramsListClassMod = computed(() => {
 })
 
 const price = computed( () => {
-  return usePriceByParams(product.value, selectedParameter.value || '') * (productQuantity.value || 1)
+  return usePriceByParams(product.value, selectedParameter.value || '')
 })
 
 const productQuantity = computed( {

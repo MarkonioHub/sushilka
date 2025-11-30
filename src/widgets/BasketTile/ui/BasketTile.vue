@@ -23,24 +23,26 @@ const { priceFull } = usePriceFull()
         <div class="basket-tile__tile">
           <BasketCard v-for="(product, index) in productsBasket" :productBasket="product" :key="index" />
         </div>
-        <div class="basket-tile__notice">
-          Друзья! Просим выбирать оплату наличными или онлайн оплату на сайте. Оплата по банковским терминалам доступна не всегда из-за блокировок мобильного интернета.
+        <div class="basket-tile__sidebar">
+          <div class="basket-tile__notice">
+            Друзья! Просим выбирать оплату наличными или онлайн оплату на сайте. Оплата по банковским терминалам доступна не всегда из-за блокировок мобильного интернета.
+          </div>
+          <div class="basket-tile__line">
+            <div class="basket-tile__name">Сумма заказа:</div>
+            <div class="basket-tile__value">{{ formatPrice(priceFull) }}</div>
+          </div>
+          <div class="basket-tile__line">
+            <div class="basket-tile__name">Доставка:</div>
+            <div class="basket-tile__value"></div>
+          </div>
+          <div class="basket-tile__line final">
+            <div class="basket-tile__name">К оплате:</div>
+            <div class="basket-tile__value">{{ formatPrice(priceFull) }}</div>
+          </div>
+          <ButtonBase :className="'button-orange button-orange_big'">
+            Оформить заказ
+          </ButtonBase>
         </div>
-        <!--      <div class="basket-tile__line">-->
-        <!--        <div class="basket-tile__name">Сумма заказа:</div>-->
-        <!--        <div class="basket-tile__value">{{ formatPrice(priceFull) }}</div>-->
-        <!--      </div>-->
-        <!--      <div class="basket-tile__line">-->
-        <!--        <div class="basket-tile__name">Доставка:</div>-->
-        <!--        <div class="basket-tile__value"></div>-->
-        <!--      </div>-->
-        <div class="basket-tile__line final">
-          <div class="basket-tile__name">К оплате:</div>
-          <div class="basket-tile__value">{{ formatPrice(priceFull) }}</div>
-        </div>
-        <ButtonBase :className="'button-orange button-orange_big'">
-          Оформить заказ
-        </ButtonBase>
       </div>
       <div class="basket-tile__empty" v-else>
         <div class="basket-tile__empty-text">Вы еще не добавили ни&nbsp;одного&nbsp;товара&nbsp;в&nbsp;корзину</div>
@@ -63,11 +65,26 @@ const { priceFull } = usePriceFull()
     margin-bottom: 20px
     font-size: 22px
 
+.basket-tile__not-empty
+  display: flex
+  align-items: flex-start
+  gap: 40px
+  @include media(md)
+    display: block
+
 .basket-tile__tile
   margin-bottom: 20px
   display: flex
   flex-direction: column
   gap: 20px
+
+.basket-tile__sidebar
+  position: sticky
+  top: 20px
+  flex-shrink: 0
+  width: 400px
+  @include media(md)
+    width: 100%
 
 .basket-tile__notice
   margin-bottom: 20px

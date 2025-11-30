@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from "vue"
-import {useMessagesStore} from "@/widgets/InfoMessages/model/store.ts"
+import { useMessagesStore } from "@/widgets/InfoMessages/model/store.ts"
 
 const messageStore = useMessagesStore()
 

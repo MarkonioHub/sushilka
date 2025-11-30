@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import type { Categories } from "./types.ts"
+import { fetchDataWithDelay } from "@/shared/helpers/fetchDataWithDelay.ts"
 
 export const useCategoriesStore = defineStore('Categories', {
   state: (): Categories => ({
@@ -7,13 +8,8 @@ export const useCategoriesStore = defineStore('Categories', {
   }),
   actions: {
     async getCategories() {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_VUE_API_URL}/categories`)
-        if (!response.ok) throw new Error(response.statusText)
-        this.categories = await response.json()
-      } catch (error) {
-        console.error('Error fetching /categories:', error)
-      }
+      const response = await fetchDataWithDelay(`categories`, 1000)
+      this.categories = response.data
     },
   },
 })

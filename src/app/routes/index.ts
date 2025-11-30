@@ -5,6 +5,7 @@ const StocksPage = () => import('@/pages/StocksPage.vue')
 const NotFoundPage = () => import('@/pages/NotFoundPage.vue')
 const BasketPage = () => import("@/pages/BasketPage.vue")
 const ContentPage = () => import("@/pages/ContentPage.vue")
+const ReviewsPage = () => import("@/pages/ReviewsPage.vue")
 
 const routes = [
   { path: '/', component: HomePage },
@@ -16,6 +17,7 @@ const routes = [
     ]
   },
   { path: '/stocks', component: StocksPage },
+  { path: '/reviews', component: ReviewsPage },
   { path: '/content/:contentSlug', component: ContentPage },
   { path: '/basket', component: BasketPage },
   { path: '/:pathMatch(.*)*', component: NotFoundPage },

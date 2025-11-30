@@ -19,9 +19,7 @@ const props = defineProps({
         <IconSvg :name="'chevron-down'" :class="isVisible ? 'stock-card__title-icon active' : 'stock-card__title-icon'" />
       </div>
       <div :class="isVisible ? 'stock-card__transition active' : 'stock-card__transition'">
-        <div class="stock-card__description">
-          {{ props.stock.description }}
-        </div>
+        <div class="stock-card__description" v-html="props.stock.description"></div>
       </div>
     </div>
   </div>

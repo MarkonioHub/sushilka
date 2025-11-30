@@ -5,7 +5,7 @@ import MenuDesc from "@/widgets/MenuDesc/ui/MenuDesc.vue"
 </script>
 
 <template>
-  <MenuDesc />
+  <MenuDesc :mod="'sticky'" />
   <ContentPage />
   <ButtonTop />
 </template>

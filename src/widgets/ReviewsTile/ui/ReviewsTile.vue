@@ -16,9 +16,13 @@ const loader = ref<LoaderBase | null>(null)
 const loading = ref(true)
 
 onMounted(async () => {
-  window.addEventListener("scroll", loadReviews, { passive: true })
-  await store.getReviews()
-  loading.value = false
+  try {
+    window.addEventListener("scroll", loadReviews, { passive: true })
+    await store.getReviews()
+    loading.value = false
+  } catch (e) {
+    console.error(e)
+  }
 })
 
 async function loadReviews () {

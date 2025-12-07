@@ -1,15 +1,14 @@
 import { defineStore } from 'pinia'
-import type { Categories } from "./types.ts"
-import { fetchDataWithDelay } from "@/shared/helpers/fetchDataWithDelay.ts"
+import type { Category } from "./types.ts"
+import { fetchData } from "@/shared/helpers/fetchData.ts"
 
 export const useCategoriesStore = defineStore('Categories', {
-  state: (): Categories => ({
-    categories: [],
+  state: () => ({
+    categories: [] as Category[],
   }),
   actions: {
     async getCategories() {
-      const response = await fetchDataWithDelay(`categories`, 1000)
-      this.categories = response.data
+      this.categories = await fetchData<Category[]>(`categories`)
     },
   },
 })

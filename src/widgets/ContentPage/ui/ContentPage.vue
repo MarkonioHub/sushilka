@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useContentPagesStore } from "@/widgets/ContentPage/model/store.ts"
-import { computed, onMounted, onUpdated } from "vue"
+import { computed } from "vue"
 import { useRoute } from "vue-router"
 
 const route = useRoute()
@@ -11,21 +11,6 @@ const contentPageSlug = computed(() => {
 const store = useContentPagesStore()
 const currentContentPage = computed(() => {
   return store.getCurrentContentPage(contentPageSlug.value as string)
-})
-
-function scrollToTop () {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  })
-}
-
-onMounted(() => {
-  scrollToTop()
-})
-
-onUpdated(() => {
-  scrollToTop()
 })
 
 </script>

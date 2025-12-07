@@ -21,7 +21,7 @@ const basket = useBasketStore()
 
 const product = computed(() => {
   const productSlug = route.params.productSlug
-  return store.products.find((product: Product) => product?.slug === productSlug)
+  return store.products?.find((product: Product) => product?.slug === productSlug)
 })
 const price = ref('')
 const selectedParameter = ref('')

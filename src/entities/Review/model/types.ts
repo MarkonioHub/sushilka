@@ -7,3 +7,8 @@ export interface Review {
   image: string
   date: string
 }
+
+export interface ApiReview {
+  data: Review[],
+  next?: number
+}

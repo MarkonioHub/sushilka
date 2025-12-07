@@ -5,11 +5,14 @@ const loader = ref(null)
 defineExpose({ loader })
 
 const props = defineProps({
-  visibility: Boolean
+  visibility: Boolean,
+  type: String
 })
 
 const className = computed(() => {
-  return props.visibility ? 'loader loader_visible' : 'loader'
+  let result = props.visibility ? 'loader loader_visible' : 'loader'
+  props.type ? result += ` loader_${props.type}` : false
+  return result
 })
 </script>
 
@@ -42,4 +45,8 @@ const className = computed(() => {
     opacity: 1
     position: relative
     left: 24px
+  &_fixed
+    position: fixed
+    top: 40%
+    left: 50%
 </style>

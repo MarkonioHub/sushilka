@@ -7,7 +7,10 @@ import MenuDesc from "@/widgets/MenuDesc/ui/MenuDesc.vue"
 <template>
   <MenuDesc :mod="'sticky'" />
   <StockTile />
-  <SeoBox />
+  <SeoBox
+    :title="'Акции от Сушилки'"
+    :description="'Текущие акции, актуальные промокоды от сети удобных кафе Сушилка'"
+  />
 </template>
 
 <style scoped lang="sass">

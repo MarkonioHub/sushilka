@@ -1,17 +1,16 @@
 <script setup lang="ts">
-
+const props = defineProps({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+})
 </script>
 
 <template>
   <section class="seo-box">
     <div class="cont">
       <div class="seo-box__area">
-        <h1 class="seo-box__title">Сушилка</h1>
-        <p class="seo-box__description">
-          Доставка от сети удобных кафе «Сушилка» - это не только пиццы и роллы, это еще и популярные блюда разных
-          кухонь мира! Пасты, салаты,  вок, супы, детское меню. Итальянская, японская, Паназиатская кухни.
-          Доставка менее 60 минут по Кирову и Нововятску.
-        </p>
+        <h1 class="seo-box__title">{{props.title}}</h1>
+        <p class="seo-box__description">{{props.description}}</p>
       </div>
     </div>
   </section>
@@ -19,7 +18,7 @@
 
 <style scoped lang="sass">
 .seo-box
-  margin-top:  auto
+  margin-top: auto
   margin-bottom: 20px
 
 .seo-box__area

@@ -4,7 +4,3 @@ export interface SliderOffer {
   title: string
   description: string
 }
-
-export interface SliderOffers {
-  sliderOffers: SliderOffer[]
-}

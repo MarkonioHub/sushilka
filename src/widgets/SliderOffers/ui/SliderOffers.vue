@@ -7,13 +7,13 @@ import 'swiper/css/autoplay'
 
 const modules = [EffectFade, Navigation, Pagination, Autoplay]
 const store = useSliderOffersStore()
-if (!store.sliderOffers.length) store.getSlides()
+
 </script>
 
 <template>
   <section class="slider-offers">
     <div class="cont">
-      <div class="slider-offers__wrapper">
+      <div class="slider-offers__wrapper" >
         <swiper
           :slides-per-view="1"
           :modules="modules"
@@ -64,8 +64,6 @@ if (!store.sliderOffers.length) store.getSlides()
 
 .slider-offers__image
   border-radius: 10px
-
-//.slider-offers__pagination
 
 .slider-offers__navigation
   width: 45px

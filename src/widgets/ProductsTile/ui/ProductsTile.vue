@@ -19,7 +19,7 @@ const currentProducts = computed(() => {
     : storeCategory.categories ? storeCategory.categories[0] : null
 
   if (currentCategory) {
-    return store.products.filter((product) => currentCategory?.products.indexOf(product?.id) > -1,)
+    return store.products?.filter((product) => currentCategory?.products.indexOf(product?.id) > -1,)
   } else {
     return []
   }

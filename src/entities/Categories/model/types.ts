@@ -4,7 +4,3 @@ export interface Category {
   slug: string
   name: string
 }
-
-export interface Categories {
-  categories: Category[]
-}

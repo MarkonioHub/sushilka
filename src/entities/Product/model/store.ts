@@ -1,19 +1,14 @@
 import { defineStore } from 'pinia'
-import type { Products } from './types'
+import type { Product } from './types'
+import { fetchData } from "@/shared/helpers/fetchData.ts"
 
 export const useProductsStore = defineStore('Products', {
-  state: (): Products => ({
-    products: []
+  state: () => ({
+    products: [] as Product[]
   }),
   actions: {
     async getProducts() {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_VUE_API_URL}/products`)
-        if (!response.ok) throw new Error(response.statusText)
-        this.products = await response.json()
-      } catch (error) {
-        console.error('Error fetching /products:', error)
-      }
+      this.products = await fetchData<Product[]>('products')
     },
     getProductById(id: string) {
       return this.products.find((product) => product.id === id)

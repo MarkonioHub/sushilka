@@ -48,8 +48,7 @@ const props = defineProps<{
   padding-bottom: 20px
   border-bottom: 1px solid $color-border
 
-.review-card__wrap
-
+//.review-card__wrap
 
 .review-card__date
   display: flex

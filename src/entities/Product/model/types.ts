@@ -10,10 +10,6 @@ export interface Product {
   image: string
 }
 
-export interface Products {
-  products: Product[]
-}
-
 interface Tag {
   text: string
   background: string

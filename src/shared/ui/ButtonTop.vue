@@ -76,13 +76,13 @@ function scrollToTop () {
   z-index: 5
   bottom: 66px
   right: 40px
-  transform: rotate(-90deg)
+  transform: rotate(-90deg) scale(0)
   width: 58px
   height: 58px
   border-radius: 15px
   background-color: $orange
   opacity: 0
-  transition-property: opacity
+  transition-property: opacity, transform
   transition-duration: $transition-duration
   @include media(lg)
     border-radius: 6px
@@ -98,6 +98,7 @@ function scrollToTop () {
       height: 18px
   &.active
     opacity: 1
+    transform: rotate(-90deg) scale(1)
   &_offset
     @include media(lg)
       bottom: 80px

@@ -7,7 +7,10 @@ import SeoBox from "@/widgets/SeoBox/ui/SeoBox.vue"
 <template>
   <MenuDesc :mod="'sticky'" />
   <ReviewsTile />
-  <SeoBox />
+  <SeoBox
+    :title="'Отзывы о Сушилке'",
+    :description="'Здесь Вы можете посмотреть честные отзывы о нашей работе.'"
+  />
 </template>
 
 <style scoped lang="sass">

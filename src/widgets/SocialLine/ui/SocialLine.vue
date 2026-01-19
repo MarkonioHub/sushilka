@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from "vue"
 
-const vk = defineAsyncComponent(() => import('../images/vk.svg'))
-const telegram = defineAsyncComponent(() => import('../images/telegram.svg'))
-const ios = defineAsyncComponent(() => import('../images/ios.svg'))
-const android = defineAsyncComponent(() => import('../images/android.svg'))
-const huawei = defineAsyncComponent(() => import('../images/huawei.svg'))
+const vk = defineAsyncComponent(() => import('@/shared/assets/icons/vk.svg'))
+const telegram = defineAsyncComponent(() => import('@/shared/assets/icons/telegram.svg'))
+const ios = defineAsyncComponent(() => import('@/shared/assets/icons/ios.svg'))
+const android = defineAsyncComponent(() => import('@/shared/assets/icons/android.svg'))
+const huawei = defineAsyncComponent(() => import('@/shared/assets/icons/huawei.svg'))
 
 const socialLineList = [
   {
@@ -35,7 +35,7 @@ const socialLineList = [
   <section class="social-line">
     <div class="cont">
       <div class="social-line__area">
-        <div class="social-line__text">2025 Работает на платформе <a href="#">FoodSoul</a></div>
+        <div class="social-line__text">{{ new Date().getFullYear() }} Работает на платформе <a href="#">FoodSoul</a></div>
         <div class="social-line__list">
           <a class="social-line__link" :href="item.href" v-for="(item, key) in socialLineList" :key="key">
             <component :is="item.image" alt="" class="social-line__image"></component>

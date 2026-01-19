@@ -11,6 +11,7 @@ const VacancyPage = () => import("@/pages/VacancyPage.vue")
 
 const routes = [
   { path: '/', component: HomePage },
+  { path: '/catalog', component: HomePage },
   {
     path: '/catalog/:categorySlug',
     component: HomePage,
@@ -28,14 +29,14 @@ const routes = [
 ]
 
 const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
-  if (savedPosition) {
+  if (savedPosition || to.params.productSlug || from.params.productSlug || to.params.categorySlug) {
     return savedPosition
   } else if (to.hash) {
     return { selector: to.hash, behavior: 'smooth' }
   } else {
     return { top: 0, behavior: 'smooth' }
   }
-};
+}
 
 const router = createRouter({
   history: createWebHistory(),

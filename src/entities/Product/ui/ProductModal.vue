@@ -11,7 +11,7 @@ import router from "@/app/routes"
 import type { Product } from '../model/types'
 
 const ModalCustom = defineAsyncComponent(() => import('@/shared/ui/ModalCustom.vue'))
-import LabelOption from "@/shared/ui/LabelOption.vue"
+import LabelOption from "@/features/FormElements/ui/LabelOption.vue"
 import ProductCounter from "@/features/ProductCounter/ui/ProductCounter.vue"
 import ButtonBase from "@/shared/ui/ButtonBase.vue"
 

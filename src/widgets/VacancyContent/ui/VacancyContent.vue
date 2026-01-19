@@ -4,6 +4,7 @@ import { useVacanciesStore } from "@/entities/Vacancies/model/store.ts"
 import { useRoute } from "vue-router"
 import IconSvg from "@/shared/ui/IconSvg.vue"
 import ButtonBase from "@/shared/ui/ButtonBase.vue";
+import { useModalsStore } from "@/app/store/modals.ts"
 
 const route = useRoute()
 const vacancyPageSlug = computed(() => {
@@ -15,6 +16,11 @@ if (store.vacancies) store.getVacancies()
 const vacancy = computed(() => {
   return store.getCurrentVacancy(vacancyPageSlug.value as string)
 })
+
+const modalsStore = useModalsStore()
+function openModal () {
+  modalsStore.toggleModal('VacancyModal')
+}
 </script>
 
 <template>
@@ -27,21 +33,27 @@ const vacancy = computed(() => {
         <div class="vacancy-content__inner">
           <div class="vacancy-content__area">
             <div class="vacancy-content__box" v-if="vacancy?.name">
-              <IconSvg class="vacancy-content__icon" :name="'name'" :className="'icon'"/>
+              <div class="vacancy-content__icon-box">
+                <IconSvg class="vacancy-content__icon" :name="'name'" :className="'icon'"/>
+              </div>
               <div class="vacancy-content__line">
                 <div class="vacancy-content__name">Название</div>
                 <div class="vacancy-content__value">{{vacancy?.name}}</div>
               </div>
             </div>
             <div class="vacancy-content__box" v-if="vacancy?.count">
-              <IconSvg class="vacancy-content__icon" :name="'user'" :className="'icon'"/>
+              <div class="vacancy-content__icon-box">
+                <IconSvg class="vacancy-content__icon" :name="'user'" :className="'icon'"/>
+              </div>
               <div class="vacancy-content__line">
                 <div class="vacancy-content__name">Количество</div>
                 <div class="vacancy-content__value">{{vacancy?.count}}</div>
               </div>
             </div>
             <div class="vacancy-content__box" v-if="vacancy?.requirements">
-              <IconSvg class="vacancy-content__icon" :name="'requirements'" :className="'icon'"/>
+              <div class="vacancy-content__icon-box">
+                <IconSvg class="vacancy-content__icon" :name="'requirements'" :className="'icon'"/>
+              </div>
               <div class="vacancy-content__line">
                 <div class="vacancy-content__name">Требования</div>
                 <ol class="vacancy-content__list">
@@ -50,7 +62,9 @@ const vacancy = computed(() => {
               </div>
             </div>
             <div class="vacancy-content__box" v-if="vacancy?.responsibilities">
-              <IconSvg class="vacancy-content__icon" :name="'responsibilities'" :className="'icon'"/>
+              <div class="vacancy-content__icon-box">
+                <IconSvg class="vacancy-content__icon" :name="'responsibilities'" :className="'icon'"/>
+              </div>
               <div class="vacancy-content__line">
                 <div class="vacancy-content__name">Обязанности</div>
                 <ol class="vacancy-content__list">
@@ -59,7 +73,9 @@ const vacancy = computed(() => {
               </div>
             </div>
             <div class="vacancy-content__box" v-if="vacancy?.conditions">
-              <IconSvg class="vacancy-content__icon" :name="'conditions'" :className="'icon'"/>
+              <div class="vacancy-content__icon-box">
+                <IconSvg class="vacancy-content__icon" :name="'conditions'" :className="'icon'"/>
+              </div>
               <div class="vacancy-content__line">
                 <div class="vacancy-content__name">Условия</div>
                 <ol class="vacancy-content__list">
@@ -68,14 +84,16 @@ const vacancy = computed(() => {
               </div>
             </div>
             <div class="vacancy-content__box" v-if="vacancy?.salary">
-              <IconSvg class="vacancy-content__icon" :name="'salary'" :className="'icon'"/>
+              <div class="vacancy-content__icon-box">
+                <IconSvg class="vacancy-content__icon" :name="'salary'" :className="'icon'"/>
+              </div>
               <div class="vacancy-content__line">
                 <div class="vacancy-content__name">Зарплата</div>
                 <div class="vacancy-content__value">От {{vacancy?.salary}}</div>
               </div>
             </div>
           </div>
-          <ButtonBase class="vacancy-content__button" :className="'button-orange button-orange_big'">
+          <ButtonBase class="vacancy-content__button" :className="'button-orange button-orange_big'" @click="openModal">
             Откликнуться
           </ButtonBase>
         </div>
@@ -112,8 +130,7 @@ const vacancy = computed(() => {
 .vacancy-content__image
   border-radius: $border-radius
 
-.vacancy-content__inner
-
+//.vacancy-content__inner
 
 .vacancy-content__box
   display: flex
@@ -124,7 +141,8 @@ const vacancy = computed(() => {
   padding-bottom: 10px
   border-bottom: 1px solid $color-border
 
-.vacancy-content__icon
+.vacancy-content__icon-box
+  width: 16px
   flex-shrink: 0
 
 .vacancy-content__name

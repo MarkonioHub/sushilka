@@ -27,7 +27,6 @@ async function loadData () {
 
 loadData()
 
-
 </script>
 
 <template>

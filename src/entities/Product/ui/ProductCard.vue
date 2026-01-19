@@ -12,7 +12,7 @@ import { useBasketStore } from "@/entities/Basket/model/store.ts"
 
 import IconSvg from "@/shared/ui/IconSvg.vue"
 import ProductCounter from "@/features/ProductCounter/ui/ProductCounter.vue"
-import LabelOption from "@/shared/ui/LabelOption.vue"
+import LabelOption from "@/features/FormElements/ui/LabelOption.vue"
 import ButtonBase from "@/shared/ui/ButtonBase.vue"
 
 import { useProductsStore } from "@/entities/Product/model/store.ts"

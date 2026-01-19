@@ -21,12 +21,21 @@ onUnmounted(() => {
   window.removeEventListener('scroll', scrollHandler)
 })
 
-function scrollHandler() {
+function scrollHandler () {
   if (categoriesLine?.value?.getBoundingClientRect().top === 0) {
     categoriesLine?.value?.classList.add('white')
   } else {
     categoriesLine?.value?.classList.remove('white')
   }
+}
+
+function scrollToTop () {
+  if (categoriesLine?.value) categoriesLine.value.style.position = 'static'
+  window.scrollTo({
+    top: (categoriesLine?.value?.getBoundingClientRect().top || 0) + window.scrollY,
+    behavior: 'smooth'
+  })
+  if (categoriesLine?.value) categoriesLine.value.style.position = 'sticky'
 }
 
 const categoriesLineBasketClassName = computed(() => {
@@ -49,6 +58,7 @@ function getButtonClassName(index: Number) {
             :key="index"
             :to="`/catalog/${category.slug}`"
             :className=getButtonClassName(index)
+            @click="scrollToTop"
           >
             <span>{{ category.name }}</span>
           </ButtonBase>

@@ -24,7 +24,7 @@ const props = defineProps({
   >
     <slot></slot>
   </a>
-  <button v-else :class="className">
+  <button v-else :class="className" :disabled="props.disabled">
     <slot></slot>
   </button>
 </template>
@@ -46,12 +46,19 @@ const props = defineProps({
   transition-duration: $transition-duration
   &:hover
     background-color: #dd1700
+  &:disabled
+    pointer-events: none
+    opacity: 0.3
   &_big
     padding: 16px 10px 14px
     border-radius: 30px
     font-size: 18px
     font-weight: 700
     text-transform: uppercase
+  &_middle
+    padding: 13px 10px
+    text-transform: uppercase
+    border-radius: 30px
 
 .button-underline
   display: flex

@@ -6,5 +6,10 @@ import router from './routes'
 const pinia = createPinia()
 
 import './styles/index.sass'
+import vClickOutside from "@/shared/directives/click-outside.ts"
 
-createApp(App).use(router).use(pinia).mount('#app')
+const app = createApp(App)
+app.directive('click-outside', vClickOutside)
+app.use(router)
+app.use(pinia)
+app.mount('#app')

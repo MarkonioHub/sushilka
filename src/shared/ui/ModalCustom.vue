@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import IconSvg from "@/shared/ui/IconSvg.vue"
-import { onMounted, onUnmounted } from "vue"
+import { computed, onMounted, onUnmounted } from "vue"
 
 onMounted(() => {
   document.body.classList.add('no-scroll')
@@ -9,10 +9,18 @@ onMounted(() => {
 onUnmounted(() => {
   document.body.classList.remove('no-scroll')
 })
+
+const props = defineProps({
+  className: { type: String, default: '' },
+})
+
+const className = computed(() => {
+  return props.className
+})
 </script>
 
 <template>
-  <div class="modal-custom">
+  <div :class="`modal-custom ${className}`">
     <div class="modal-custom__layer" @click="$emit('close')"></div>
     <div class="modal-custom__area">
       <IconSvg :name="'close'" class="modal-custom__close" @click="$emit('close')" />
@@ -34,6 +42,9 @@ onUnmounted(() => {
   text-align: center
   @include media(lg)
     padding: 40px 10px
+  &_vacancy
+    .modal-custom__area
+      max-width: 560px
   &::before
     content: ''
     display: inline-block

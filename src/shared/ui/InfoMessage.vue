@@ -5,7 +5,7 @@ import { useMessagesStore } from "@/widgets/InfoMessages/model/store.ts"
 const messageStore = useMessagesStore()
 
 onMounted(() => {
-  setTimeout(removeMessage, 1000)
+  setTimeout(removeMessage, 2000)
 })
 
 function removeMessage () {

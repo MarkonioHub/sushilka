@@ -3,12 +3,14 @@ import { ref } from "vue"
 import HeaderBase from '@/widgets/HeaderBase/ui/HeaderBase.vue'
 import FooterBase from '@/widgets/FooterBase/ui/FooterBase.vue'
 import InfoMessages from "@/widgets/InfoMessages/ui/InfoMessages.vue"
+import LoginModal from "@/entities/User/ui/LoginModal.vue"
 import SocialLine from "@/widgets/SocialLine/ui/SocialLine.vue"
 import LoaderBase from "@/shared/ui/LoaderBase.vue"
 import { useCategoriesStore } from "@/entities/Categories/model/store.ts"
 import { useProductsStore } from "@/entities/Product/model/store.ts"
 import { useContentPagesStore } from "@/widgets/ContentPage/model/store.ts"
 import { useSliderOffersStore } from "@/widgets/SliderOffers/model/store.ts"
+import { useShopsStore } from "@/entities/Shop/model/store.ts"
 
 const loading = ref(true)
 
@@ -22,6 +24,8 @@ async function loadData () {
   await storeContentPages.getContentPages()
   const storeSliderOffers = useSliderOffersStore()
   await storeSliderOffers.getSliderOffers()
+  const storeShops = useShopsStore()
+  await storeShops.getShops()
   loading.value = false
 }
 
@@ -39,6 +43,7 @@ loadData()
     <SocialLine />
     <FooterBase />
     <InfoMessages />
+    <LoginModal />
   </template>
 </template>
 

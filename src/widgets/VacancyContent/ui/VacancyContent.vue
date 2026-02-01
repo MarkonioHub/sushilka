@@ -18,9 +18,6 @@ const vacancy = computed(() => {
 })
 
 const modalsStore = useModalsStore()
-function openModal () {
-  modalsStore.toggleModal('VacancyModal')
-}
 </script>
 
 <template>
@@ -93,7 +90,7 @@ function openModal () {
               </div>
             </div>
           </div>
-          <ButtonBase class="vacancy-content__button" :className="'button-orange button-orange_big'" @click="openModal">
+          <ButtonBase class="vacancy-content__button" :className="'button-orange button-orange_big'" @click="() => modalsStore.toggleModal('VacancyModal')">
             Откликнуться
           </ButtonBase>
         </div>

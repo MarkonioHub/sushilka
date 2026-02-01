@@ -8,6 +8,7 @@ const ContentPage = () => import("@/pages/ContentPage.vue")
 const ReviewsPage = () => import("@/pages/ReviewsPage.vue")
 const VacanciesPage = () => import("@/pages/VacanciesPage.vue")
 const VacancyPage = () => import("@/pages/VacancyPage.vue")
+const AboutPage = () => import("@/pages/AboutPage.vue")
 
 const routes = [
   { path: '/', component: HomePage },
@@ -23,6 +24,7 @@ const routes = [
   { path: '/reviews', component: ReviewsPage },
   { path: '/vacancies', component: VacanciesPage },
   { path: '/vacancies/:vacancySlug', component: VacancyPage },
+  { path: '/about', component: AboutPage },
   { path: '/content/:contentSlug', component: ContentPage },
   { path: '/basket', component: BasketPage },
   { path: '/:pathMatch(.*)*', component: NotFoundPage },
@@ -30,7 +32,7 @@ const routes = [
 
 const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
   if (savedPosition || to.params.productSlug || from.params.productSlug || to.params.categorySlug) {
-    return savedPosition
+    return savedPosition ? savedPosition : false
   } else if (to.hash) {
     return { selector: to.hash, behavior: 'smooth' }
   } else {

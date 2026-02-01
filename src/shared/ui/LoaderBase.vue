@@ -34,6 +34,7 @@ const className = computed(() => {
   display: block
   box-sizing: border-box
   opacity: 0
+  z-index: -9999
   transition: opacity $transition-duration
   animation: rotation 1s linear infinite
   @keyframes rotation
@@ -42,6 +43,7 @@ const className = computed(() => {
     100%
       transform: translateX(-50%) rotate(360deg)
   &_visible
+    z-index: 1
     opacity: 1
     position: relative
     left: 24px

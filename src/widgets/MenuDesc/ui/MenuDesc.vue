@@ -27,7 +27,7 @@ const className = computed(() => {
 
 <style scoped lang="sass">
 .menu-desc
-  padding: 15px 0
+  padding: 30px 0
   &_sticky
     position: sticky
     z-index: 1

@@ -3,7 +3,8 @@ import { defineStore } from "pinia"
 export const useModalsStore = defineStore('modals',{
   state: () => ({
     modals: [
-      { id: 'VacancyModal', status: false }
+      { id: 'VacancyModal', status: false },
+      { id: 'LoginModal', status: false }
     ]
   }),
   actions: {

@@ -84,4 +84,29 @@ const props = defineProps({
       border-bottom: 1px dashed $orange
   &.solid.active
     border-bottom: 1px solid $orange
+
+.button-red
+  background-color: $red
+  color: $white
+  text-transform: uppercase
+  font-size: 16px
+  line-height: 100%
+  border-radius: $border-radius-button
+  padding: 15px
+  display: block
+  text-align: center
+  text-decoration: none
+
+.button-blue
+  background-color: $blue
+  color: $white
+  text-transform: uppercase
+  font-size: 16px
+  line-height: 100%
+  border-radius: $border-radius-button
+  padding: 15px
+  display: block
+  text-align: center
+  text-decoration: none
+
 </style>

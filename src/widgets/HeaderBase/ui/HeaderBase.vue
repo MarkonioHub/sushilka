@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import IconSvg from '@/shared/ui/IconSvg.vue'
 import ButtonBase from '@/shared/ui/ButtonBase.vue'
+import { useModalsStore } from "@/app/store/modals.ts"
+
+const modalsStore = useModalsStore()
 </script>
 
 <template>
@@ -25,7 +28,7 @@ import ButtonBase from '@/shared/ui/ButtonBase.vue'
           </div>
         </div>
         <a href="tel:78332436436" class="header__phone mob-hide">+7(8332)436-436</a>
-        <ButtonBase :className="'button-underline'">
+        <ButtonBase :className="'button-underline'" @click="() => modalsStore.toggleModal('LoginModal')" >
           <IconSvg :name="'login'" :className="'icon-login'" />
           <span>Войти</span>
         </ButtonBase>
@@ -57,23 +60,6 @@ import ButtonBase from '@/shared/ui/ButtonBase.vue'
               <circle cx="12" cy="12" r="10" stroke="#e53a24" stroke-width="1.5" />
               <path d="M12 17V11" stroke="#e53a24" stroke-width="1.5" stroke-linecap="round" />
               <circle cx="1" cy="1" r="1" transform="matrix(1 0 0 -1 11 9)" fill="#e53a24" />
-            </svg>
-          </div>
-          <div class="header__btn">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"
-                stroke="#e53a24"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
             </svg>
           </div>
         </div>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import CardBase from "@/shared/ui/CardBase.vue"
+
 const props = defineProps({
   title: { type: String, required: true },
   description: { type: String, required: true },
@@ -8,10 +10,10 @@ const props = defineProps({
 <template>
   <section class="seo-box">
     <div class="cont">
-      <div class="seo-box__area">
+      <CardBase class="seo-box__area">
         <h1 class="seo-box__title">{{props.title}}</h1>
         <p class="seo-box__description">{{props.description}}</p>
-      </div>
+      </CardBase>
     </div>
   </section>
 </template>
@@ -22,19 +24,15 @@ const props = defineProps({
   margin-bottom: 20px
 
 .seo-box__area
-  padding: 30px
   display: flex
   align-items: center
-  background-color: $card-background
-  box-shadow: $box-shadow
-  border-radius: $border-radius
-  @include media(md)
-    padding: 20px
   @include media(sm)
     display: block
 
 .seo-box__title
+  padding-right: 40px
   font-size: 20px
+  line-height: 26px
   font-weight: 400
   flex-shrink: 0
   max-width: 270px
@@ -42,6 +40,7 @@ const props = defineProps({
   text-align: center
   @include media(sm)
     margin-bottom: 20px
+    padding-right: 0
     max-width: 100%
     text-align: left
 

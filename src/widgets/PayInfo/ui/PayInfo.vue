@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {defineAsyncComponent} from "vue"
+import CardBase from "@/shared/ui/CardBase.vue"
 
 const ic_visa = defineAsyncComponent(() => import('../images/ic_visa.svg'))
 const ic_master_card = defineAsyncComponent(() => import('../images/ic_master_card.svg'))
@@ -28,7 +29,7 @@ const payInfo = [
   <section class="pay-info">
     <div class="cont">
       <h2 class="pay-info__caption">Информация об оплате</h2>
-      <div class="pay-info__area">
+      <CardBase>
         <ul class="pay-info__list">
           <li class="pay-info__item" v-for="(info, key) in payInfo" :key="key">
             <div class="pay-info__title">{{ info.title }}</div>
@@ -40,7 +41,7 @@ const payInfo = [
             </div>
           </li>
         </ul>
-      </div>
+      </CardBase>
     </div>
   </section>
 </template>
@@ -67,8 +68,6 @@ const payInfo = [
   display: flex
   flex-direction: column
   gap: 30px
-
-//.pay-info__item
 
 .pay-info__title
   margin-bottom: 10px

@@ -6,7 +6,6 @@ import LabelWithIcon from "@/features/FormElements/ui/LabelWithIcon.vue"
 import { useModalsStore } from "@/app/store/modals.ts"
 import { sendData } from "@/shared/helpers/sendData.ts"
 import { useRoute } from "vue-router"
-import { useMessagesStore } from "@/widgets/InfoMessages/model/store.ts"
 
 const vk = defineAsyncComponent(() => import('@/shared/assets/icons/vk.svg'))
 const telegram = defineAsyncComponent(() => import('@/shared/assets/icons/telegram.svg'))

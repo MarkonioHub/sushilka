@@ -4,24 +4,22 @@ import { defineAsyncComponent } from 'vue'
 const props = defineProps({
   name: { type: String, required: true },
   className: { type: String, default: '' },
+  width: { type: String },
+  height: { type: String },
+  margin: { type: String },
 })
 
 const Icon = defineAsyncComponent(() => import(`@/shared/assets/icons/${props.name}.svg`))
 </script>
 
 <template>
-  <Icon :class="'' + `${className}`" />
+  <Icon
+    :class="'' + `${className}`"
+    :style="`width: ${width}; height: ${height}; margin: ${margin};`"
+  />
 </template>
 
 <style scoped lang="sass">
-.icon
-  width: 16px
-  height: 16px
-
-.icon-20px
-  width: 20px
-  height: 20px
-
 .icon-btn
   cursor: pointer
   transition-duration: 0.1s
@@ -33,20 +31,17 @@ const Icon = defineAsyncComponent(() => import(`@/shared/assets/icons/${props.na
     pointer-events: none
     opacity: 0.3
 
-.icon-grey
-  fill: $grey
+.icon-grey-fill
+  *
+    fill: $grey
 
-.icon-margin-right
-  margin-right: 8px
+.icon-orange-fill
+  *
+    fill: $orange
 
-.icon-orange
-  fill: $orange
-
-.icon-login
-  margin-right: 10px
-  width: 32px
-  height: 32px
-  fill: $orange
+.icon-orange-stroke
+  *
+    stroke: $orange
 
 .icon-close
   transition-duration: $transition-duration

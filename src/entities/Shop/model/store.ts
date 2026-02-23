@@ -4,11 +4,14 @@ import { fetchData } from "@/shared/helpers/fetchData.ts"
 
 export const useShopsStore = defineStore('Shops', {
   state: () => ({
-    shops: [] as Shop[],
+    shops: [] as Shop[]
   }),
   actions: {
-    async getShops() {
+    async getShops () {
       this.shops = await fetchData<Shop[]>(`shops`)
     },
+    getShop (id: string) {
+      return this.shops.find((shop) => shop.id === id)
+    }
   },
 })

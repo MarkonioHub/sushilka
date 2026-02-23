@@ -1,41 +1,31 @@
 <script setup lang="ts">
-import ic_badge from '../images/ic_badge.png'
-import ic_clock from '../images/ic_clock.png'
-import ic_lorry from '../images/ic_lorry.png'
-import ic_wallet from '../images/ic_wallet.png'
+import ic_badge from '@/entities/Delivery/images/ic_badge.png'
+import ic_clock from '@/entities/Delivery/images/ic_clock.png'
+import ic_lorry from '@/entities/Delivery/images/ic_lorry.png'
+import ic_wallet from '@/entities/Delivery/images/ic_wallet.png'
 
 const params = [
   { icon: ic_clock, title: 'до 1 ч.', description: 'время доставки' },
-  { icon: ic_wallet, title: '0 ₽', description: 'мин. сумма заказа' },
+  { icon: ic_wallet, title: '400 ₽', description: 'мин. сумма заказа' },
   { icon: ic_lorry, title: '149 ₽', description: 'стоим. доставки' },
   { icon: ic_badge, title: 'от 700 ₽', description: 'беспл. доставка' },
 ]
 </script>
 
 <template>
-  <section class="delivery-params">
-    <div class="cont">
-      <div class="delivery-params__area">
-        <div class="delivery-params__box" v-for="(param, index) in params" :key="index">
-          <img :src="param.icon" alt="" class="delivery-params__icon" />
-          <div class="delivery-params__inner">
-            <div class="delivery-params__title">{{ param.title }}</div>
-            <div class="delivery-params__description">{{ param.description }}</div>
-          </div>
+    <div class="delivery-params">
+      <div class="delivery-params__box" v-for="(param, index) in params" :key="index">
+        <img :src="param.icon" alt="" class="delivery-params__icon" />
+        <div class="delivery-params__inner">
+          <div class="delivery-params__title">{{ param.title }}</div>
+          <div class="delivery-params__description">{{ param.description }}</div>
         </div>
       </div>
     </div>
-  </section>
 </template>
 
 <style scoped lang="sass">
-
 .delivery-params
-  margin-bottom: 20px
-  @include media(md)
-    display: none
-
-.delivery-params__area
   display: flex
   align-items: center
   justify-content: space-around
@@ -43,6 +33,13 @@ const params = [
   background: $card-background
   border-radius: $border-radius
   box-shadow: $box-shadow
+  @include media(md)
+    flex-direction: column
+    box-shadow: none
+    border-radius: 0
+    align-items: flex-start
+    gap: 20px
+    padding: 0
 
 .delivery-params__box
   display: flex

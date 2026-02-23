@@ -9,6 +9,7 @@ const props = defineProps({
   class: { type: String },
   accept: { type: String },
   autocomplete: { type: String },
+  checked: { type: Boolean, default: false },
 })
 const model = defineModel()
 
@@ -26,6 +27,7 @@ const className = computed(() => {
     :readonly="props.readonly"
     :accept="props.accept"
     :autocomplete="props.autocomplete"
+    :checked="props.checked"
     v-model="model"
   />
 </template>

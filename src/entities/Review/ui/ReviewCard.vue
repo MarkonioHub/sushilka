@@ -11,12 +11,12 @@ const props = defineProps<{
   <div class="review-card">
     <div class="review-card__top">
       <div class="review-card__date">
-        <IconSvg :name="'calendar'" class="review-card__calendar" />
+        <IconSvg :name="'calendar'" class="review-card__calendar" :width="'20px'" :height="'20px'" />
         <div class="review-card__date-value">{{ props.review.date }}</div>
       </div>
       <div class="review-card__right">
-        <IconSvg :name="'like'" class="review-card__reaction review-card__reaction" v-if="props.review.like" />
-        <IconSvg :name="'dislike'" class="review-card__reaction review-card__reaction" v-else />
+        <IconSvg :name="'like'" :width="'18px'" :height="'18px'" v-if="props.review.like" />
+        <IconSvg :name="'dislike'" :width="'18px'" :height="'18px'" v-else />
         <div class="review-card__author">{{ props.review.author }}</div>
       </div>
     </div>
@@ -26,7 +26,7 @@ const props = defineProps<{
         {{ props.review.text }}
       </div>
       <div class="review-card__answer">
-        <IconSvg :name="'operator'" class="review-card__operator" />
+        <IconSvg :name="'operator'" class="review-card__operator" :width="'18px'" :height="'18px'" />
         <div class="review-card__answer-text">
           {{ props.review.answer }}
         </div>
@@ -57,8 +57,6 @@ const props = defineProps<{
 
 .review-card__calendar
   flex-shrink: 0
-  width: 20px
-  height: 20px
 
 .review-card__date-value
   font-size: 16px
@@ -67,10 +65,6 @@ const props = defineProps<{
   display: flex
   align-items: center
   gap: 10px
-
-.review-card__reaction
-  width: 18px
-  height: 18px
 
 .review-card__author
   font-size: 16px
@@ -101,8 +95,6 @@ const props = defineProps<{
   gap: 10px
 
 .review-card__operator
-  width: 18px
-  height: 18px
   flex-shrink: 0
 
 .review-card__answer-text

@@ -1,32 +1,56 @@
 <script setup lang="ts">
+import { computed, watch } from 'vue'
 import IconSvg from "@/shared/ui/IconSvg.vue"
-import { computed, onMounted, onUnmounted } from "vue"
-
-onMounted(() => {
-  document.body.classList.add('no-scroll')
-})
-
-onUnmounted(() => {
-  document.body.classList.remove('no-scroll')
-})
+import ModalLayer from '@/shared/ui/ModalLayer.vue'
+import { useModalsStore } from '@/app/store/modals.ts'
 
 const props = defineProps({
   className: { type: String, default: '' },
+  id: { type: String, required: true },
 })
+
+const emit = defineEmits(['close'])
+
+const modalsStore = useModalsStore()
 
 const className = computed(() => {
   return props.className
 })
+
+const isModalActive = computed(() => {
+  return modalsStore.getModalStatus(props.id)
+})
+
+watch(isModalActive, (newValue) => {
+  if (newValue) {
+    document.body.classList.add('no-scroll')
+  } else {
+    document.body.classList.remove('no-scroll')
+  }
+})
+
+function closeModal () {
+  emit('close')
+  modalsStore.toggleModal(props.id)
+}
+
 </script>
 
 <template>
-  <div :class="`modal-custom ${className}`">
-    <div class="modal-custom__layer" @click="$emit('close')"></div>
-    <div class="modal-custom__area">
-      <IconSvg :name="'close'" class="modal-custom__close" @click="$emit('close')" />
-      <slot></slot>
+  <Transition name="fade">
+    <div :class="`modal-custom ${className}`" v-if="isModalActive">
+      <ModalLayer @click="closeModal" />
+      <div class="modal-custom__area">
+        <IconSvg
+          :name="'close'"
+          class="modal-custom__close"
+          @click="closeModal"
+          :width="'24px'" :height="'24px'"
+        />
+        <slot></slot>
+      </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <style scoped lang="sass">
@@ -38,28 +62,31 @@ const className = computed(() => {
   bottom: 0
   left: 0
   overflow-y: auto
-  padding: 50px
+  padding: 40px 10px
   text-align: center
-  @include media(lg)
-    padding: 40px 10px
-  &_vacancy
-    .modal-custom__area
-      max-width: 560px
   &::before
     content: ''
     display: inline-block
     height: 100%
     vertical-align: middle
     margin-right: -4px
-
-.modal-custom__layer
-  position: fixed
-  top: 0
-  right: 0
-  bottom: 0
-  left: 0
-  cursor: pointer
-  background-color: #0009
+  &_vacancy
+    .modal-custom__area
+      max-width: 560px
+  &_delivery
+    .modal-custom__area
+      @include media(md)
+        max-width: 300px
+        padding: 20px
+        flex-direction: column
+  &_delivery-way
+    .modal-custom__area
+      max-width: 480px
+      @include media(md)
+        max-width: 458px
+  &_restaurants
+    .modal-custom__area
+      max-width: 820px
 
 .modal-custom__area
   position: relative
@@ -72,15 +99,11 @@ const className = computed(() => {
   padding: 20px
   border-radius: $border-radius
   background-color: #ffffff
-  @include media(lg)
-    padding: 10px
 
 .modal-custom__close
   position: absolute
   top: 2px
   right: -40px
-  width: 24px
-  height: 24px
   cursor: pointer
   @include media(lg)
     top: -30px

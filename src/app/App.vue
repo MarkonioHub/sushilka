@@ -11,6 +11,7 @@ import { useProductsStore } from "@/entities/Product/model/store.ts"
 import { useContentPagesStore } from "@/widgets/ContentPage/model/store.ts"
 import { useSliderOffersStore } from "@/widgets/SliderOffers/model/store.ts"
 import { useShopsStore } from "@/entities/Shop/model/store.ts"
+import MobileMenu from '@/widgets/MobileMenu/ui/MobileMenu.vue'
 
 const loading = ref(true)
 
@@ -44,6 +45,7 @@ loadData()
     <FooterBase />
     <InfoMessages />
     <LoginModal />
+    <MobileMenu />
   </template>
 </template>
 

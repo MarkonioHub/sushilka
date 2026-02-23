@@ -2,17 +2,14 @@
 import ModalCustom from "@/shared/ui/ModalCustom.vue"
 import { computed, defineAsyncComponent, reactive, ref } from "vue"
 import ButtonBase from "@/shared/ui/ButtonBase.vue"
-import LabelWithIcon from "@/features/FormElements/ui/LabelWithIcon.vue"
+import LabelWithIcon from "@/shared/ui/LabelWithIcon.vue"
 import { useModalsStore } from "@/app/store/modals.ts"
 import { sendData } from "@/shared/helpers/sendData.ts"
 import { useRoute } from "vue-router"
 
-const vk = defineAsyncComponent(() => import('@/shared/assets/icons/vk.svg'))
-const telegram = defineAsyncComponent(() => import('@/shared/assets/icons/telegram.svg'))
-
 const vacancyModalSocial = [
-  { image: vk, value: 'vk' },
-  { image: telegram, value: 'telegram' }
+  { image: defineAsyncComponent(() => import('@/shared/assets/icons/vk.svg')), value: 'vk' },
+  { image: defineAsyncComponent(() => import('@/shared/assets/icons/telegram.svg')), value: 'telegram' }
 ]
 
 const route = useRoute()
@@ -32,14 +29,6 @@ const formDataInitial = {
 }
 const formData = reactive({ ...formDataInitial })
 
-function closeModal () {
-  modalsStore.toggleModal('VacancyModal')
-}
-
-const isModalActive = computed(() => {
-  return modalsStore.getModalStatus('VacancyModal')
-})
-
 const isValid = computed(() => {
   return formData.name && formData.phone && formData.date
 })
@@ -50,7 +39,7 @@ async function submitForm () {
   if (response) {
     clearForm()
     isSending.value = false
-    closeModal()
+    modalsStore.toggleModal('VacancyModal')
   }
 }
 
@@ -76,108 +65,106 @@ function updateImagePreview (event: Event) {
 </script>
 
 <template>
-  <Transition name="fade">
-    <ModalCustom :className="'modal-custom_vacancy'" @close="closeModal" v-if="isModalActive">
-      <div class="vacancy-modal">
-        <div class="vacancy-modal__area">
-          <label class="vacancy-modal__file-label">
-            <input type="file" class="vacancy-modal__file" name="photo" @change="updateImagePreview" accept="image/*">
-            <img v-if="formData.imagePreview" :src="formData.imagePreview" alt="Image preview" class="vacancy-modal__file-preview" />
+  <ModalCustom :className="'modal-custom_vacancy'" :id="'VacancyModal'">
+    <div class="vacancy-modal">
+      <div class="vacancy-modal__area">
+        <label class="vacancy-modal__file-label">
+          <input type="file" class="vacancy-modal__file" name="photo" @change="updateImagePreview" accept="image/*">
+          <img v-if="formData.imagePreview" :src="formData.imagePreview" alt="Image preview" class="vacancy-modal__file-preview" />
+        </label>
+        <LabelWithIcon
+          :type="'text'"
+          :name="'name'"
+          :icon="'field_name'"
+          :note="'Имя'"
+          :placeholder="' '"
+          :required="true"
+          v-model="formData.name"
+        />
+        <LabelWithIcon
+          :type="'tel'"
+          :name="'phone'"
+          :icon="'field_phone'"
+          :note="'Телефон'"
+          :placeholder="' '"
+          :required="true"
+          v-model="formData.phone"
+        />
+        <LabelWithIcon
+          :type="'date'"
+          :name="'date'"
+          :icon="'field_date'"
+          :note="'Дата рождения'"
+          :placeholder="' '"
+          :required="true"
+          v-model="formData.date"
+        />
+        <LabelWithIcon
+          :type="'select'"
+          :name="'gender'"
+          :icon="'field_gender'"
+          :note="'Пол'"
+          :required="false"
+          :options="['Мужчина','Женщина']"
+          v-model="formData.gender"
+          :readonly="true"
+        />
+        <LabelWithIcon
+          :type="'select'"
+          :name="'education'"
+          :icon="'field_education'"
+          :note="'Образование'"
+          :required="false"
+          :options="['Высшее образование','Среднее образование','Начальное образование','Специальное образование','Без образования']"
+          v-model="formData.education"
+          :readonly="true"
+        />
+        <LabelWithIcon
+          :type="'email'"
+          :name="'email'"
+          :icon="'field_email'"
+          :note="'Email'"
+          :placeholder="' '"
+          :required="false"
+          v-model="formData.email"
+        />
+        <LabelWithIcon
+          :type="'text'"
+          :name="'message'"
+          :icon="'field_message'"
+          :note="'Сообщение'"
+          :placeholder="' '"
+          :required="false"
+          v-model="formData.message"
+        />
+        <div class="vacancy-modal__note">Выберите мессенджеры, которыми пользуетесь</div>
+        <div class="vacancy-modal__social">
+          <label class="vacancy-modal__social-label" v-for="(item, key) in vacancyModalSocial" :key="key">
+            <input type="checkbox" class="vacancy-modal__social-input" :name="'messengers'" :value="item.value" v-model="formData.messengers">
+            <component :is="item.image" alt="" class="vacancy-modal__social-view"></component>
           </label>
-          <LabelWithIcon
-            :type="'text'"
-            :name="'name'"
-            :icon="'field_name'"
-            :note="'Имя'"
-            :placeholder="' '"
-            :required="true"
-            v-model="formData.name"
-          />
-          <LabelWithIcon
-            :type="'tel'"
-            :name="'phone'"
-            :icon="'field_phone'"
-            :note="'Телефон'"
-            :placeholder="' '"
-            :required="true"
-            v-model="formData.phone"
-          />
-          <LabelWithIcon
-            :type="'date'"
-            :name="'date'"
-            :icon="'field_date'"
-            :note="'Дата рождения'"
-            :placeholder="' '"
-            :required="true"
-            v-model="formData.date"
-          />
-          <LabelWithIcon
-            :type="'select'"
-            :name="'gender'"
-            :icon="'field_gender'"
-            :note="'Пол'"
-            :required="false"
-            :options="['Мужчина','Женщина']"
-            v-model="formData.gender"
-            :readonly="true"
-          />
-          <LabelWithIcon
-            :type="'select'"
-            :name="'education'"
-            :icon="'field_education'"
-            :note="'Образование'"
-            :required="false"
-            :options="['Высшее образование','Среднее образование','Начальное образование','Специальное образование','Без образования']"
-            v-model="formData.education"
-            :readonly="true"
-          />
-          <LabelWithIcon
-            :type="'email'"
-            :name="'email'"
-            :icon="'field_email'"
-            :note="'Email'"
-            :placeholder="' '"
-            :required="false"
-            v-model="formData.email"
-          />
-          <LabelWithIcon
-            :type="'text'"
-            :name="'message'"
-            :icon="'field_message'"
-            :note="'Сообщение'"
-            :placeholder="' '"
-            :required="false"
-            v-model="formData.message"
-          />
-          <div class="vacancy-modal__note">Выберите мессенджеры, которыми пользуетесь</div>
-          <div class="vacancy-modal__social">
-            <label class="vacancy-modal__social-label" v-for="(item, key) in vacancyModalSocial" :key="key">
-              <input type="checkbox" class="vacancy-modal__social-input" :name="'messengers'" :value="item.value" v-model="formData.messengers">
-              <component :is="item.image" alt="" class="vacancy-modal__social-view"></component>
-            </label>
-          </div>
-        </div>
-        <ButtonBase
-          :className="'button-orange button-orange_middle'"
-          :disabled="isSending || !isValid"
-          class="vacancy-modal__submit"
-          @click="submitForm"
-        >
-          Отправить
-        </ButtonBase>
-        <div class="vacancy-modal__privacy">
-          Продолжая, вы даете согласие на обработку персональных данных и соглашаетесь c
-          <RouterLink :to="`/content/agreement`" class="vacancy-modal__privacy-link">
-            Пользовательским соглашением
-          </RouterLink>
-          и
-          <RouterLink :to="`/content/privacy-policy`" class="vacancy-modal__privacy-link">
-            Политикой конфиденциальности
-          </RouterLink>
         </div>
       </div>
-    </ModalCustom>
-  </Transition>
+      <ButtonBase
+        :className="'button-orange button-orange_middle'"
+        :disabled="isSending || !isValid"
+        class="vacancy-modal__submit"
+        @click="submitForm"
+      >
+        Отправить
+      </ButtonBase>
+      <div class="vacancy-modal__privacy">
+        Продолжая, вы даете согласие на обработку персональных данных и соглашаетесь c
+        <RouterLink :to="`/content/agreement`" class="vacancy-modal__privacy-link">
+          Пользовательским соглашением
+        </RouterLink>
+        и
+        <RouterLink :to="`/content/privacy-policy`" class="vacancy-modal__privacy-link">
+          Политикой конфиденциальности
+        </RouterLink>
+      </div>
+    </div>
+  </ModalCustom>
 </template>
 
 <style scoped lang="sass">

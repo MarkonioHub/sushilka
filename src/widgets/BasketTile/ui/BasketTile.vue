@@ -7,12 +7,35 @@ import { formatPrice } from "@/shared/helpers/formatPrice.ts"
 import BasketCard from "@/entities/Basket/ui/BasketCard.vue"
 import ButtonBase from "@/shared/ui/ButtonBase.vue"
 import { storeToRefs } from "pinia"
+import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
+import { computed } from 'vue'
 
 const basket = useBasketStore()
-const {productsBasket} = storeToRefs(basket)
-
+const { productsBasket } = storeToRefs(basket)
 const { priceFull } = usePriceFull()
 
+const deliveryStore = useDeliveryStore()
+const { deliveryCost, deliveryFree } = storeToRefs(deliveryStore)
+
+const deliveryPrice = computed(() => {
+  if (+priceFull.value > +deliveryFree.value) {
+    return 0
+  } else {
+    return deliveryCost.value
+  }
+})
+
+const finalPrice = computed(() => {
+  return +deliveryPrice.value + +priceFull.value
+})
+
+const deliveryText = computed(() => {
+  if (deliveryPrice.value === 0) {
+    return "Бесплатно"
+  } else {
+    return formatPrice(deliveryPrice.value)
+  }
+})
 </script>
 
 <template>
@@ -33,11 +56,13 @@ const { priceFull } = usePriceFull()
           </div>
           <div class="basket-tile__line">
             <div class="basket-tile__name">Доставка:</div>
-            <div class="basket-tile__value"></div>
+            <div class="basket-tile__value">
+              {{ deliveryText }}
+            </div>
           </div>
           <div class="basket-tile__line final">
             <div class="basket-tile__name">К оплате:</div>
-            <div class="basket-tile__value">{{ formatPrice(priceFull) }}</div>
+            <div class="basket-tile__value">{{ formatPrice(finalPrice) }}</div>
           </div>
           <ButtonBase :className="'button-orange button-orange_big'">
             Оформить заказ

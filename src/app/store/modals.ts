@@ -4,7 +4,13 @@ export const useModalsStore = defineStore('modals',{
   state: () => ({
     modals: [
       { id: 'VacancyModal', status: false },
-      { id: 'LoginModal', status: false }
+      { id: 'LoginModal', status: false },
+      { id: 'DeliveryModal', status: false },
+      { id: 'MobileMenu', status: false },
+      { id: 'DeliveryWayModal', status: true },
+      { id: 'RestaurantsModal', status: false },
+      { id: 'HomeModal', status: false },
+      { id: 'ProductModal', status: false },
     ]
   }),
   actions: {

@@ -9,10 +9,10 @@ const { vacancies } = storeToRefs(storeVacancies)
 </script>
 
 <template>
-  <section class="vacancies-list">
+  <section class="vacancies-list" v-if="vacancies">
     <div class="cont">
       <div class="vacancies-list__area">
-        <VacancyCard :vacancy="vacancy" v-for="(vacancy, key) in vacancies" :key="key" v-if="vacancies" />
+        <VacancyCard :vacancy="vacancy" v-for="(vacancy, key) in vacancies" :key="key" />
       </div>
     </div>
   </section>

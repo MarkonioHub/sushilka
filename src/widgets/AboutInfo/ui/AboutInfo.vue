@@ -2,18 +2,12 @@
 import CardBase from '@/shared/ui/CardBase.vue'
 import IconSvg from '@/shared/ui/IconSvg.vue'
 import TitleBase from '@/shared/ui/TitleBase.vue'
-import { computed, ref } from 'vue'
+import RestaurantsMap from '@/shared/ui/RestaurantsMap.vue'
+import { shallowRef } from 'vue'
 import { useShopsStore } from '@/entities/Shop/model/store.ts'
 import { storeToRefs } from 'pinia'
-import {
-  YandexMap,
-  YandexMapDefaultSchemeLayer,
-  YandexMapDefaultFeaturesLayer,
-  YandexMapDefaultMarker,
-  type YandexMapDefaultMarkerSettings,
-} from 'vue-yandex-maps'
-import type { LngLat } from '@yandex/ymaps3-types'
-import type { Shop } from '@/entities/Shop/model/types.ts'
+import { isShopOpen } from "@/shared/helpers/isShopOpen.ts"
+import type { YMap } from '@yandex/ymaps3-types'
 
 const infoLines = [
   { day: 'понедельник', time: '11:00 - 23:00' },
@@ -28,28 +22,7 @@ const infoLines = [
 const shopStore = useShopsStore()
 const { shops } = storeToRefs(shopStore)
 
-function isShopOpen(shop: Shop): boolean {
-  const timeStart = +shop.startTime.slice(0, 2) + +shop.startTime.slice(3, 5) / 100
-  const timeEnd = +shop.endTime.slice(0, 2) + +shop.endTime.slice(3, 5) / 100
-  const currentTime = +new Date().getHours() + +new Date().getMinutes() / 100
-  return timeStart <= currentTime && currentTime <= timeEnd
-}
-
-const POINTS = computed(() => {
-  const temp: YandexMapDefaultMarkerSettings[] = []
-  shops.value.forEach((shop) => {
-    temp.push({ coordinates: shop.coords as LngLat, title: shop.title })
-  })
-  return temp
-})
-
-const mapCenter = ref([49.643858, 58.565115])
-const zoom = ref(12)
-
-function setMapCenter (shop: Shop) {
-  mapCenter.value = shop.coords
-  zoom.value = 14
-}
+const restaurantsMapRef = shallowRef<null | YMap>(null)
 </script>
 
 <template>
@@ -59,8 +32,8 @@ function setMapCenter (shop: Shop) {
         <div class="about-info__inner">
           <CardBase>
             <TitleBase class="about-info__title">Точки самовывоза</TitleBase>
-            <div class="about-info__shop" v-for="(shop, key) in shops" :key="key" @click="() => setMapCenter(shop)">
-              <IconSvg :name="'placemark'" class="about-info__shop-icon" />
+            <div class="about-info__shop" v-for="(shop, key) in shops" :key="key">
+              <IconSvg :name="'placemark'" class="about-info__shop-icon" :width="'18px'" :height="'18px'" />
               <div class="about-info__shop-box">
                 <div class="about-info__shop-title">{{ shop.title }}</div>
                 <div class="about-info__shop-address">{{ shop.address }}</div>
@@ -80,31 +53,14 @@ function setMapCenter (shop: Shop) {
           <CardBase>
             <TitleBase class="about-info__title">Режим работы</TitleBase>
             <div class="about-info__line" v-for="(line, id) in infoLines" :key="id">
-              <IconSvg :name="'time'" class="about-info__icon" :className="'icon'" />
+              <IconSvg :name="'time'" class="about-info__icon" :width="'18px'" :height="'18px'" />
               <div class="about-info__day">{{ line.day }}</div>
               <div class="about-info__time">{{ line.time }}</div>
             </div>
           </CardBase>
         </div>
         <div class="about-info__map">
-          <yandex-map
-            :settings="{
-              location: {
-                center: mapCenter as LngLat,
-                zoom: zoom,
-              },
-            }"
-            width="100%"
-            height="500px"
-          >
-            <yandex-map-default-scheme-layer />
-            <yandex-map-default-features-layer />
-            <yandex-map-default-marker
-              v-for="(point, index) in POINTS"
-              :key="index"
-              :settings="point"
-            />
-          </yandex-map>
+          <RestaurantsMap ref="restaurantsMapRef" />
         </div>
       </div>
     </div>
@@ -146,8 +102,6 @@ function setMapCenter (shop: Shop) {
 .about-info__shop-icon
   flex-shrink: 0
   opacity: 0.5
-  width: 18px
-  height: 18px
 
 .about-info__shop-box
   flex-grow: 1
@@ -191,8 +145,6 @@ function setMapCenter (shop: Shop) {
 .about-info__icon
   margin-right: 15px
   flex-shrink: 0
-  width: 18px
-  height: 18px
 
 .about-info__day
   font-size: 16px

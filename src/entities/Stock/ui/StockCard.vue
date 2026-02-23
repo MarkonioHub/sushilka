@@ -16,7 +16,11 @@ const props = defineProps({
     <div class="stock-card__content">
       <div class="stock-card__title" @click="isVisible=!isVisible">
         {{ props.stock.title }}
-        <IconSvg :name="'chevron-down'" :class="isVisible ? 'stock-card__title-icon active' : 'stock-card__title-icon'" />
+        <IconSvg
+          :name="'chevron-down'"
+          :class="isVisible ? 'stock-card__title-icon active' : 'stock-card__title-icon'"
+          :width="'25px'" :height="'25px'"
+        />
       </div>
       <div :class="isVisible ? 'stock-card__transition active' : 'stock-card__transition'">
         <div class="stock-card__description" v-html="props.stock.description"></div>
@@ -50,8 +54,6 @@ const props = defineProps({
 
 .stock-card__title-icon
   display: none
-  width: 25px
-  height: 25px
   @include media(lg)
     position: absolute
     top: 0

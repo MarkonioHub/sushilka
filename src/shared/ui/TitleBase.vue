@@ -10,7 +10,7 @@
 
 <style scoped lang="sass">
 .title-base
-  margin-bottom: 10px
+  margin-bottom: 20px
   font-size: 24px
   line-height: 24px
   font-weight: 700

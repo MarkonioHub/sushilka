@@ -48,7 +48,7 @@ const props = defineProps({
   padding: 10px 0 10px 40px
   font-size: 16px
   line-height: 1.6
-  border-left: 1px solid #333333
+  border-left: 1px solid $main
   @include media(sm)
     padding: 0
     border: none

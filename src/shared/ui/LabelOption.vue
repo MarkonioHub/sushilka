@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import InputBase from '@/shared/ui/InputBase.vue'
+
 const props = defineProps({
   text: { type: String, required: true },
-  name: String,
+  name: { type: String, required: true },
 })
 
 const selectedParam = defineModel()
@@ -9,7 +11,7 @@ const selectedParam = defineModel()
 
 <template>
   <label class="label-option">
-    <input
+    <InputBase
       class="label-option__input"
       type="radio"
       :name="props.name"

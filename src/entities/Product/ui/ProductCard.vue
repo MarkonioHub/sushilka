@@ -11,8 +11,8 @@ import { useCategoriesStore } from "@/entities/Categories/model/store"
 import { useBasketStore } from "@/entities/Basket/model/store.ts"
 
 import IconSvg from "@/shared/ui/IconSvg.vue"
-import ProductCounter from "@/features/ProductCounter/ui/ProductCounter.vue"
-import LabelOption from "@/features/FormElements/ui/LabelOption.vue"
+import ProductCounter from "@/shared/ui/ProductCounter.vue"
+import LabelOption from "@/shared/ui/LabelOption.vue"
 import ButtonBase from "@/shared/ui/ButtonBase.vue"
 
 import { useProductsStore } from "@/entities/Product/model/store.ts"
@@ -98,10 +98,10 @@ async function saveLink () {
       </RouterLink>
       <div class="product-card__buttons">
         <div class="product-card__button">
-          <IconSvg :name="'heart'" />
+          <IconSvg :name="'heart'" :width="'16px'" :height="'16px'" />
         </div>
         <div class="product-card__button" @click="saveLink">
-          <IconSvg :name="'share'" />
+          <IconSvg :name="'share'" :width="'16px'" :height="'16px'" />
         </div>
       </div>
     </div>

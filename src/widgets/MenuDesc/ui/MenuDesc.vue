@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ButtonBase from '@/shared/ui/ButtonBase.vue'
-import { computed } from "vue"
+import { computed } from 'vue'
 
 const props = defineProps({
   mod: String,
@@ -12,7 +12,7 @@ const className = computed(() => {
 </script>
 
 <template>
-  <nav :class=className>
+  <nav :class="className">
     <div class="cont">
       <nav class="menu-desc__nav">
         <ButtonBase to="/" :className="'button-underline solid'">Главная</ButtonBase>
@@ -28,6 +28,8 @@ const className = computed(() => {
 <style scoped lang="sass">
 .menu-desc
   padding: 30px 0
+  @include media(lg)
+    padding: 20px 0
   &_sticky
     position: sticky
     z-index: 1

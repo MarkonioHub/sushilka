@@ -11,56 +11,49 @@ const modalsStore = useModalsStore()
     <div class="cont">
       <div class="header__area">
         <RouterLink to="/" class="header__logo">
-          <img src="../images/logo.png" alt="" class="header__logo-image" />
+          <img src="@/shared/assets/images/logo.png" alt="" class="header__logo-image" />
         </RouterLink>
-        <div class="header__list mob-hide">
+        <div class="header__list">
           <div class="header__item">
             <ButtonBase :className="'button-underline'">
-              <IconSvg :name="'placemark'" :className="'icon icon-orange icon-margin-right'" />
+              <IconSvg
+                :name="'placemark'"
+                :className="'icon-orange-fill'"
+                :margin="'0 8px 0 0'"
+                :width="'16px'" :height="'16px'"
+              />
               <span>Киров</span>
             </ButtonBase>
           </div>
           <div class="header__item">
             <ButtonBase :className="'button-underline uppercase'">
-              <IconSvg :name="'placemark'" :className="'icon icon-orange icon-margin-right'" />
+              <IconSvg
+                :name="'placemark'"
+                :className="'icon-orange-fill'"
+                :margin="'0 8px 0 0'"
+                :width="'16px'" :height="'16px'"
+              />
               <span>ru</span>
             </ButtonBase>
           </div>
         </div>
-        <a href="tel:78332436436" class="header__phone mob-hide">+7(8332)436-436</a>
-        <ButtonBase :className="'button-underline'" @click="() => modalsStore.toggleModal('LoginModal')" >
-          <IconSvg :name="'login'" :className="'icon-login'" />
+        <a href="tel:78332436436" class="header__phone">
+          +7(8332)436-436
+          <IconSvg :name="'phone'" :className="'header__phone-icon'" />
+        </a>
+        <ButtonBase :className="'header__login button-underline'" @click="() => modalsStore.toggleModal('LoginModal')" >
+          <IconSvg :name="'login'" :className="'icon-orange-fill'" :width="'32px'"
+                   :height="'32px'" :margin="'0 10px 0 0'" />
           <span>Войти</span>
         </ButtonBase>
       </div>
       <div class="header__mob">
-        <div class="header__burger">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M4 18L20 18" stroke="#e53a24" stroke-width="2" stroke-linecap="round" />
-            <path d="M4 12L20 12" stroke="#e53a24" stroke-width="2" stroke-linecap="round" />
-            <path d="M4 6L20 6" stroke="#e53a24" stroke-width="2" stroke-linecap="round" />
-          </svg>
+        <div class="header__burger" @click="modalsStore.toggleModal('MobileMenu')">
+          <IconSvg :name="'burger'" :className="'icon-orange-stroke'" :width="'24px'" :height="'24px'" />
         </div>
-        <div class="header__note">Меню</div>
         <div class="header__btns">
-          <div class="header__btn">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="12" cy="12" r="10" stroke="#e53a24" stroke-width="1.5" />
-              <path d="M12 17V11" stroke="#e53a24" stroke-width="1.5" stroke-linecap="round" />
-              <circle cx="1" cy="1" r="1" transform="matrix(1 0 0 -1 11 9)" fill="#e53a24" />
-            </svg>
+          <div class="header__btn" @click="() => modalsStore.toggleModal('DeliveryModal')">
+            <IconSvg :name="'info'" :className="'icon-orange-stroke'" :width="'24px'" :height="'24px'" />
           </div>
         </div>
       </div>
@@ -72,6 +65,8 @@ const modalsStore = useModalsStore()
 .header
   box-shadow: 0 0 15px rgb(0 0 0 / .1)
   background: $white
+  @include media(md)
+    position: relative
 
 .header__area
   padding: 15px 0
@@ -79,13 +74,19 @@ const modalsStore = useModalsStore()
   align-items: center
   font-size: 16px
   @include media(md)
-    display: none
+    padding: 0
+    position: relative
 
 .header__logo
   margin-right: 40px
   flex-shrink: 0
   width: 145px
   height: 36px
+  @include media(md)
+    position: absolute
+    top: calc(50% + 25px)
+    left: 50%
+    transform: translate(-50%, -50%)
 
 .header__logo-image
   height: 100%
@@ -95,6 +96,8 @@ const modalsStore = useModalsStore()
   display: flex
   align-items: center
   gap: 0 30px
+  @include media(md)
+    display: none
 
 .header__item
   display: flex
@@ -117,11 +120,33 @@ const modalsStore = useModalsStore()
   text-decoration: none
   transition-property: color
   transition-duration: $transition-duration
+  @include media(md)
+    margin: 0
+    overflow: hidden
+    width: 35px
+    height: 35px
+    position: absolute
+    top: 6px
+    right: 35px
+    color: transparent
   &:hover
     color: $orange
+    @include media(md)
+      color: transparent
 
-.mob-hide
-  @include media(sm)
+.header__phone-icon
+  display: none
+  @include media(md)
+    display: block
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    width: 25px
+    height: 25px
+
+.header__login
+  @include media(md)
     display: none
 
 .header__mob
@@ -132,22 +157,26 @@ const modalsStore = useModalsStore()
     justify-content: space-between
     align-items: center
     min-height: 50px
+    pointer-events: none
 
 .header__burger
+  cursor: pointer
   padding: 10px
   margin-left: -10px
-
-.header__note
-  position: absolute
-  top: 50%
-  left: 50%
-  transform: translate(-50%, -50%)
-  font-size: 18px
-  font-weight: 700
+  @include media(md)
+    pointer-events: all
 
 .header__btns
   display: flex
 
 .header__btn
+  cursor: pointer
   padding: 5px
+  @include media(md)
+    pointer-events: all
+</style>
+
+<style lang="sass">
+.header__phone-icon path
+  fill: $orange
 </style>

@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed } from 'vue'
 
-import type { ProductBasket } from "@/entities/Basket/model/types.ts"
+import type { ProductBasket } from '@/entities/Basket/model/types.ts'
 
-import { useProductsStore } from "@/entities/Product/model/store.ts"
-import { usePriceByParams } from "@/shared/composables/usePriceByParams.ts"
-import { formatPrice } from "@/shared/helpers/formatPrice.ts"
-import { useBasketStore } from "@/entities/Basket/model/store.ts"
-import { storeToRefs } from "pinia"
+import { useProductsStore } from '@/entities/Product/model/store.ts'
+import { usePriceByParams } from '@/shared/composables/usePriceByParams.ts'
+import { formatPrice } from '@/shared/helpers/formatPrice.ts'
+import { useBasketStore } from '@/entities/Basket/model/store.ts'
+import { storeToRefs } from 'pinia'
 
-import ProductCounter from "@/features/ProductCounter/ui/ProductCounter.vue"
-import IconSvg from "@/shared/ui/IconSvg.vue"
+import ProductCounter from '@/shared/ui/ProductCounter.vue'
+import IconSvg from '@/shared/ui/IconSvg.vue'
 
 const props = defineProps<{
-  productBasket: ProductBasket,
+  productBasket: ProductBasket
 }>()
 
 const basket = useBasketStore()
@@ -30,10 +30,14 @@ const product = computed(() => {
 })
 
 const productBasket = computed(() => {
-  return productsBasket.value.find((product) => product.id === props.productBasket.id && product.selectedParameter === selectedParameter.value)
+  return productsBasket.value.find(
+    (product) =>
+      product.id === props.productBasket.id &&
+      product.selectedParameter === selectedParameter.value,
+  )
 })
 
-const productCount = computed( {
+const productCount = computed({
   get() {
     return productBasket.value?.quantity || 0
   },
@@ -43,7 +47,7 @@ const productCount = computed( {
     } else {
       basket.removeProduct(product.value?.id || '', selectedParameter.value)
     }
-  }
+  },
 })
 
 const price = computed(() => {
@@ -58,15 +62,14 @@ const cardName = computed(() => {
   }
 })
 
-function removeProduct () {
+function removeProduct() {
   basket.removeProduct(product.value?.id || '', selectedParameter.value)
 }
-
 </script>
 
 <template>
   <div class="basket-card">
-    <img :src="product?.image" alt="" class="basket-card__image">
+    <img :src="product?.image" alt="" class="basket-card__image" />
     <div class="basket-card__info">
       <div class="basket-card__name">{{ cardName }}</div>
       <div class="basket-card__description" v-html="product?.description"></div>
@@ -80,7 +83,13 @@ function removeProduct () {
     <div class="basket-card__price">
       {{ formatPrice(price) }}
     </div>
-    <IconSvg :name="'delete'" class="basket-card__delete" @click="removeProduct" />
+    <IconSvg
+      :name="'delete'"
+      class="basket-card__delete"
+      :width="'50px'"
+      :height="'50px'"
+      @click="removeProduct"
+    />
   </div>
 </template>
 
@@ -148,6 +157,8 @@ function removeProduct () {
   font-size: 18px
   font-weight: 700
   flex-shrink: 0
+  min-width: 70px
+  text-align: center
   @include media(sm)
     margin-left: auto
 
@@ -156,12 +167,10 @@ function removeProduct () {
   transform: translateY(-2px)
   flex-shrink: 0
   padding: 12px
-  width: 50px
   path
     transition-property: fill
     transition-duration: $transition-duration
   &:hover
     path
       fill: $orange
-
 </style>

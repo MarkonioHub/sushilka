@@ -3,7 +3,6 @@ import type { Basket } from "@/entities/Basket/model/types.ts"
 
 export const useBasketStore = defineStore('Basket', {
   state: (): Basket => ({
-    userId: undefined,
     productsBasket: JSON.parse(localStorage.getItem('sushilka-basket') || "[]") || []
   }),
   getters: {
@@ -46,9 +45,6 @@ export const useBasketStore = defineStore('Basket', {
         return this.productsBasket.find((basketProduct) =>
           basketProduct.id === id)?.quantity
       }
-    },
-    setUserId(userId: number) {
-      this.userId = userId
     },
   },
 })

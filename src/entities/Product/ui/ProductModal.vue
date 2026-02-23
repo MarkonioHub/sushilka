@@ -1,24 +1,22 @@
 <script setup lang="ts">
-import {computed, defineAsyncComponent, ref, watch} from "vue"
+import { computed, defineAsyncComponent, ref, watch } from "vue"
 import { useParamsListClassMod } from "@/shared/composables/useParamsListClassMod.ts"
 import { useRoute } from "vue-router"
 import { useProductsStore } from '@/entities/Product/model/store'
 import { usePriceByParams } from "@/shared/composables/usePriceByParams.ts"
 import { formatPrice } from "@/shared/helpers/formatPrice.ts"
 import { useBasketStore } from "@/entities/Basket/model/store.ts"
-import router from "@/app/routes"
-
-import type { Product } from '../model/types'
-
+import { useModalsStore } from '@/app/store/modals.ts'
 const ModalCustom = defineAsyncComponent(() => import('@/shared/ui/ModalCustom.vue'))
-import LabelOption from "@/features/FormElements/ui/LabelOption.vue"
-import ProductCounter from "@/features/ProductCounter/ui/ProductCounter.vue"
+import router from "@/app/routes"
+import type { Product } from '../model/types'
+import LabelOption from "@/shared/ui/LabelOption.vue"
+import ProductCounter from "@/shared/ui/ProductCounter.vue"
 import ButtonBase from "@/shared/ui/ButtonBase.vue"
 
 const route = useRoute()
 const store = useProductsStore()
 const basket = useBasketStore()
-
 const product = computed(() => {
   const productSlug = route.params.productSlug
   return store.products?.find((product: Product) => product?.slug === productSlug)
@@ -26,6 +24,7 @@ const product = computed(() => {
 const price = ref('')
 const selectedParameter = ref('')
 const productCount = ref(1)
+const modalsStore = useModalsStore()
 
 const paramsListClassMod = computed(() => {
   return useParamsListClassMod(product.value?.parameters || [])
@@ -42,7 +41,10 @@ watch(selectedParameter, (newSelectedParameter) => {
 watch(product, (newProduct) => {
   selectedParameter.value = newProduct?.parameters[0] || ''
   price.value = usePriceByParams(newProduct, selectedParameter.value)
+  if (newProduct) modalsStore.toggleModal('ProductModal')
 }, { deep: true })
+
+if (product.value) modalsStore.toggleModal('ProductModal')
 
 function closeModal () {
   productCount.value = 1
@@ -62,49 +64,47 @@ function addProductInBasket () {
 </script>
 
 <template>
-  <Transition name="fade">
-    <ModalCustom v-if="product" @close="closeModal">
-      <div class="product-modal">
-        <img :src="product?.image" alt="" class="product-modal__image">
-        <div class="product-modal__title">{{ product?.name }}</div>
-        <div class="product-modal__description" v-html="product?.description"></div>
-        <div class="product-modal__params">
-          <div class="product-modal__params-single" v-if="product?.parameterSingle">
-            {{ product?.parameterSingle }}
-          </div>
-          <div :class="`product-modal__params-list ${paramsListClassMod}`" v-else-if="product['parameters']">
-            <LabelOption
-              v-for="(param, key) in product['parameters']"
-              v-model="selectedParameter"
-              :name="`product-modal-${product['id']}-param`"
-              :text="param"
-              :key=key
-            />
-          </div>
+  <ModalCustom @close="closeModal" :id="'ProductModal'">
+    <div class="product-modal" v-if="product">
+      <img :src="product.image" alt="" class="product-modal__image">
+      <div class="product-modal__title">{{ product.name }}</div>
+      <div class="product-modal__description" v-html="product.description"></div>
+      <div class="product-modal__params">
+        <div class="product-modal__params-single" v-if="product.parameterSingle">
+          {{ product.parameterSingle }}
         </div>
-        <div class="product-modal__quantity">
-          <div class="product-modal__quantity-box">
-            <div class="product-modal__quantity-headline">Сумма</div>
-            <div class="product-modal__quantity-sum">{{ formatPrice(priceFull) }}</div>
-          </div>
-          <div class="product-modal__quantity-box">
-            <div class="product-modal__quantity-headline">Кол-во</div>
-            <ProductCounter
-              :name="`product-modal-counter-${product.id}`"
-              v-model="productCount"
-            />
-          </div>
+        <div :class="`product-modal__params-list ${paramsListClassMod}`" v-else-if="product['parameters']">
+          <LabelOption
+            v-for="(param, key) in product['parameters']"
+            v-model="selectedParameter"
+            :name="`product-modal-${product['id']}-param`"
+            :text="param"
+            :key=key
+          />
         </div>
-        <ButtonBase
-          @click="addProductInBasket"
-          :className="'button-orange'"
-          class="product-modal__add"
-        >
-          Добавить товар за {{ formatPrice(priceFull) }}
-        </ButtonBase>
       </div>
-    </ModalCustom>
-  </Transition>
+      <div class="product-modal__quantity">
+        <div class="product-modal__quantity-box">
+          <div class="product-modal__quantity-headline">Сумма</div>
+          <div class="product-modal__quantity-sum">{{ formatPrice(priceFull) }}</div>
+        </div>
+        <div class="product-modal__quantity-box">
+          <div class="product-modal__quantity-headline">Кол-во</div>
+          <ProductCounter
+            :name="`product-modal-counter-${product.id}`"
+            v-model="productCount"
+          />
+        </div>
+      </div>
+      <ButtonBase
+        @click="addProductInBasket"
+        :className="'button-orange'"
+        class="product-modal__add"
+      >
+        Добавить товар за {{ formatPrice(priceFull) }}
+      </ButtonBase>
+    </div>
+  </ModalCustom>
 </template>
 
 <style scoped lang="sass">

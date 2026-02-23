@@ -68,11 +68,15 @@ function inputHandler (e: Event) {
     model.value = usePhoneMask(e)
   }
 }
+
+defineOptions({
+  inheritAttrs: false
+})
 </script>
 
 <template>
   <div :class="`label-with-icon ${className}`" @click="toggleSelect" v-click-outside="closeSelect">
-    <IconSvg :name="props.icon" v-if="props.icon" class="label-with-icon__icon" />
+    <IconSvg :name="props.icon" v-if="props.icon" class="label-with-icon__icon" :width="'18px'" :height="'18px'" />
     <div :class="`label-with-icon__box ${classNameLabelFieldBox}`">
       <InputBase
         class="label-with-icon__input"
@@ -83,6 +87,7 @@ function inputHandler (e: Event) {
         :readonly="props.readonly"
         v-if="props.type !== 'date'"
         @input="inputHandler"
+        v-bind="$attrs"
         v-model="model"
       />
       <VueDatePicker
@@ -95,8 +100,9 @@ function inputHandler (e: Event) {
       />
       <span class="label-with-icon__note" v-if="props.note">{{props.note}}</span>
       <div class="label-with-icon__select" v-if="props.type === 'select'">
-        <div :class="model === option ? 'label-with-icon__select-option label-with-icon__select-option_active' : 'label-with-icon__select-option'"
-             v-for="(option, key) in props.options" :key="key" @click="(e: Event) => {e.stopPropagation(); setSelectValue(option)}">
+        <div
+          :class="model === option ? 'label-with-icon__select-option label-with-icon__select-option_active' : 'label-with-icon__select-option'"
+          v-for="(option, key) in props.options" :key="key" @click="(e: Event) => {e.stopPropagation(); setSelectValue(option)}">
           {{ option }}
         </div>
       </div>
@@ -123,8 +129,6 @@ function inputHandler (e: Event) {
 .label-with-icon__icon
   position: absolute
   z-index: 1
-  width: 18px
-  height: 18px
   left: 18px
   top: 50%
   opacity: 0.3

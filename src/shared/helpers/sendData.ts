@@ -10,6 +10,6 @@ export async function sendData<T> (url: string, body: object) : Promise<T> {
     if (!response.ok) throw new Error(response.statusText)
     return await response.json()
   } catch (error) {
-    throw new Error(`Error send data /${url}:`)
+    throw new Error(`Error send data /${url}, text error: ${error}`)
   }
 }

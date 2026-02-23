@@ -11,7 +11,7 @@ const props = defineProps({
 
 const className = computed(() => {
   let result = props.visibility ? 'loader loader_visible' : 'loader'
-  props.type ? result += ` loader_${props.type}` : false
+  if (props.type) result += ` loader_${props.type}`
   return result
 })
 </script>

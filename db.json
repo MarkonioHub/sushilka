@@ -1235,71 +1235,7 @@
     }
   ],
   "vacancies-candidates": [
-    {
-      "id": "f338",
-      "name": "",
-      "phone": "",
-      "date": "",
-      "gender": "Мужчина",
-      "education": "Высшее образование",
-      "email": "",
-      "message": "",
-      "messengers": [],
-      "imagePreview": "",
-      "vacancy": "administrator"
-    },
-    {
-      "id": "0c21",
-      "name": "",
-      "phone": "",
-      "date": "",
-      "gender": "Мужчина",
-      "education": "Высшее образование",
-      "email": "",
-      "message": "",
-      "messengers": [],
-      "imagePreview": "",
-      "vacancy": "administrator"
-    },
-    {
-      "id": "ac4b",
-      "name": "",
-      "phone": "",
-      "date": "",
-      "gender": "Мужчина",
-      "education": "Высшее образование",
-      "email": "",
-      "message": "",
-      "messengers": [],
-      "imagePreview": "",
-      "vacancy": "administrator"
-    },
-    {
-      "id": "4bad",
-      "name": "",
-      "phone": "",
-      "date": "",
-      "gender": "Мужчина",
-      "education": "Высшее образование",
-      "email": "",
-      "message": "",
-      "messengers": [],
-      "imagePreview": "",
-      "vacancy": "administrator"
-    },
-    {
-      "id": "4e23",
-      "name": "Medvedev Mark Nikolaevich",
-      "phone": "+7 (922) 939-86-93",
-      "date": "2026-01-15T05:02:00.000Z",
-      "gender": "Мужчина",
-      "education": "Высшее образование",
-      "email": "",
-      "message": "",
-      "messengers": [],
-      "imagePreview": "",
-      "vacancy": "administrator"
-    }
+
   ],
   "shops": [
     {
@@ -1308,7 +1244,10 @@
       "address": "Чистопрудненская, 10 (тел: 440-093)",
       "startTime": "11:00",
       "endTime": "23:00",
-      "coords": [49.643858, 58.565115]
+      "marker": {
+        "coordinates": [49.643858, 58.565115],
+        "title": "Сушилка Ред"
+      }
     },
     {
       "id": "2",
@@ -1316,7 +1255,10 @@
       "address": "Воровского, 114 (тел: 444-943)",
       "startTime": "11:00",
       "endTime": "23:00",
-      "coords": [49.591253, 58.596731]
+      "marker": {
+        "coordinates": [49.591253, 58.596731],
+        "title": "Сушилка Атлант"
+      }
     },
     {
       "id": "3",
@@ -1324,7 +1266,10 @@
       "address": "Владимирская (быв. К.Маркса), 127 (тел: 444-245)",
       "startTime": "11:00",
       "endTime": "23:00",
-      "coords": [49.668292, 58.590845]
+      "marker": {
+        "coordinates": [49.668292, 58.590845],
+        "title": "Сушилка Юбилейный"
+      }
     }
   ]
 }

@@ -3,7 +3,6 @@ import SliderOffers from '@/widgets/SliderOffers/ui/SliderOffers.vue'
 import DeliveryLine from '@/widgets/DeliveryLine/ui/DeliveryLine.vue'
 import MenuDesc from '@/widgets/MenuDesc/ui/MenuDesc.vue'
 import DeliveryList from '@/widgets/DeliveryList/ui/DeliveryList.vue'
-import DeliveryModal from '@/widgets/DeliveryModal/ui/DeliveryModal.vue'
 import CategoriesLine from '@/widgets/CategoriesLine/ui/CategoriesLine.vue'
 import ProductsTile from '@/widgets/ProductsTile/ui/ProductsTile.vue'
 import PayInfo from '@/widgets/PayInfo/ui/PayInfo.vue'
@@ -32,7 +31,6 @@ import HomeModal from '@/entities/Delivery/ui/HomeModal.vue'
   />
   <ButtonTop />
   <ProductModal />
-  <DeliveryModal />
   <DeliveryWayModal />
   <HomeModal />
   <RestaurantsModal />

@@ -3,11 +3,10 @@ import CardBase from '@/shared/ui/CardBase.vue'
 import IconSvg from '@/shared/ui/IconSvg.vue'
 import TitleBase from '@/shared/ui/TitleBase.vue'
 import RestaurantsMap from '@/shared/ui/RestaurantsMap.vue'
-import { shallowRef } from 'vue'
-import { useShopsStore } from '@/entities/Shop/model/store.ts'
-import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
 import { isShopOpen } from "@/shared/helpers/isShopOpen.ts"
-import type { YMap } from '@yandex/ymaps3-types'
+import { useCurrentShops } from '@/shared/composables/useCurrentShops.ts'
+import type { Shop } from '@/entities/Delivery/model/types.ts'
 
 const infoLines = [
   { day: 'понедельник', time: '11:00 - 23:00' },
@@ -19,10 +18,18 @@ const infoLines = [
   { day: 'воскресенье', time: '11:00 - 23:00' },
 ]
 
-const shopStore = useShopsStore()
-const { shops } = storeToRefs(shopStore)
+const { currentShops } = useCurrentShops()
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const restaurantsMapRef = ref<any>(null)
+const aboutInfoMap = ref<HTMLElement | null>(null)
 
-const restaurantsMapRef = shallowRef<null | YMap>(null)
+function setMapCenter (shop: Shop) {
+  restaurantsMapRef.value?.setMapCenter(shop)
+  aboutInfoMap.value?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  })
+}
 </script>
 
 <template>
@@ -32,7 +39,7 @@ const restaurantsMapRef = shallowRef<null | YMap>(null)
         <div class="about-info__inner">
           <CardBase>
             <TitleBase class="about-info__title">Точки самовывоза</TitleBase>
-            <div class="about-info__shop" v-for="(shop, key) in shops" :key="key">
+            <div class="about-info__shop" v-for="(shop, key) in currentShops" :key="key" @click="() => setMapCenter(shop)">
               <IconSvg :name="'placemark'" class="about-info__shop-icon" :width="'18px'" :height="'18px'" />
               <div class="about-info__shop-box">
                 <div class="about-info__shop-title">{{ shop.title }}</div>
@@ -59,7 +66,7 @@ const restaurantsMapRef = shallowRef<null | YMap>(null)
             </div>
           </CardBase>
         </div>
-        <div class="about-info__map">
+        <div class="about-info__map" ref="aboutInfoMap">
           <RestaurantsMap ref="restaurantsMapRef" />
         </div>
       </div>
@@ -94,6 +101,8 @@ const restaurantsMapRef = shallowRef<null | YMap>(null)
   gap: 15px
   align-items: center
   cursor: pointer
+  @include media(xs)
+    flex-wrap: wrap
   &:not(:last-child)
     padding-bottom: 10px
     margin-bottom: 10px
@@ -105,6 +114,8 @@ const restaurantsMapRef = shallowRef<null | YMap>(null)
 
 .about-info__shop-box
   flex-grow: 1
+  @include media(xs)
+    width: calc(100% - 34px)
 
 .about-info__shop-title
   margin-bottom: 5px
@@ -121,6 +132,8 @@ const restaurantsMapRef = shallowRef<null | YMap>(null)
   width: 85px
   flex-shrink: 0
   text-align: right
+  @include media(xs)
+    text-align: left
   &.green
     color: $green
   &.red

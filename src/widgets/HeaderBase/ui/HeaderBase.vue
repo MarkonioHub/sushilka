@@ -2,8 +2,12 @@
 import IconSvg from '@/shared/ui/IconSvg.vue'
 import ButtonBase from '@/shared/ui/ButtonBase.vue'
 import { useModalsStore } from "@/app/store/modals.ts"
+import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
+import { storeToRefs } from 'pinia'
 
 const modalsStore = useModalsStore()
+const deliveryStore = useDeliveryStore()
+const { deliveryCity } = storeToRefs(deliveryStore)
 </script>
 
 <template>
@@ -15,14 +19,15 @@ const modalsStore = useModalsStore()
         </RouterLink>
         <div class="header__list">
           <div class="header__item">
-            <ButtonBase :className="'button-underline'">
+            <ButtonBase :className="'button-underline'" @click="modalsStore.toggleModal('DeliveryCity')">
               <IconSvg
                 :name="'placemark'"
                 :className="'icon-orange-fill'"
                 :margin="'0 8px 0 0'"
                 :width="'16px'" :height="'16px'"
               />
-              <span>Киров</span>
+              <span v-if="deliveryCity?.text">{{ deliveryCity.text }}</span>
+              <span v-else>Не выбрано</span>
             </ButtonBase>
           </div>
           <div class="header__item">
@@ -85,7 +90,7 @@ const modalsStore = useModalsStore()
   @include media(md)
     position: absolute
     top: calc(50% + 25px)
-    left: 50%
+    left: 120px
     transform: translate(-50%, -50%)
 
 .header__logo-image

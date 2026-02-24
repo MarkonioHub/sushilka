@@ -4,10 +4,18 @@ import ModalLayer from '@/shared/ui/ModalLayer.vue'
 import { useModalsStore } from '@/app/store/modals.ts'
 import IconSvg from '@/shared/ui/IconSvg.vue'
 import ButtonBase from '@/shared/ui/ButtonBase.vue'
+import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
+import { storeToRefs } from 'pinia'
+const deliveryStore = useDeliveryStore()
+const { deliveryCity } = storeToRefs(deliveryStore)
+
+const city = computed(() => {
+  return deliveryCity.value?.text
+})
 
 const mobileMenu = [
   { text: 'Вход', icon: 'login', onClick: loginHandler },
-  { text: 'Киров', icon: 'city', onClick: cityHandler },
+  { text: city, icon: 'city', onClick: cityHandler },
   { text: 'Меню', icon: 'menu', to: '/' },
   { text: 'Корзина', icon: 'basket-menu', to: '/basket' },
   { text: 'Акции', icon: 'stock', to: '/stocks' },
@@ -25,7 +33,7 @@ function loginHandler () {
 
 function cityHandler () {
   closeMenu()
-  // modalsStore.toggleModal('CityModal')
+  modalsStore.toggleModal('DeliveryCity')
 }
 
 function langHandler () {

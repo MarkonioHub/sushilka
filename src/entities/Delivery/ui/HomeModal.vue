@@ -10,7 +10,7 @@ import {
   YandexMapMarker,
 } from 'vue-yandex-maps'
 import { reactive, ref, watch } from 'vue'
-import LabelWithIcon from '@/shared/ui/LabelWithIcon.vue'
+import LabelWithIcon from '@/shared/ui/LabelWithIcon/ui/LabelWithIcon.vue'
 import ButtonBase from '@/shared/ui/ButtonBase.vue'
 import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
 import { storeToRefs } from 'pinia'

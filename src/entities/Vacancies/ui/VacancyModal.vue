@@ -2,7 +2,7 @@
 import ModalCustom from "@/shared/ui/ModalCustom.vue"
 import { computed, defineAsyncComponent, reactive, ref } from "vue"
 import ButtonBase from "@/shared/ui/ButtonBase.vue"
-import LabelWithIcon from "@/shared/ui/LabelWithIcon.vue"
+import LabelWithIcon from "@/shared/ui/LabelWithIcon/ui/LabelWithIcon.vue"
 import { useModalsStore } from "@/app/store/modals.ts"
 import { sendData } from "@/shared/helpers/sendData.ts"
 import { useRoute } from "vue-router"
@@ -105,7 +105,7 @@ function updateImagePreview (event: Event) {
           :icon="'field_gender'"
           :note="'Пол'"
           :required="false"
-          :options="['Мужчина','Женщина']"
+          :options="[{text:'Мужчина',value:'Мужчина'},{text:'Женщина',value:'Женщина'}]"
           v-model="formData.gender"
           :readonly="true"
         />
@@ -115,7 +115,13 @@ function updateImagePreview (event: Event) {
           :icon="'field_education'"
           :note="'Образование'"
           :required="false"
-          :options="['Высшее образование','Среднее образование','Начальное образование','Специальное образование','Без образования']"
+          :options="[
+            {text:'Высшее образование',value:'Высшее образование'},
+            {text:'Среднее образование',value:'Среднее образование'},
+            {text:'Начальное образование',value:'Начальное образование'},
+            {text:'Специальное образование',value:'Специальное образование'},
+            {text:'Без образования',value:'Без образования'}
+          ]"
           v-model="formData.education"
           :readonly="true"
         />

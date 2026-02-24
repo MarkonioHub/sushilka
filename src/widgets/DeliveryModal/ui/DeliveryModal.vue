@@ -5,12 +5,10 @@ import TitleBase from '@/shared/ui/TitleBase.vue'
 </script>
 
 <template>
-  <Transition name="fade">
-    <ModalCustom :className="'modal-custom_delivery'" :id="'DeliveryModal'">
-      <TitleBase>Информация о доставке</TitleBase>
-      <DeliveryParams />
-    </ModalCustom>
-  </Transition>
+  <ModalCustom :className="'modal-custom_delivery'" :id="'DeliveryModal'">
+    <TitleBase>Информация о доставке</TitleBase>
+    <DeliveryParams />
+  </ModalCustom>
 </template>
 
 <style scoped lang="sass">

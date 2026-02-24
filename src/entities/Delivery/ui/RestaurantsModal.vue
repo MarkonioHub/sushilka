@@ -3,21 +3,19 @@ import ModalCustom from '@/shared/ui/ModalCustom.vue'
 import TitleBase from '@/shared/ui/TitleBase.vue'
 import RestaurantsMap from '@/shared/ui/RestaurantsMap.vue'
 import { isShopOpen } from "@/shared/helpers/isShopOpen.ts"
-import { useShopsStore } from '@/entities/Shop/model/store.ts'
-import { storeToRefs } from 'pinia'
 import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
 import InputBase from '@/shared/ui/InputBase.vue'
 import { useModalsStore } from '@/app/store/modals.ts'
+import { useCurrentShops } from '@/shared/composables/useCurrentShops.ts'
 
-const shopStore = useShopsStore()
 const modalsStore = useModalsStore()
 const deliveryStore = useDeliveryStore()
-const { shops } = storeToRefs(shopStore)
+const { currentShops } = useCurrentShops()
 const selectedRestaurant = defineModel()
 
 function toggleRestaurant () {
   deliveryStore.setDeliveryRestaurantId(selectedRestaurant.value as string)
-  const shop = shopStore.getShop(selectedRestaurant.value as string)
+  const shop = deliveryStore.getShop(selectedRestaurant.value as string)
   deliveryStore.deliveryAddress = `${shop?.title} ${shop?.address}` || ''
   modalsStore.toggleModal('RestaurantsModal')
 }
@@ -29,7 +27,7 @@ function toggleRestaurant () {
       <TitleBase class="restaurants-modal__title">Точки самовывоза</TitleBase>
       <div class="restaurants-modal__area">
         <div class="restaurants-modal__list">
-          <label class="restaurants-modal__label" v-for="(shop, index) in shops" :key="index">
+          <label class="restaurants-modal__label" v-for="(shop, index) in currentShops" :key="index">
             <div class="restaurants-modal__top">
               <InputBase
                 class="restaurants-modal__input"
@@ -57,7 +55,7 @@ function toggleRestaurant () {
           </label>
         </div>
         <div class="restaurants-modal__map">
-          <RestaurantsMap ref="restaurantsMapRef" />
+          <RestaurantsMap />
         </div>
       </div>
     </div>
@@ -157,10 +155,11 @@ function toggleRestaurant () {
 
 .restaurants-modal__map
   max-width: 400px
+  min-height: 400px
   width: 100%
   border-radius: $border-radius
   overflow: hidden
   @include media(md)
-    max-width: 100%
     height: 400px
+    max-width: 100%
 </style>

@@ -1,4 +1,4 @@
-import type { Shop } from '@/entities/Shop/model/types.ts'
+import type { Shop } from '@/entities/Delivery/model/types.ts'
 
 export function isShopOpen(shop: Shop): boolean {
   const timeStart = +shop.startTime.slice(0, 2) + +shop.startTime.slice(3, 5) / 100

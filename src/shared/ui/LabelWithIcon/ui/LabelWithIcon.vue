@@ -6,6 +6,7 @@ import IconSvg from "@/shared/ui/IconSvg.vue"
 import { usePhoneMask } from "@/shared/composables/usePhoneMask.ts"
 import InputBase from "@/shared/ui/InputBase.vue"
 import '@vuepic/vue-datepicker/dist/main.css'
+import type { Option } from '@/shared/ui/LabelWithIcon/model/types.ts'
 
 const props = defineProps({
   type: { type: String, required: true },
@@ -15,7 +16,7 @@ const props = defineProps({
   placeholder: { type: String },
   required: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
-  options: { type: Array<string> },
+  options: { type: Array<Option> },
 })
 
 const isOpen = ref(false)
@@ -69,6 +70,10 @@ function inputHandler (e: Event) {
   }
 }
 
+const selectedText = computed(() => {
+  return props.options?.find(option => option.value === model.value)?.text || ''
+})
+
 defineOptions({
   inheritAttrs: false
 })
@@ -78,6 +83,7 @@ defineOptions({
   <div :class="`label-with-icon ${className}`" @click="toggleSelect" v-click-outside="closeSelect">
     <IconSvg :name="props.icon" v-if="props.icon" class="label-with-icon__icon" :width="'18px'" :height="'18px'" />
     <div :class="`label-with-icon__box ${classNameLabelFieldBox}`">
+      <div class="label-with-icon__select-value" v-if="props.options?.length">{{selectedText}}</div>
       <InputBase
         class="label-with-icon__input"
         :type="props.type"
@@ -101,9 +107,9 @@ defineOptions({
       <span class="label-with-icon__note" v-if="props.note">{{props.note}}</span>
       <div class="label-with-icon__select" v-if="props.type === 'select'">
         <div
-          :class="model === option ? 'label-with-icon__select-option label-with-icon__select-option_active' : 'label-with-icon__select-option'"
-          v-for="(option, key) in props.options" :key="key" @click="(e: Event) => {e.stopPropagation(); setSelectValue(option)}">
-          {{ option }}
+          :class="model === option.value ? 'label-with-icon__select-option label-with-icon__select-option_active' : 'label-with-icon__select-option'"
+          v-for="(option, key) in props.options" :key="key" @click="(e: Event) => {e.stopPropagation(); setSelectValue(option.value)}">
+          {{ option.text }}
         </div>
       </div>
     </div>
@@ -122,6 +128,7 @@ defineOptions({
     cursor: pointer
     .label-with-icon__input
       cursor: pointer
+      color: transparent
   &_select-open
     .label-with-icon__select
       max-height: 999px
@@ -142,6 +149,14 @@ defineOptions({
   &_value-empty
     .label-with-icon__note
       transform: translateY(21px) scale(1)
+
+.label-with-icon__select-value
+  position: absolute
+  top: 32px
+  left: 50px
+  font-size: 16px
+  @include media(xs)
+    left: 40px
 
 .label-with-icon__input
   display: block

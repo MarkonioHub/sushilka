@@ -10,8 +10,10 @@ import { useCategoriesStore } from "@/entities/Categories/model/store.ts"
 import { useProductsStore } from "@/entities/Product/model/store.ts"
 import { useContentPagesStore } from "@/widgets/ContentPage/model/store.ts"
 import { useSliderOffersStore } from "@/widgets/SliderOffers/model/store.ts"
-import { useShopsStore } from "@/entities/Shop/model/store.ts"
+import { useDeliveryStore } from "@/entities/Delivery/model/store.ts"
 import MobileMenu from '@/widgets/MobileMenu/ui/MobileMenu.vue'
+import DeliveryModal from '@/widgets/DeliveryModal/ui/DeliveryModal.vue'
+import DeliveryCity from '@/entities/Delivery/ui/DeliveryCity.vue'
 
 const loading = ref(true)
 
@@ -25,8 +27,9 @@ async function loadData () {
   await storeContentPages.getContentPages()
   const storeSliderOffers = useSliderOffersStore()
   await storeSliderOffers.getSliderOffers()
-  const storeShops = useShopsStore()
-  await storeShops.getShops()
+  const storeDelivery = useDeliveryStore()
+  await storeDelivery.getShops()
+  await storeDelivery.getCities()
   loading.value = false
 }
 
@@ -46,6 +49,8 @@ loadData()
     <InfoMessages />
     <LoginModal />
     <MobileMenu />
+    <DeliveryModal />
+    <DeliveryCity />
   </template>
 </template>
 

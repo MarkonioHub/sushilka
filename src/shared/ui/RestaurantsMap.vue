@@ -1,22 +1,21 @@
 <script setup lang="ts">
-
-import type { LngLat } from '@yandex/ymaps3-types'
 import {
   YandexMap,
   YandexMapDefaultFeaturesLayer,
   YandexMapDefaultSchemeLayer, YandexMapMarker
 } from 'vue-yandex-maps'
 import { ref } from 'vue'
-import { useShopsStore } from '@/entities/Shop/model/store.ts'
-import { storeToRefs } from 'pinia'
-import type { Shop } from '@/entities/Shop/model/types.ts'
+import type { Shop } from '@/entities/Delivery/model/types.ts'
+import { useCurrentShops } from '@/shared/composables/useCurrentShops.ts'
+import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
+import type { LngLat } from '@yandex/ymaps3-types'
 
 defineExpose({ setMapCenter })
 
-const shopStore = useShopsStore()
-const { shops } = storeToRefs(shopStore)
+const { currentShops } = useCurrentShops()
+const { deliveryCity } = useDeliveryStore()
 
-const mapCenter = ref([49.643858, 58.565115])
+const mapCenter = ref(deliveryCity.coordinates || [49.6626242, 58.6012042])
 const zoom = ref(12)
 
 function setMapCenter (shop: Shop) {
@@ -30,8 +29,8 @@ function setMapCenter (shop: Shop) {
     :settings="{
       location: {
         center: mapCenter as LngLat,
-        zoom: zoom,
-      },
+        zoom: zoom
+      }
     }"
     width="100%"
     height="500px"
@@ -39,7 +38,7 @@ function setMapCenter (shop: Shop) {
     <yandex-map-default-scheme-layer />
     <yandex-map-default-features-layer />
     <yandex-map-marker
-      v-for="(point, index) in shops"
+      v-for="(point, index) in currentShops"
       :key="index"
       position="top-center left-center"
       :settings="point.marker"

@@ -1,13 +1,11 @@
-import { useShopsStore } from '@/entities/Shop/model/store.ts'
 import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
 import { computed } from 'vue'
 
 export function useUserDelivery () {
-  const shopsStore = useShopsStore()
   const deliveryStore = useDeliveryStore()
 
   const shop = computed(() => {
-    return shopsStore.getShop(deliveryStore.deliveryRestaurantId)
+    return deliveryStore.getShop(deliveryStore.deliveryRestaurantId)
   })
 
   const deliveryString = computed(() => {

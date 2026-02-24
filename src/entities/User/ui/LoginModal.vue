@@ -2,7 +2,7 @@
 import { ref } from "vue"
 import ModalCustom from "@/shared/ui/ModalCustom.vue"
 import ButtonBase from "@/shared/ui/ButtonBase.vue"
-import LabelWithIcon from "@/shared/ui/LabelWithIcon.vue"
+import LabelWithIcon from "@/shared/ui/LabelWithIcon/ui/LabelWithIcon.vue"
 const phone = ref('')
 </script>
 

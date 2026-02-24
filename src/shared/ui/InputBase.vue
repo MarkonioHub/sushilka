@@ -11,6 +11,7 @@ const props = defineProps({
   autocomplete: { type: String },
   checked: { type: Boolean, default: false },
 })
+
 const model = defineModel()
 
 const className = computed(() => {

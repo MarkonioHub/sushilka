@@ -11,6 +11,7 @@ export const useModalsStore = defineStore('modals',{
       { id: 'RestaurantsModal', status: false },
       { id: 'HomeModal', status: false },
       { id: 'ProductModal', status: false },
+      { id: 'DeliveryCity', status: false },
     ]
   }),
   actions: {

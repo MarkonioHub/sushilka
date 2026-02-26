@@ -6,11 +6,18 @@ import IconSvg from '@/shared/ui/IconSvg.vue'
 import ButtonBase from '@/shared/ui/ButtonBase.vue'
 import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
 import { storeToRefs } from 'pinia'
+import { useLangStore } from '@/widgets/LangModal/model/store.ts'
 const deliveryStore = useDeliveryStore()
 const { deliveryCity } = storeToRefs(deliveryStore)
+const langStore = useLangStore()
+const { currentLang } = storeToRefs(langStore)
 
 const city = computed(() => {
   return deliveryCity.value?.text
+})
+
+const lang = computed(() => {
+  return currentLang.value
 })
 
 const mobileMenu = [
@@ -22,7 +29,7 @@ const mobileMenu = [
   { text: 'Отзывы', icon: 'review', to: '/reviews' },
   { text: 'О нас', icon: 'about', to: '/about' },
   { text: 'Позвонить нам', icon: 'phone', href: 'tel:78332436436' },
-  { text: 'Русский', icon: 'lang', onClick: langHandler },
+  { text: lang, icon: 'lang', onClick: langHandler },
   { text: 'Скачать приложение', icon: 'app', href: '#', target: '_blank' },
 ]
 
@@ -38,6 +45,7 @@ function cityHandler () {
 
 function langHandler () {
   closeMenu()
+  modalsStore.toggleModal('LangModal')
 }
 
 function closeMenu () {
@@ -110,6 +118,7 @@ watch(isMobileMenuActive, () => {
   width: 216px
 
 .mobile-menu__link
+  width: 100%
   display: flex
   align-items: center
   gap: 20px

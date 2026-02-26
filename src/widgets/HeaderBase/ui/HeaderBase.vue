@@ -4,10 +4,13 @@ import ButtonBase from '@/shared/ui/ButtonBase.vue'
 import { useModalsStore } from "@/app/store/modals.ts"
 import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
 import { storeToRefs } from 'pinia'
+import { useLangStore } from '@/widgets/LangModal/model/store.ts'
 
 const modalsStore = useModalsStore()
 const deliveryStore = useDeliveryStore()
 const { deliveryCity } = storeToRefs(deliveryStore)
+const langStore = useLangStore()
+const { currentLang } = storeToRefs(langStore)
 </script>
 
 <template>
@@ -22,7 +25,6 @@ const { deliveryCity } = storeToRefs(deliveryStore)
             <ButtonBase :className="'button-underline'" @click="modalsStore.toggleModal('DeliveryCity')">
               <IconSvg
                 :name="'placemark'"
-                :className="'icon-orange-fill'"
                 :margin="'0 8px 0 0'"
                 :width="'16px'" :height="'16px'"
               />
@@ -31,14 +33,13 @@ const { deliveryCity } = storeToRefs(deliveryStore)
             </ButtonBase>
           </div>
           <div class="header__item">
-            <ButtonBase :className="'button-underline uppercase'">
+            <ButtonBase :className="'button-underline uppercase'" @click="modalsStore.toggleModal('LangModal')">
               <IconSvg
-                :name="'placemark'"
-                :className="'icon-orange-fill'"
+                :name="'lang'"
                 :margin="'0 8px 0 0'"
                 :width="'16px'" :height="'16px'"
               />
-              <span>ru</span>
+              <span>{{ currentLang }}</span>
             </ButtonBase>
           </div>
         </div>
@@ -49,7 +50,7 @@ const { deliveryCity } = storeToRefs(deliveryStore)
         <ButtonBase :className="'header__login button-underline'" @click="() => modalsStore.toggleModal('LoginModal')" >
           <IconSvg :name="'login'" :className="'icon-orange-fill'" :width="'32px'"
                    :height="'32px'" :margin="'0 10px 0 0'" />
-          <span>Войти</span>
+          <span>{{ $t('HeaderBase.login') }}</span>
         </ButtonBase>
       </div>
       <div class="header__mob">

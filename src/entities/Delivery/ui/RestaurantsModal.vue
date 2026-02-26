@@ -24,7 +24,7 @@ function toggleRestaurant () {
 <template>
   <ModalCustom :className="'modal-custom_restaurants'" :id="'RestaurantsModal'">
     <div class="restaurants-modal">
-      <TitleBase class="restaurants-modal__title">Точки самовывоза</TitleBase>
+      <TitleBase class="restaurants-modal__title">{{ $t('RestaurantsModal.title') }}</TitleBase>
       <div class="restaurants-modal__area">
         <div class="restaurants-modal__list">
           <label class="restaurants-modal__label" v-for="(shop, index) in currentShops" :key="index">

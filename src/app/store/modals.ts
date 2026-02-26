@@ -12,6 +12,7 @@ export const useModalsStore = defineStore('modals',{
       { id: 'HomeModal', status: false },
       { id: 'ProductModal', status: false },
       { id: 'DeliveryCity', status: false },
+      { id: 'LangModal', status: false },
     ]
   }),
   actions: {

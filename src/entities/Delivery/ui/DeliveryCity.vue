@@ -31,8 +31,8 @@ const citiesOptions = computed(() => {
 
 <template>
   <ModalCustom :className="'modal-custom_city'" :id="'DeliveryCity'">
-    <div class="modal-delivery-city">
-      <TitleBase>Выберите город</TitleBase>
+    <div class="delivery-city-modal">
+      <TitleBase>{{ $t('DeliveryCity.title') }}</TitleBase>
       <LabelWithIcon
         :type="'select'"
         :name="'city'"
@@ -43,15 +43,15 @@ const citiesOptions = computed(() => {
         v-model="city"
         :readonly="true"
       />
-      <ButtonBase @click="saveCity" :className="'button-orange button-orange_big'" class="modal-delivery-city__confirm">Ок</ButtonBase>
+      <ButtonBase @click="saveCity" :className="'button-orange button-orange_big'" class="delivery-city-modal__confirm">Ок</ButtonBase>
     </div>
   </ModalCustom>
 </template>
 
 <style scoped lang="sass">
-.modal-delivery-city
+.delivery-city-modal
   width: 100%
 
-.modal-delivery-city__confirm
+.delivery-city-modal__confirm
   margin-top: 20px
 </style>

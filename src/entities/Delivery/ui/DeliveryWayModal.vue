@@ -20,7 +20,7 @@ function openHomeModal () {
 <template>
   <ModalCustom :className="'modal-custom_delivery-way'" :id="'DeliveryWayModal'">
     <div class="delivery-way-modal">
-      <TitleBase class="delivery-way-modal__title">Здравствуйте! Выберите способ получения</TitleBase>
+      <TitleBase class="delivery-way-modal__title">{{ $t('DeliveryWayModal.title') }}</TitleBase>
       <div class="delivery-way-modal__area">
         <div class="delivery-way-modal__box delivery-way-modal__box_1" @click="openHomeModal">
           <IconSvg
@@ -29,7 +29,7 @@ function openHomeModal () {
             :width="'100px'"
             :height="'100px'"
           />
-          <div class="delivery-way-modal__button">Доставка</div>
+          <div class="delivery-way-modal__button">{{ $t('DeliveryWayModal.delivery') }}</div>
         </div>
         <div class="delivery-way-modal__box delivery-way-modal__box_2" @click="openRestaurantsModal">
           <IconSvg
@@ -38,7 +38,7 @@ function openHomeModal () {
             :width="'100px'"
             :height="'100px'"
           />
-          <div class="delivery-way-modal__button">Самовывоз</div>
+          <div class="delivery-way-modal__button">{{ $t('DeliveryWayModal.pickup') }}</div>
         </div>
       </div>
     </div>
@@ -46,6 +46,9 @@ function openHomeModal () {
 </template>
 
 <style lang="sass">
+.delivery-way-modal
+  width: 100%
+
 .delivery-way-modal__title
   text-align: center
 

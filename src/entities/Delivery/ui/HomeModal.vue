@@ -18,7 +18,7 @@ import { useModalsStore } from '@/app/store/modals.ts'
 import type { AddressOption } from '@/entities/Delivery/model/types'
 const modalsStore = useModalsStore()
 const deliveryStore = useDeliveryStore()
-const { deliveryAddress } = storeToRefs(deliveryStore)
+const { deliveryAddress, deliveryCity } = storeToRefs(deliveryStore)
 const mapCenter = ref([49.643858, 58.565115])
 const zoom = ref(12)
 const addressText = ref('')
@@ -55,7 +55,7 @@ function saveAddress () {
 
 watch(addressText, async (newSearchText) => {
   addressOptions.value = newSearchText ? (await ymaps3.search({
-    text: `${newSearchText}, Киров`,
+    text: `${newSearchText}, ${deliveryCity.value.text}`,
   })) as [] : []
 })
 
@@ -103,7 +103,7 @@ const createEvent = <T extends keyof typeof events, E = keyof (typeof events)[T]
 <template>
   <ModalCustom :className="'modal-custom_restaurants'" :id="'HomeModal'">
     <div class="home-modal">
-      <TitleBase class="home-modal__title">Укажите адрес доставки</TitleBase>
+      <TitleBase class="home-modal__title">{{ $t('HomeModal.title') }}</TitleBase>
       <LabelWithIcon
         class="home-modal__address"
         :type="'text'"

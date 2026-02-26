@@ -1,19 +1,22 @@
 <script setup lang="ts">
 import { ref } from "vue"
-import HeaderBase from '@/widgets/HeaderBase/ui/HeaderBase.vue'
-import FooterBase from '@/widgets/FooterBase/ui/FooterBase.vue'
-import InfoMessages from "@/widgets/InfoMessages/ui/InfoMessages.vue"
-import LoginModal from "@/entities/User/ui/LoginModal.vue"
-import SocialLine from "@/widgets/SocialLine/ui/SocialLine.vue"
-import LoaderBase from "@/shared/ui/LoaderBase.vue"
+
 import { useCategoriesStore } from "@/entities/Categories/model/store.ts"
 import { useProductsStore } from "@/entities/Product/model/store.ts"
 import { useContentPagesStore } from "@/widgets/ContentPage/model/store.ts"
 import { useSliderOffersStore } from "@/widgets/SliderOffers/model/store.ts"
 import { useDeliveryStore } from "@/entities/Delivery/model/store.ts"
+
+import HeaderBase from '@/widgets/HeaderBase/ui/HeaderBase.vue'
+import FooterBase from '@/widgets/FooterBase/ui/FooterBase.vue'
+import InfoMessages from "@/widgets/InfoMessages/ui/InfoMessages.vue"
+import SocialLine from "@/widgets/SocialLine/ui/SocialLine.vue"
+import LoginModal from "@/entities/User/ui/LoginModal.vue"
+import LoaderBase from "@/shared/ui/LoaderBase.vue"
 import MobileMenu from '@/widgets/MobileMenu/ui/MobileMenu.vue'
 import DeliveryModal from '@/widgets/DeliveryModal/ui/DeliveryModal.vue'
 import DeliveryCity from '@/entities/Delivery/ui/DeliveryCity.vue'
+import LangModal from '@/widgets/LangModal/ui/LangModal.vue'
 
 const loading = ref(true)
 
@@ -51,6 +54,7 @@ loadData()
     <MobileMenu />
     <DeliveryModal />
     <DeliveryCity />
+    <LangModal />
   </template>
 </template>
 

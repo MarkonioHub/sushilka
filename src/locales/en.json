@@ -1,0 +1,36 @@
+{
+  "LangModal": {
+    "title": "Select language"
+  },
+  "DeliveryLine": {
+    "delivery": "Delivery",
+    "pickup": "Pickup"
+  },
+  "HeaderBase": {
+    "login": "Login"
+  },
+  "MenuDesc": {
+    "home": "Home",
+    "stocks": "Stocks",
+    "reviews": "Reviews",
+    "vacancies": "Vacancies",
+    "about": "About"
+  },
+  "HomeModal": {
+    "title": "Enter your delivery address"
+  },
+  "RestaurantsModal": {
+    "title": "Pick-up points"
+  },
+  "DeliveryWayModal": {
+    "title": "Hello! Please select a delivery method.",
+    "delivery": "Delivery",
+    "pickup": "Pickup"
+  },
+  "LoginModal": {
+    "title": "Select authorization method"
+  },
+  "DeliveryCity": {
+    "title": "Select a city"
+  }
+}

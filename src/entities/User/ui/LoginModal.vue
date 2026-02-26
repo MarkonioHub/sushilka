@@ -9,7 +9,7 @@ const phone = ref('')
 <template>
   <ModalCustom :className="'modal-custom_vacancy'" :id="'LoginModal'">
     <div class="login-modal">
-      <h1 class="login-modal__caption">Выберите способ авторизации</h1>
+      <h1 class="login-modal__caption">{{ $t('LoginModal.title') }}</h1>
       <LabelWithIcon
         class="login-modal__label"
         :type="'tel'"
@@ -48,9 +48,10 @@ const phone = ref('')
   margin-bottom: 20px
 
 .login-modal__button
-  margin-bottom: 20px
+  margin-top: 20px
 
 .login-modal__policy
+  margin-top: 20px
   text-align: center
 
 .vacancy-modal__privacy-link

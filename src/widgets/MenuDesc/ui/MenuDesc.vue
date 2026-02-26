@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import ButtonBase from '@/shared/ui/ButtonBase.vue'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const props = defineProps({
   mod: String,
@@ -9,17 +11,23 @@ const props = defineProps({
 const className = computed(() => {
   return props.mod ? `menu-desc menu-desc_${props.mod}` : 'menu-desc'
 })
+
+const menu = [
+  { to: '/', text: computed(() => { return t('MenuDesc.home') }) },
+  { to: '/stocks', text: computed(() => { return t('MenuDesc.stocks') }) },
+  { to: '/reviews', text: computed(() => { return t('MenuDesc.reviews') }) },
+  { to: '/vacancies', text: computed(() => { return t('MenuDesc.vacancies') }) },
+  { to: '/about', text: computed(() => { return t('MenuDesc.about') }) },
+]
 </script>
 
 <template>
   <nav :class="className">
     <div class="cont">
       <nav class="menu-desc__nav">
-        <ButtonBase to="/" :className="'button-underline solid'">Главная</ButtonBase>
-        <ButtonBase to="/stocks" :className="'button-underline solid'">Акции</ButtonBase>
-        <ButtonBase to="/reviews" :className="'button-underline solid'">Отзывы</ButtonBase>
-        <ButtonBase to="/vacancies" :className="'button-underline solid'">Вакансии</ButtonBase>
-        <ButtonBase to="/about" :className="'button-underline solid'">О нас</ButtonBase>
+        <ButtonBase :to="item.to" :className="'button-underline solid'" v-for="(item, key) in menu" :key="key">
+          {{ item.text }}
+        </ButtonBase>
       </nav>
     </div>
   </nav>

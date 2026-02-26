@@ -27,7 +27,7 @@ const { deliveryString, deliveryNote } = useUserDelivery()
           <button
             :class="deliveryStore.deliveryRestaurantId ? 'delivery-line__type-btn' : 'delivery-line__type-btn active'"
           >
-            Доставка
+            {{ $t('DeliveryLine.delivery') }}
           </button>
           <button
             :class="deliveryStore.deliveryRestaurantId ? 'delivery-line__type-btn active' : 'delivery-line__type-btn'"
@@ -36,7 +36,7 @@ const { deliveryString, deliveryNote } = useUserDelivery()
               modalsStore.toggleModal('RestaurantsModal')
             }"
           >
-            Самовывоз
+            {{ $t('DeliveryLine.pickup') }}
           </button>
         </div>
       </div>

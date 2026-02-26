@@ -1,0 +1,36 @@
+{
+  "LangModal": {
+    "title": "Выберите язык"
+  },
+  "DeliveryLine": {
+    "delivery": "Доставка",
+    "pickup": "Самовывоз"
+  },
+  "HeaderBase": {
+    "login": "Войти"
+  },
+  "MenuDesc": {
+    "home": "Главная",
+    "stocks": "Акции",
+    "reviews": "Отзывы",
+    "vacancies": "Вакансии",
+    "about": "О нас"
+  },
+  "HomeModal": {
+    "title": "Укажите адрес доставки"
+  },
+  "RestaurantsModal": {
+    "title": "Точки самовывоза"
+  },
+  "DeliveryWayModal": {
+    "title": "Здравствуйте! Выберите способ получения",
+    "delivery": "Доставка",
+    "pickup": "Самовывоз"
+  },
+  "LoginModal": {
+    "title": "Выберите способ авторизации"
+  },
+  "DeliveryCity": {
+    "title": "Выберите город"
+  }
+}

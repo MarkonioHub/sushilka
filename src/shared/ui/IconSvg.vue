@@ -36,8 +36,7 @@ const Icon = defineAsyncComponent(() => import(`@/shared/assets/icons/${props.na
     fill: $grey
 
 .icon-orange-fill
-  *
-    fill: $orange
+  fill: $orange
 
 .icon-orange-stroke
   *

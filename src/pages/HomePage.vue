@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import SliderOffers from '@/widgets/SliderOffers/ui/SliderOffers.vue'
 import DeliveryLine from '@/widgets/DeliveryLine/ui/DeliveryLine.vue'
-import MenuDesc from '@/widgets/MenuDesc/ui/MenuDesc.vue'
+import MenuDesk from '@/widgets/MenuDesk/ui/MenuDesk.vue'
 import DeliveryList from '@/widgets/DeliveryList/ui/DeliveryList.vue'
 import CategoriesLine from '@/widgets/CategoriesLine/ui/CategoriesLine.vue'
 import ProductsTile from '@/widgets/ProductsTile/ui/ProductsTile.vue'
@@ -17,7 +17,7 @@ import HomeModal from '@/entities/Delivery/ui/HomeModal.vue'
 
 <template>
   <DeliveryLine />
-  <MenuDesc />
+  <MenuDesk />
   <SliderOffers />
   <DeliveryList />
   <CategoriesLine />

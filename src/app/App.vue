@@ -17,6 +17,7 @@ import MobileMenu from '@/widgets/MobileMenu/ui/MobileMenu.vue'
 import DeliveryModal from '@/widgets/DeliveryModal/ui/DeliveryModal.vue'
 import DeliveryCity from '@/entities/Delivery/ui/DeliveryCity.vue'
 import LangModal from '@/widgets/LangModal/ui/LangModal.vue'
+import WorkTimeModal from '@/widgets/WorkTimeModal/ui/WorkTimeModal.vue'
 
 const loading = ref(true)
 
@@ -55,6 +56,7 @@ loadData()
     <DeliveryModal />
     <DeliveryCity />
     <LangModal />
+    <WorkTimeModal />
   </template>
 </template>
 

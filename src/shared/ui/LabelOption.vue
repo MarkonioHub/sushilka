@@ -16,6 +16,7 @@ const selectedParam = defineModel()
       type="radio"
       :name="props.name"
       :value="props.text"
+      :checked="props.text === selectedParam"
       v-model="selectedParam"
     />
     <span class="label-option__view">{{ props.text }}</span>

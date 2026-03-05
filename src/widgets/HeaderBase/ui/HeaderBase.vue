@@ -27,6 +27,7 @@ const { currentLang } = storeToRefs(langStore)
                 :name="'placemark'"
                 :margin="'0 8px 0 0'"
                 :width="'16px'" :height="'16px'"
+                :className="'icon-orange-fill'"
               />
               <span v-if="deliveryCity?.text">{{ deliveryCity.text }}</span>
               <span v-else>Не выбрано</span>
@@ -38,6 +39,7 @@ const { currentLang } = storeToRefs(langStore)
                 :name="'lang'"
                 :margin="'0 8px 0 0'"
                 :width="'16px'" :height="'16px'"
+                :className="'icon-orange-fill'"
               />
               <span>{{ currentLang }}</span>
             </ButtonBase>
@@ -45,7 +47,7 @@ const { currentLang } = storeToRefs(langStore)
         </div>
         <a href="tel:78332436436" class="header__phone">
           +7(8332)436-436
-          <IconSvg :name="'phone'" :className="'header__phone-icon'" />
+          <IconSvg :name="'phone'" :className="'header__phone-icon icon-orange-fill'" />
         </a>
         <ButtonBase :className="'header__login button-underline'" @click="() => modalsStore.toggleModal('LoginModal')" >
           <IconSvg :name="'login'" :className="'icon-orange-fill'" :width="'32px'"
@@ -109,6 +111,12 @@ const { currentLang } = storeToRefs(langStore)
   display: flex
   align-items: center
 
+.header__item-city
+  fill: $orange
+
+.header__item-lang
+  fill: $orange
+
 .header__item-icon
   margin-right: 10px
   flex-shrink: 0
@@ -129,6 +137,7 @@ const { currentLang } = storeToRefs(langStore)
   @include media(md)
     margin: 0
     overflow: hidden
+    user-select: none
     width: 35px
     height: 35px
     position: absolute

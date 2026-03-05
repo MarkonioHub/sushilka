@@ -64,7 +64,7 @@ const deliveryText = computed(() => {
             <div class="basket-tile__name">К оплате:</div>
             <div class="basket-tile__value">{{ formatPrice(finalPrice) }}</div>
           </div>
-          <ButtonBase :className="'button-orange button-orange_big'">
+          <ButtonBase :to="'/checkout'" :className="'button-orange button-orange_big'">
             Оформить заказ
           </ButtonBase>
         </div>

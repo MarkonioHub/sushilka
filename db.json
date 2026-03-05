@@ -1234,9 +1234,7 @@
       "id": "e7dd"
     }
   ],
-  "vacancies-candidates": [
-
-  ],
+  "vacancies-candidates": [],
   "shops": [
     {
       "id": "1",
@@ -1245,7 +1243,10 @@
       "startTime": "11:00",
       "endTime": "23:00",
       "marker": {
-        "coordinates": [49.643858, 58.565115],
+        "coordinates": [
+          49.643858,
+          58.565115
+        ],
         "title": "Сушилка Ред"
       }
     },
@@ -1256,7 +1257,10 @@
       "startTime": "11:00",
       "endTime": "23:00",
       "marker": {
-        "coordinates": [49.591253, 58.596731],
+        "coordinates": [
+          49.591253,
+          58.596731
+        ],
         "title": "Сушилка Атлант"
       }
     },
@@ -1267,7 +1271,10 @@
       "startTime": "11:00",
       "endTime": "23:00",
       "marker": {
-        "coordinates": [49.668292, 58.590845],
+        "coordinates": [
+          49.668292,
+          58.590845
+        ],
         "title": "Сушилка Юбилейный"
       }
     },
@@ -1278,7 +1285,10 @@
       "startTime": "11:00",
       "endTime": "23:00",
       "marker": {
-        "coordinates": [49.6998691, 58.509076],
+        "coordinates": [
+          49.6998691,
+          58.509076
+        ],
         "title": "Сушилка Олимп"
       }
     }
@@ -1287,14 +1297,40 @@
     {
       "id": "kirov",
       "text": "Киров",
-      "shops": ["1","2","3"],
-      "coordinates": [49.6626242, 58.6012042]
+      "shops": [
+        "1",
+        "2",
+        "3"
+      ],
+      "coordinates": [
+        49.6626242,
+        58.6012042
+      ]
     },
     {
       "id": "novovyatsk",
       "text": "Нововятск",
-      "shops": ["4"],
-      "coordinates": [49.7198691, 58.509076]
+      "shops": [
+        "4"
+      ],
+      "coordinates": [
+        49.7198691,
+        58.509076
+      ]
+    }
+  ],
+  "orders": [
+    {
+      "id": "899c",
+      "name": "test",
+      "phone": "+7 (636) 363-37-73",
+      "email": "",
+      "pay": "Картой при получении",
+      "message": "",
+      "date": "",
+      "time": "",
+      "orderInTime": "",
+      "userId": ""
     }
   ]
 }

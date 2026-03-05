@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import ReviewsTile from "@/widgets/ReviewsTile/ui/ReviewsTile.vue"
-import MenuDesc from "@/widgets/MenuDesc/ui/MenuDesc.vue"
+import MenuDesk from "@/widgets/MenuDesk/ui/MenuDesk.vue"
 import SeoBox from "@/widgets/SeoBox/ui/SeoBox.vue"
 </script>
 
 <template>
-  <MenuDesc :mod="'sticky'" />
+  <MenuDesk :mod="'sticky'" />
   <ReviewsTile />
   <SeoBox
     :title="'Отзывы о Сушилке'",

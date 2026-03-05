@@ -80,6 +80,7 @@ function addProductInBasket () {
             :name="`product-modal-${product['id']}-param`"
             :text="param"
             :key=key
+            :checked="param === selectedParameter"
           />
         </div>
       </div>

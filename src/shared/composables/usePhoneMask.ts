@@ -1,7 +1,7 @@
 export function usePhoneMask (event: Event) {
   const input = event.target as HTMLInputElement
 
-  const prefixNumber = (str: String) => {
+  const prefixNumber = (str: string) => {
     if (str === "9") {
       return "7 (9"
     } else {
@@ -9,7 +9,7 @@ export function usePhoneMask (event: Event) {
     }
   }
 
-  let value = input.value.replace(/\D+/g, "")
+  const value = input.value.replace(/\D+/g, "")
   const numberLength = 11
   let result = "+"
 

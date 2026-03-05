@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import StockTile from "@/widgets/StockTile/ui/StockTile.vue"
 import SeoBox from "@/widgets/SeoBox/ui/SeoBox.vue"
-import MenuDesc from "@/widgets/MenuDesc/ui/MenuDesc.vue"
+import MenuDesk from "@/widgets/MenuDesk/ui/MenuDesk.vue"
 </script>
 
 <template>
-  <MenuDesc :mod="'sticky'" />
+  <MenuDesk :mod="'sticky'" />
   <StockTile />
   <SeoBox
     :title="'Акции от Сушилки'"

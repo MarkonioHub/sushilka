@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MenuDesc from "@/widgets/MenuDesc/ui/MenuDesc.vue"
+import MenuDesk from "@/widgets/MenuDesk/ui/MenuDesk.vue"
 import SeoBox from "@/widgets/SeoBox/ui/SeoBox.vue"
 import ButtonTop from "@/shared/ui/ButtonTop.vue"
 import PayInfo from "@/widgets/PayInfo/ui/PayInfo.vue"
@@ -8,7 +8,7 @@ import AboutInfo from "@/widgets/AboutInfo/ui/AboutInfo.vue"
 </script>
 
 <template>
-  <MenuDesc />
+  <MenuDesk />
   <AboutInfo />
   <InfoBox
     :title="'О компании'"

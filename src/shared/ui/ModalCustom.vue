@@ -70,6 +70,9 @@ function closeModal () {
     height: 100%
     vertical-align: middle
     margin-right: -4px
+  &_work-time
+    .modal-custom__area
+      max-width: 560px
   &_vacancy
     .modal-custom__area
       max-width: 560px

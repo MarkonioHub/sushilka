@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import MenuDesc from "@/widgets/MenuDesc/ui/MenuDesc.vue"
+import MenuDesk from "@/widgets/MenuDesk/ui/MenuDesk.vue"
 import NotFound from "@/widgets/NotFound/ui/NotFound.vue"
 </script>
 
 <template>
-  <MenuDesc />
+  <MenuDesk />
   <NotFound />
 </template>
 

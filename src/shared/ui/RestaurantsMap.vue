@@ -19,7 +19,10 @@ const mapCenter = ref(deliveryCity.coordinates || [49.6626242, 58.6012042])
 const zoom = ref(12)
 
 function setMapCenter (shop: Shop) {
-  mapCenter.value = shop.marker.coordinates as Array<number>
+  mapCenter.value = deliveryCity.coordinates || [49.6626242, 58.6012042]
+  setTimeout(() => {
+    mapCenter.value = shop.marker.coordinates as Array<number>
+  }, 10)
   zoom.value = 14
 }
 </script>

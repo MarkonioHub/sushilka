@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import VacancyContent from "@/widgets/VacancyContent/ui/VacancyContent.vue"
-import MenuDesc from "@/widgets/MenuDesc/ui/MenuDesc.vue"
+import MenuDesk from "@/widgets/MenuDesk/ui/MenuDesk.vue"
 import VacancyModal from "@/entities/Vacancies/ui/VacancyModal.vue"
 </script>
 
 <template>
-  <MenuDesc :mod="'sticky'" />
+  <MenuDesk :mod="'sticky'" />
   <VacancyContent />
   <VacancyModal />
 </template>

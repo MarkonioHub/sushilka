@@ -7,6 +7,7 @@ import { usePhoneMask } from "@/shared/composables/usePhoneMask.ts"
 import InputBase from "@/shared/ui/InputBase.vue"
 import '@vuepic/vue-datepicker/dist/main.css'
 import type { Option } from '@/shared/ui/LabelWithIcon/model/types.ts'
+import TextareaBase from '@/shared/ui/LabelWithIcon/TextareaBase.vue'
 
 const props = defineProps({
   type: { type: String, required: true },
@@ -17,17 +18,22 @@ const props = defineProps({
   required: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
   options: { type: Array<Option> },
+  maxLength: { type: Number, default: 200 },
+  className: { type: String },
 })
 
 const isOpen = ref(false)
 const model = defineModel()
 
-const className = computed(() => {
-  return `${classNameRequired.value} ${classNameType.value} ${classNameIsOpen.value}`
+const classNameFull = computed(() => {
+  return `${classNameRequired.value} ${classNameType.value} ${classNameIsOpen.value} ${classNameNoIcon.value} ${props.className}`
 })
 
 const classNameRequired = computed(() => {
   if (props.type === 'text' && props.required && !model.value) {
+    return 'label-with-icon_required'
+  }
+  if (props.type === 'select' && props.required && !model.value) {
     return 'label-with-icon_required'
   }
   if (props.type === 'tel' && props.required && (model.value as string).length !== 18) {
@@ -49,6 +55,10 @@ const classNameIsOpen = computed(() => {
 
 const classNameLabelFieldBox = computed(() => {
   return !model.value && props.type === 'date' ? `label-with-icon__box_value-empty` : ''
+})
+
+const classNameNoIcon = computed(() => {
+  return !props.icon ? `label-with-icon_no-icon` : ''
 })
 
 function toggleSelect () {
@@ -80,7 +90,7 @@ defineOptions({
 </script>
 
 <template>
-  <div :class="`label-with-icon ${className}`" @click="toggleSelect" v-click-outside="closeSelect">
+  <div :class="`label-with-icon ${classNameFull}`" @click="toggleSelect" v-click-outside="closeSelect">
     <IconSvg :name="props.icon" v-if="props.icon" class="label-with-icon__icon" :width="'18px'" :height="'18px'" />
     <div :class="`label-with-icon__box ${classNameLabelFieldBox}`">
       <div class="label-with-icon__select-value" v-if="props.options?.length">{{selectedText}}</div>
@@ -91,7 +101,7 @@ defineOptions({
         :note="props.note"
         :placeholder="placeholder"
         :readonly="props.readonly"
-        v-if="props.type !== 'date'"
+        v-if="props.type !== 'date' && props.type !== 'textarea'"
         @input="inputHandler"
         v-bind="$attrs"
         v-model="model"
@@ -104,7 +114,10 @@ defineOptions({
         :locale="ru"
         auto-apply
       />
-      <span class="label-with-icon__note" v-if="props.note">{{props.note}}</span>
+      <span class="label-with-icon__note" v-if="props.note">
+        {{props.note}}
+        <template v-if="props.type === 'textarea'"> - {{ 200 - (model as string).length }}</template>
+      </span>
       <div class="label-with-icon__select" v-if="props.type === 'select'">
         <div
           :class="model === option.value ? 'label-with-icon__select-option label-with-icon__select-option_active' : 'label-with-icon__select-option'"
@@ -113,6 +126,15 @@ defineOptions({
         </div>
       </div>
     </div>
+    <TextareaBase
+      v-if="props.type === 'textarea'"
+      :name="props.name"
+      :placeholder="placeholder"
+      :readonly="props.readonly"
+      :maxLength="props.maxLength"
+      v-model="model as string"
+      v-bind="$attrs"
+    />
   </div>
 </template>
 
@@ -132,6 +154,29 @@ defineOptions({
   &_select-open
     .label-with-icon__select
       max-height: 999px
+  &_textarea
+    display: flex
+    align-items: flex-start
+    flex-wrap: wrap
+    gap: 10px
+    .label-with-icon__icon
+      position: static
+      transform: none
+    .label-with-icon__note
+      position: static
+  &_no-icon
+    .label-with-icon__date .dp__input
+      padding-left: 0
+    .label-with-icon__input
+      padding-left: 0
+    .label-with-icon__select-value
+      left: 0
+    .label-with-icon__note
+      left: 0
+
+.label-with-icon_select.label-with-icon_required
+  .label-with-icon__input ~ .label-with-icon__note
+    transform: translateY(21px) scale(1)
 
 .label-with-icon__icon
   position: absolute

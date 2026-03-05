@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import MenuDesc from "@/widgets/MenuDesc/ui/MenuDesc.vue"
+import MenuDesk from "@/widgets/MenuDesk/ui/MenuDesk.vue"
 import SeoBox from "@/widgets/SeoBox/ui/SeoBox.vue"
 import VacanciesList from "@/widgets/VacanciesList/ui/VacanciesList.vue"
 </script>
 
 <template>
-  <MenuDesc :mod="'sticky'" />
+  <MenuDesk :mod="'sticky'" />
   <VacanciesList />
   <SeoBox
     :title="'Открытые вакансии в Сушилке'"

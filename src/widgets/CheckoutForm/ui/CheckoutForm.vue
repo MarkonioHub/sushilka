@@ -7,9 +7,11 @@ import ButtonBase from '@/shared/ui/ButtonBase.vue'
 import { sendData } from '@/shared/helpers/sendData.ts'
 import SwitchBase from '@/shared/ui/SwitchBase.vue'
 import { useRouter } from 'vue-router'
+import { useBasketStore } from '@/entities/Basket/model/store.ts'
 
 const router = useRouter()
 const isSending = ref(false)
+const basketStore = useBasketStore()
 
 const formDataInitial = {
   name: '',
@@ -27,7 +29,7 @@ const formData = reactive({ ...formDataInitial })
 
 const isValid = computed(() => {
   return formData.name
-    && formData.phone
+    && formData.phone && formData.phone.length === 18
     && formData.pay
     && (!formData.orderInTime || formData.orderInTime && formData.date && formData.time)
 })
@@ -36,8 +38,10 @@ async function submitForm () {
   isSending.value = true
   const response = await sendData('orders', formData)
   if (response) {
+    alert(`Заказ отправлен ${JSON.stringify(formData)}`)
     clearForm()
     isSending.value = false
+    basketStore.clearBasket()
     await router.push('/')
   }
 }
@@ -168,7 +172,10 @@ function clearForm () {
 
 <style scoped lang="sass">
 .checkout-form
+  margin-top: 40px
   margin-bottom: 40px
+  @include media(lg)
+    margin-top: 20px
 
 .checkout-form__area
   margin-bottom: 20px

@@ -16,17 +16,18 @@ import LabelOption from "@/shared/ui/LabelOption.vue"
 import ButtonBase from "@/shared/ui/ButtonBase.vue"
 
 import { useProductsStore } from "@/entities/Product/model/store.ts"
+import { useModalsStore } from '@/app/store/modals.ts'
 
 const props = defineProps({
   id: { type: String, required: true }
 })
 
 const storeCategory = useCategoriesStore()
-
 const basket = useBasketStore()
 const messageStore = useMessagesStore()
 const route = useRoute()
 const productsStore = useProductsStore()
+const modalsStore = useModalsStore()
 
 const product = computed(() => {
   return productsStore.getProductById(props.id)
@@ -97,7 +98,7 @@ async function saveLink () {
         <img :src="product?.image" alt="" class="product-card__image" />
       </RouterLink>
       <div class="product-card__buttons">
-        <div class="product-card__button">
+        <div class="product-card__button" @click="modalsStore.toggleModal('LoginModal')">
           <IconSvg :name="'heart'" :width="'16px'" :height="'16px'" />
         </div>
         <div class="product-card__button" @click="saveLink">

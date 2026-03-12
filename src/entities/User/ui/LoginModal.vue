@@ -1,9 +1,27 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { computed, ref } from 'vue'
 import ModalCustom from "@/shared/ui/ModalCustom.vue"
 import ButtonBase from "@/shared/ui/ButtonBase.vue"
 import LabelWithIcon from "@/shared/ui/LabelWithIcon/ui/LabelWithIcon.vue"
+import { useModalsStore } from '@/app/store/modals.ts'
 const phone = ref('')
+const modalsStore = useModalsStore()
+
+const isValid = computed(() => {
+  return phone.value && phone.value.length === 18
+})
+
+function loginWithPhone () {
+  alert(`Логин через телефон по номеру ${phone.value}`)
+  phone.value = ''
+  modalsStore.toggleModal("LoginModal")
+}
+
+function loginWithTg () {
+  alert(`Логин через телеграм по номеру ${phone.value}`)
+  phone.value = ''
+  modalsStore.toggleModal("LoginModal")
+}
 </script>
 
 <template>
@@ -20,8 +38,22 @@ const phone = ref('')
         :required="true"
         v-model="phone"
       />
-      <ButtonBase :href="'#'" :className="'button-red'" class="login-modal__button">телефон</ButtonBase>
-      <ButtonBase :href="'#'" :className="'button-blue'" class="login-modal__button">телеграм</ButtonBase>
+      <ButtonBase
+        :href="'#'"
+        :className="'button-red'"
+        :disabled="!isValid"
+        class="login-modal__button"
+        @click="loginWithPhone"
+      >
+        телефон
+      </ButtonBase>
+      <ButtonBase
+        :href="'#'"
+        :className="'button-blue'"
+        :disabled="!isValid"
+        class="login-modal__button"
+        @click="loginWithTg"
+      >телеграм</ButtonBase>
       <div class="login-modal__policy">
         Продолжая, вы даете согласие на обработку персональных данных и соглашаетесь с
         <RouterLink :to="`/content/agreement`" class="vacancy-modal__privacy-link">

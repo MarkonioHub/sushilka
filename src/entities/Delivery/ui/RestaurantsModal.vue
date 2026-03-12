@@ -16,7 +16,7 @@ const selectedRestaurant = defineModel()
 function toggleRestaurant () {
   deliveryStore.setDeliveryRestaurantId(selectedRestaurant.value as string)
   const shop = deliveryStore.getShop(selectedRestaurant.value as string)
-  deliveryStore.deliveryAddress = `${shop?.title} ${shop?.address}` || ''
+  deliveryStore.setDeliveryAddress(`${shop?.title} ${shop?.address}` || '')
   modalsStore.toggleModal('RestaurantsModal')
 }
 </script>

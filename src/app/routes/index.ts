@@ -1,4 +1,9 @@
-import { createWebHistory, createRouter, type RouterScrollBehavior } from 'vue-router'
+import {
+  createWebHistory,
+  createRouter,
+  type RouterScrollBehavior,
+} from 'vue-router'
+import { useAccessStore } from '@/app/store/access.ts'
 
 const HomePage = () => import('@/pages/HomePage.vue')
 const StocksPage = () => import('@/pages/StocksPage.vue')
@@ -118,6 +123,15 @@ router.beforeEach((to, from, next) => {
     document.title = 'Сеть удобных кафе Сушилка. Доставка еды, пиццы, роллов в Кирове.'
   }
   next()
+})
+
+router.beforeEach((to, from, next) => {
+  const { checkoutPageAccess } = useAccessStore()
+  if (to.path === '/checkout' && checkoutPageAccess || to.path !== '/checkout') {
+    next()
+  } else {
+    next('/')
+  }
 })
 
 export default router

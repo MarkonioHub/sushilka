@@ -7,14 +7,17 @@ import { useIsAtLeastOneShopOpen } from '@/shared/composables/useIsAtLeastOneSho
 const { isAtLeastOneShopOpen } = useIsAtLeastOneShopOpen()
 
 const modalsStore = useModalsStore()
-if (isAtLeastOneShopOpen.value) modalsStore.toggleModal('DeliveryWayModal')
+if (isAtLeastOneShopOpen && !sessionStorage.getItem('sushilka-is-delivery-way-modal-show')) {
+  modalsStore.toggleModal('DeliveryWayModal')
+  sessionStorage.setItem('sushilka-is-delivery-way-modal-show', 'true')
+}
 
-function openRestaurantsModal () {
+function openRestaurantsModal() {
   modalsStore.toggleModal('DeliveryWayModal')
   modalsStore.toggleModal('RestaurantsModal')
 }
 
-function openHomeModal () {
+function openHomeModal() {
   modalsStore.toggleModal('DeliveryWayModal')
   modalsStore.toggleModal('HomeModal')
 }
@@ -34,7 +37,10 @@ function openHomeModal () {
           />
           <div class="delivery-way-modal__button">{{ $t('DeliveryWayModal.delivery') }}</div>
         </div>
-        <div class="delivery-way-modal__box delivery-way-modal__box_2" @click="openRestaurantsModal">
+        <div
+          class="delivery-way-modal__box delivery-way-modal__box_2"
+          @click="openRestaurantsModal"
+        >
           <IconSvg
             :name="'delivery-way-home'"
             class="delivery-way-modal__icon"
@@ -58,6 +64,8 @@ function openHomeModal () {
 .delivery-way-modal__area
   display: flex
   gap: 20px
+  @include media(xs)
+    gap: 10px
 
 .delivery-way-modal__box
   width: calc(50% - 10px)
@@ -69,6 +77,9 @@ function openHomeModal () {
   padding: 20px
   gap: 20px
   cursor: pointer
+  @include media(xs)
+    padding: 5px
+    width: calc(50% - 5px)
   &:hover
     .delivery-way-modal__button
       background-color: $orange
@@ -92,4 +103,6 @@ function openHomeModal () {
   background-color: $grey
   color: $white
   transition: background-color $transition-duration
+  @include media(xs)
+    font-size: 14px
 </style>

@@ -58,6 +58,7 @@ function closeModal () {
 function addProductInBasket () {
   if (product.value) {
     basket.addProduct(product.value.id, selectedParameter.value, productCount.value)
+    modalsStore.toggleModal('ProductModal')
     closeModal()
   }
 }
@@ -87,7 +88,7 @@ function addProductInBasket () {
       <div class="product-modal__quantity">
         <div class="product-modal__quantity-box">
           <div class="product-modal__quantity-headline">Сумма</div>
-          <div class="product-modal__quantity-sum">{{ formatPrice(priceFull) }}</div>
+          <div class="product-modal__quantity-sum">{{ formatPrice(price) }}</div>
         </div>
         <div class="product-modal__quantity-box">
           <div class="product-modal__quantity-headline">Кол-во</div>

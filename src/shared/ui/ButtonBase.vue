@@ -12,24 +12,29 @@ const props = defineProps({
   <RouterLink
     :to="props.to"
     v-if="props.to"
-    :class="className"
+    :class="props.disabled ? `button-base ${className} disabled` : `button-base ${className}`"
   >
     <slot></slot>
   </RouterLink>
   <a
     :href="props.href"
     v-else-if="props.href"
-    :class="className"
+    :class="props.disabled ? `button-base ${className} disabled` : `button-base ${className}`"
     :target="props.target"
   >
     <slot></slot>
   </a>
-  <button v-else :class="className" :disabled="props.disabled">
+  <button v-else :class="`button-base ${className}`" :disabled="props.disabled">
     <slot></slot>
   </button>
 </template>
 
 <style lang="sass">
+.button-base
+  &.disabled
+    pointer-events: none
+    opacity: 0.3
+
 .button-orange
   display: flex
   align-items: center

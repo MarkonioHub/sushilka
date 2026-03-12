@@ -9,13 +9,19 @@ import ButtonBase from "@/shared/ui/ButtonBase.vue"
 import { storeToRefs } from "pinia"
 import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
 import { computed } from 'vue'
+import { useAccessStore } from '@/app/store/access.ts'
+import { useRouter } from 'vue-router'
+import { useModalsStore } from '@/app/store/modals.ts'
 
 const basket = useBasketStore()
 const { productsBasket } = storeToRefs(basket)
 const { priceFull } = usePriceFull()
 
 const deliveryStore = useDeliveryStore()
-const { deliveryCost, deliveryFree } = storeToRefs(deliveryStore)
+const { deliveryCost, deliveryFree, deliveryAddress } = storeToRefs(deliveryStore)
+const accessStore = useAccessStore()
+const modalsStore = useModalsStore()
+const router = useRouter()
 
 const deliveryPrice = computed(() => {
   if (+priceFull.value > +deliveryFree.value) {
@@ -36,6 +42,15 @@ const deliveryText = computed(() => {
     return formatPrice(deliveryPrice.value)
   }
 })
+
+function goCheckoutPage () {
+  if (deliveryAddress.value) {
+    accessStore.checkoutPageAccess = true
+    router.push('/checkout')
+  } else {
+    modalsStore.toggleModal('DeliveryWayModal')
+  }
+}
 </script>
 
 <template>
@@ -64,8 +79,14 @@ const deliveryText = computed(() => {
             <div class="basket-tile__name">К оплате:</div>
             <div class="basket-tile__value">{{ formatPrice(finalPrice) }}</div>
           </div>
-          <ButtonBase :to="'/checkout'" :className="'button-orange button-orange_big'">
-            Оформить заказ
+          <ButtonBase
+            :className="'button-orange button-orange_big'"
+            class="basket-tile__order"
+            @click="goCheckoutPage"
+            :disabled="priceFull < 400"
+          >
+            <template v-if="priceFull < 400">Минимальная сумма заказа 400</template>
+            <template v-else>Оформить заказ</template>
           </ButtonBase>
         </div>
       </div>
@@ -140,5 +161,9 @@ const deliveryText = computed(() => {
   @include media(sm)
     font-size: 16px
     line-height: 20px
+
+.basket-tile__order
+  @include media(xs)
+    font-size: 14px
 
 </style>

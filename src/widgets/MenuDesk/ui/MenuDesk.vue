@@ -42,7 +42,7 @@ const menu = [
   padding: 20px 0
   &_sticky
     position: sticky
-    z-index: 1
+    z-index: 2
     top: 0
     background-color: #fff
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.05)

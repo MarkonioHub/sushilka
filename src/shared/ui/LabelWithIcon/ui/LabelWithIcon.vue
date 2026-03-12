@@ -7,7 +7,7 @@ import { usePhoneMask } from "@/shared/composables/usePhoneMask.ts"
 import InputBase from "@/shared/ui/InputBase.vue"
 import '@vuepic/vue-datepicker/dist/main.css'
 import type { Option } from '@/shared/ui/LabelWithIcon/model/types.ts'
-import TextareaBase from '@/shared/ui/LabelWithIcon/TextareaBase.vue'
+import TextareaBase from '@/shared/ui/TextareaBase.vue'
 
 const props = defineProps({
   type: { type: String, required: true },

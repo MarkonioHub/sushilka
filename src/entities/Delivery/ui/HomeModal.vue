@@ -18,7 +18,7 @@ import { useModalsStore } from '@/app/store/modals.ts'
 import type { AddressOption } from '@/entities/Delivery/model/types'
 const modalsStore = useModalsStore()
 const deliveryStore = useDeliveryStore()
-const { deliveryAddress, deliveryCity } = storeToRefs(deliveryStore)
+const { deliveryCity } = storeToRefs(deliveryStore)
 const mapCenter = ref([49.643858, 58.565115])
 const zoom = ref(12)
 const addressText = ref('')
@@ -47,7 +47,7 @@ function setAddress (addressOption: any) {
 
 function saveAddress () {
   if (addressCoordinates.value) {
-    deliveryAddress.value = addressText.value
+    deliveryStore.setDeliveryAddress(addressText.value)
     deliveryStore.setDeliveryRestaurantId('')
     modalsStore.toggleModal('HomeModal')
   }

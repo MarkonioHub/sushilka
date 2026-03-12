@@ -30,13 +30,14 @@ const formDataInitial = {
 const formData = reactive({ ...formDataInitial })
 
 const isValid = computed(() => {
-  return formData.name && formData.phone && formData.date
+  return formData.name && formData.phone && formData.phone.length === 18 && formData.date
 })
 
 async function submitForm () {
   isSending.value = true
   const response = await sendData('vacancies-candidates', formData)
   if (response) {
+    alert(`Заявка на вакансию ${route.params.vacancySlug} отправлена ${JSON.stringify(formData)}`)
     clearForm()
     isSending.value = false
     modalsStore.toggleModal('VacancyModal')

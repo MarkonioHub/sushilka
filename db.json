@@ -1234,7 +1234,36 @@
       "id": "e7dd"
     }
   ],
-  "vacancies-candidates": [],
+  "vacancies-candidates": [
+    {
+      "id": "b7b1",
+      "name": "35",
+      "phone": "+7 (5",
+      "date": "2026-03-11T07:19:00.000Z",
+      "gender": "Мужчина",
+      "education": "Высшее образование",
+      "email": "",
+      "message": "",
+      "messengers": [],
+      "imagePreview": "",
+      "vacancy": "administrator"
+    },
+    {
+      "id": "f72d",
+      "name": "test",
+      "phone": "+7 (636) 363-63-63",
+      "date": "2026-03-13T07:27:00.000Z",
+      "gender": "Мужчина",
+      "education": "Высшее образование",
+      "email": "test@test.ru",
+      "message": "eges se sese se s",
+      "messengers": [
+        "vk"
+      ],
+      "imagePreview": "",
+      "vacancy": "administrator"
+    }
+  ],
   "shops": [
     {
       "id": "1",
@@ -1327,6 +1356,42 @@
       "email": "",
       "pay": "Картой при получении",
       "message": "",
+      "date": "",
+      "time": "",
+      "orderInTime": "",
+      "userId": ""
+    },
+    {
+      "id": "95b5",
+      "name": "test",
+      "phone": "+7 (888) 888-88-88",
+      "email": "test@test.ru",
+      "pay": "Картой при получении",
+      "message": "segg",
+      "date": "",
+      "time": "",
+      "orderInTime": "",
+      "userId": ""
+    },
+    {
+      "id": "518a",
+      "name": "tet",
+      "phone": "+7 (477) 477-47-47",
+      "email": "",
+      "pay": "Картой онлайн",
+      "message": "",
+      "date": "",
+      "time": "",
+      "orderInTime": "",
+      "userId": ""
+    },
+    {
+      "id": "a84f",
+      "name": "test",
+      "phone": "+7 (663) 636-36-36",
+      "email": "test@test.ru",
+      "pay": "Картой при получении",
+      "message": "rrhdrh",
       "date": "",
       "time": "",
       "orderInTime": "",

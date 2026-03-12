@@ -9,6 +9,7 @@ export function useIsAtLeastOneShopOpen () {
   const isAtLeastOneShopOpen = computed(() => {
     let result = false
     deliveryStore.shops.forEach((shop: Shop) => {
+      console.log(isShopOpen(shop))
       if (isShopOpen(shop)) result = true
     })
     return result

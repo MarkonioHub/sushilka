@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
 import type { Basket } from "@/entities/Basket/model/types.ts"
+import { getLocalStorageItem } from '@/shared/helpers/getLocalStorageItem.ts'
 
 export const useBasketStore = defineStore('Basket', {
   state: (): Basket => ({
-    productsBasket: JSON.parse(localStorage.getItem('sushilka-basket') || "[]") || []
+    productsBasket: getLocalStorageItem('sushilka-basket') || []
   }),
   getters: {
     productsQuantity : (state) => {
@@ -11,6 +12,10 @@ export const useBasketStore = defineStore('Basket', {
     }
   },
   actions: {
+    clearBasket() {
+      localStorage.setItem('sushilka-basket', '[]')
+      this.productsBasket = []
+    },
     addProduct(id: string, selectedParameter: string | undefined, quantity: number, replaceQuantity: boolean = false) {
       const product = this.productsBasket.find((product) => product.id === id && product.selectedParameter === selectedParameter)
       if (product) {

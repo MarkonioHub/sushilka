@@ -6,7 +6,7 @@ import { useModalsStore } from '@/app/store/modals.ts'
 import { useIsAtLeastOneShopOpen } from '@/shared/composables/useIsAtLeastOneShopOpen.ts'
 const { isAtLeastOneShopOpen } = useIsAtLeastOneShopOpen()
 const modalsStore = useModalsStore()
-if (!isAtLeastOneShopOpen.value) modalsStore.toggleModal('WorkTimeModal')
+if (!isAtLeastOneShopOpen) modalsStore.toggleModal('WorkTimeModal')
 </script>
 
 <template>

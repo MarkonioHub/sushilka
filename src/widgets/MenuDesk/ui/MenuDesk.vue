@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ButtonBase from '@/shared/ui/ButtonBase.vue'
+import { ButtonBase } from '@/shared/ui'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import BasketSmall from '@/entities/Basket/ui/BasketSmall.vue'

@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import TitleBase from '@/shared/ui/TitleBase.vue'
-import ModalCustom from '@/shared/ui/ModalCustom.vue'
-import ButtonBase from '@/shared/ui/ButtonBase.vue'
-import LabelWithIcon from '@/shared/ui/LabelWithIcon/ui/LabelWithIcon.vue'
+import { TitleBase } from '@/shared/ui'
+import { ModalCustom } from '@/shared/ui'
+import { ButtonBase } from '@/shared/ui'
+import LabelWithIcon from '@/shared/ui/LabelWithIcon.vue'
 import { computed, ref } from 'vue'
-import { useModalsStore } from '@/app/store/modals.ts'
-import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
+import { useModalsStore } from '@/shared/store'
+import { useDeliveryStore } from '@/entities/Delivery'
 import { storeToRefs } from 'pinia'
-import type { City } from '@/entities/Delivery/model/types.ts'
-import type { Option } from '@/shared/ui/LabelWithIcon/model/types.ts'
+import type { City } from '@/entities/Delivery'
+import type { Option } from '@/shared/store'
 
 const modalsStore = useModalsStore()
 const deliveryStore = useDeliveryStore()
 const { deliveryCity, cities } = storeToRefs(deliveryStore)
 const city = ref(deliveryCity.value.id || '')
 
-function saveCity () {
+function saveCity() {
   modalsStore.toggleModal('DeliveryCity')
   deliveryStore.setDeliveryCity(city.value)
 }
@@ -23,7 +23,7 @@ function saveCity () {
 const citiesOptions = computed(() => {
   const temp = [] as Array<Option>
   cities.value.forEach((item: City) => {
-    temp.push({text:item.text, value:item.id})
+    temp.push({ text: item.text, value: item.id })
   })
   return temp
 })
@@ -43,7 +43,12 @@ const citiesOptions = computed(() => {
         v-model="city"
         :readonly="true"
       />
-      <ButtonBase @click="saveCity" :className="'button-orange button-orange_big'" class="delivery-city-modal__confirm">Ок</ButtonBase>
+      <ButtonBase
+        @click="saveCity"
+        :className="'button-orange button-orange_big'"
+        class="delivery-city-modal__confirm"
+        >Ок</ButtonBase
+      >
     </div>
   </ModalCustom>
 </template>

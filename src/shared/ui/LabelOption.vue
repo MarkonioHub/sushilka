@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import InputBase from '@/shared/ui/InputBase.vue'
+import { InputBase } from '@/shared/ui'
 
 const props = defineProps({
   text: { type: String, required: true },

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import ModalCustom from '@/shared/ui/ModalCustom.vue'
-import TitleBase from '@/shared/ui/TitleBase.vue'
-import ButtonBase from '@/shared/ui/ButtonBase.vue'
-import { useModalsStore } from '@/app/store/modals.ts'
-import { useIsAtLeastOneShopOpen } from '@/shared/composables/useIsAtLeastOneShopOpen.ts'
+import { ModalCustom } from '@/shared/ui'
+import { TitleBase } from '@/shared/ui'
+import { ButtonBase } from '@/shared/ui'
+import { useModalsStore } from '@/shared/store'
+import { useIsAtLeastOneShopOpen } from '@/entities/Delivery'
 const { isAtLeastOneShopOpen } = useIsAtLeastOneShopOpen()
 const modalsStore = useModalsStore()
 if (!isAtLeastOneShopOpen) modalsStore.toggleModal('WorkTimeModal')

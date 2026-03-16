@@ -3,14 +3,14 @@ import { computed } from 'vue'
 
 import type { ProductBasket } from '@/entities/Basket/model/types.ts'
 
-import { useProductsStore } from '@/entities/Product/model/store.ts'
-import { usePriceByParams } from '@/shared/composables/usePriceByParams.ts'
-import { formatPrice } from '@/shared/helpers/formatPrice.ts'
-import { useBasketStore } from '@/entities/Basket/model/store.ts'
+import { useProductsStore } from "@/entities/Product/@x/Basket"
+import { usePriceByParams } from "@/entities/Product/@x/Basket"
+import { formatPrice } from '@/shared/lib'
+import { useBasketStore } from '@/entities/Basket'
 import { storeToRefs } from 'pinia'
 
-import ProductCounter from '@/shared/ui/ProductCounter.vue'
-import IconSvg from '@/shared/ui/IconSvg.vue'
+import { ProductCounter } from '@/shared/ui'
+import { IconSvg } from '@/shared/ui'
 
 const props = defineProps<{
   productBasket: ProductBasket
@@ -51,7 +51,12 @@ const productCount = computed({
 })
 
 const price = computed(() => {
-  return usePriceByParams(product.value, selectedParameter.value || '') * productCount.value
+  const usePrice = usePriceByParams(product.value, selectedParameter.value || '') || false
+  if (usePrice) {
+    return +usePrice * productCount.value
+  } else {
+    return ''
+  }
 })
 
 const cardName = computed(() => {

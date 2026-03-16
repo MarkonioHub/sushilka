@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import ModalCustom from '@/shared/ui/ModalCustom.vue'
-import TitleBase from '@/shared/ui/TitleBase.vue'
-import RestaurantsMap from '@/shared/ui/RestaurantsMap.vue'
-import { isShopOpen } from "@/shared/helpers/isShopOpen.ts"
-import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
-import InputBase from '@/shared/ui/InputBase.vue'
-import { useModalsStore } from '@/app/store/modals.ts'
-import { useCurrentShops } from '@/shared/composables/useCurrentShops.ts'
+import { ModalCustom } from '@/shared/ui'
+import { TitleBase } from '@/shared/ui'
+import { RestaurantsMap } from '@/entities/Delivery'
+import { isShopOpen } from '@/entities/Delivery'
+import { useDeliveryStore } from '@/entities/Delivery'
+import { InputBase } from '@/shared/ui'
+import { useModalsStore } from '@/shared/store'
+import { useCurrentShops } from '@/entities/Delivery'
 
 const modalsStore = useModalsStore()
 const deliveryStore = useDeliveryStore()
 const { currentShops } = useCurrentShops()
 const selectedRestaurant = defineModel()
 
-function toggleRestaurant () {
+function toggleRestaurant() {
   deliveryStore.setDeliveryRestaurantId(selectedRestaurant.value as string)
   const shop = deliveryStore.getShop(selectedRestaurant.value as string)
   deliveryStore.setDeliveryAddress(`${shop?.title} ${shop?.address}` || '')
@@ -27,7 +27,11 @@ function toggleRestaurant () {
       <TitleBase class="restaurants-modal__title">{{ $t('RestaurantsModal.title') }}</TitleBase>
       <div class="restaurants-modal__area">
         <div class="restaurants-modal__list">
-          <label class="restaurants-modal__label" v-for="(shop, index) in currentShops" :key="index">
+          <label
+            class="restaurants-modal__label"
+            v-for="(shop, index) in currentShops"
+            :key="index"
+          >
             <div class="restaurants-modal__top">
               <InputBase
                 class="restaurants-modal__input"
@@ -39,11 +43,13 @@ function toggleRestaurant () {
                 @change="toggleRestaurant"
               />
               <div class="restaurants-modal__input-view"></div>
-              <div class="restaurants-modal__name">{{shop.title}}</div>
+              <div class="restaurants-modal__name">{{ shop.title }}</div>
               <div
                 :class="
-                isShopOpen(shop) ? 'restaurants-modal__shop-work green' : 'restaurants-modal__shop-work red'
-              "
+                  isShopOpen(shop)
+                    ? 'restaurants-modal__shop-work green'
+                    : 'restaurants-modal__shop-work red'
+                "
               >
                 {{ shop.startTime }} - {{ shop.endTime }}
                 <br />
@@ -51,7 +57,7 @@ function toggleRestaurant () {
                 <template v-else>Закрыто</template>
               </div>
             </div>
-            <div class="restaurants-modal__address">{{shop.address}}</div>
+            <div class="restaurants-modal__address">{{ shop.address }}</div>
           </label>
         </div>
         <div class="restaurants-modal__map">

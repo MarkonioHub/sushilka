@@ -1,0 +1,17 @@
+import { createI18n } from 'vue-i18n'
+
+import ru from '@/locales/ru.json'
+import en from '@/locales/en.json'
+
+const messages = {
+  ru: ru,
+  en: en
+}
+
+const i18n = createI18n({
+  locale: localStorage.getItem('sushilka-lang') || navigator.language || 'ru',
+  fallbackLocale: localStorage.getItem('sushilka-lang') || navigator.language || 'ru',
+  messages
+});
+
+export default i18n

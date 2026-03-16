@@ -1,62 +1,53 @@
 <script setup lang="ts">
-import {computed, ref, watch} from "vue"
-import { formatPrice } from "@/shared/helpers/formatPrice"
-import { useRoute } from "vue-router"
+import { computed, type PropType } from 'vue'
+import { formatPrice } from '@/shared/lib'
+import { useRoute } from 'vue-router'
+import { useParamsListClassMod } from '@/shared/composables'
+import { usePriceByParams } from "../composables/usePriceByParams.ts"
+import { useMessagesStore } from '@/shared/store'
+import { useCategoriesStore } from '@/entities/Category/@x/Product'
+import { useBasketStore } from '@/entities/Basket/@x/Product'
+import { useModalsStore } from '@/shared/store'
+import type { Product } from '@/entities/Product/model/types.ts'
 
-import { useParamsListClassMod } from '@/shared/composables/useParamsListClassMod'
-import { usePriceByParams } from "@/shared/composables/usePriceByParams.ts"
-
-import { useMessagesStore } from "@/widgets/InfoMessages/model/store.ts"
-import { useCategoriesStore } from "@/entities/Categories/model/store"
-import { useBasketStore } from "@/entities/Basket/model/store.ts"
-
-import IconSvg from "@/shared/ui/IconSvg.vue"
-import ProductCounter from "@/shared/ui/ProductCounter.vue"
-import LabelOption from "@/shared/ui/LabelOption.vue"
-import ButtonBase from "@/shared/ui/ButtonBase.vue"
-
-import { useProductsStore } from "@/entities/Product/model/store.ts"
-import { useModalsStore } from '@/app/store/modals.ts'
+import { IconSvg } from '@/shared/ui'
+import ProductCounter from '@/shared/ui/ProductCounter.vue'
+import LabelOption from '@/shared/ui/LabelOption.vue'
+import { ButtonBase } from '@/shared/ui'
 
 const props = defineProps({
-  id: { type: String, required: true }
+  product: { type: Object as PropType<Product>, required: true },
 })
 
 const storeCategory = useCategoriesStore()
 const basket = useBasketStore()
 const messageStore = useMessagesStore()
 const route = useRoute()
-const productsStore = useProductsStore()
 const modalsStore = useModalsStore()
 
-const product = computed(() => {
-  return productsStore.getProductById(props.id)
-})
-
-let selectedParameter = ref(product.value?.parameters[0])
-watch(() => props.id, () => {
-  selectedParameter = ref(product.value?.parameters[0])
+const selectedParameter = computed(() => {
+  return props.product?.parameters[0]
 })
 
 const paramsListClassMod = computed(() => {
-  return useParamsListClassMod(product.value?.parameters || [])
+  return useParamsListClassMod(props.product?.parameters || [])
 })
 
-const price = computed( () => {
-  return usePriceByParams(product.value, selectedParameter.value || '')
+const price = computed(() => {
+  return usePriceByParams(props.product, selectedParameter.value || '')
 })
 
-const productQuantity = computed( {
+const productQuantity = computed({
   get() {
-    return basket.getProductQuantity(props.id, selectedParameter.value || '') || 0
+    return basket.getProductQuantity(props.product.id, selectedParameter.value || '') || 0
   },
   set(newValue) {
     if (newValue > 0) {
-      basket.addProduct(product.value?.id || '', selectedParameter.value, newValue, true)
+      basket.addProduct(props.product?.id || '', selectedParameter.value, newValue, true)
     } else {
-      basket.removeProduct(product.value?.id || '', selectedParameter.value)
+      basket.removeProduct(props.product?.id || '', selectedParameter.value)
     }
-  }
+  },
 })
 
 const categorySlug = computed(() => {
@@ -64,14 +55,14 @@ const categorySlug = computed(() => {
 })
 
 const productPath = computed(() => {
-   return `/catalog/${categorySlug.value}/${product.value?.slug}`
+  return `/catalog/${categorySlug.value}/${props.product?.slug}`
 })
 
-function addProductInBasket () {
-  if (product.value) basket.addProduct(product.value.id, selectedParameter.value, 1)
+function addProductInBasket() {
+  if (props.product) basket.addProduct(props.product.id, selectedParameter.value, 1)
 }
 
-async function saveLink () {
+async function saveLink() {
   try {
     await navigator.clipboard.writeText(`${window.location.origin}${productPath.value}`)
   } catch (err) {
@@ -84,10 +75,10 @@ async function saveLink () {
 <template>
   <div class="product-card">
     <div class="product-card__top">
-      <div class="product-card__tags" v-if="product?.tags">
+      <div class="product-card__tags" v-if="props.product?.tags">
         <div
           class="product-card__tag"
-          v-for="(tag, index) in product?.tags"
+          v-for="(tag, index) in props.product?.tags"
           :key="index"
           :style="`background-color: ${tag.background}; color: ${tag.color}`"
         >
@@ -95,7 +86,7 @@ async function saveLink () {
         </div>
       </div>
       <RouterLink :to="productPath" class="product-card__picture">
-        <img :src="product?.image" alt="" class="product-card__image" />
+        <img :src="props.product?.image" alt="" class="product-card__image" />
       </RouterLink>
       <div class="product-card__buttons">
         <div class="product-card__button" @click="modalsStore.toggleModal('LoginModal')">
@@ -107,36 +98,35 @@ async function saveLink () {
       </div>
     </div>
     <RouterLink :to="productPath" class="product-card__inner">
-      <div class="product-card__name">{{ product?.name }}</div>
-      <div class="product-card__description" v-html="product?.description"></div>
+      <div class="product-card__name">{{ props.product?.name }}</div>
+      <div class="product-card__description" v-html="props.product?.description"></div>
     </RouterLink>
     <div class="product-card__bottom">
       <div class="product-card__params">
-        <div class="product-card__param-single" v-if="product?.parameterSingle">
-          {{ product?.parameterSingle }}
+        <div class="product-card__param-single" v-if="props.product?.parameterSingle">
+          {{ props.product?.parameterSingle }}
         </div>
-        <div :class="`product-card__params-list ${paramsListClassMod}`" v-else-if="product?.parameters">
+        <div
+          :class="`product-card__params-list ${paramsListClassMod}`"
+          v-else-if="props.product?.parameters"
+        >
           <LabelOption
-            v-for="(param, key) in product?.parameters"
+            v-for="(param, key) in props.product?.parameters"
             v-model="selectedParameter"
-            :name="`product-${product?.id}-param`"
+            :name="`product-${props.product?.id}-param`"
             :text="param"
-            :key=key
+            :key="key"
           />
         </div>
-        <ButtonBase
-          :className="'button-orange'"
-          :to="productPath"
-          class="product-card__params-btn"
-        >
+        <ButtonBase :className="'button-orange'" :to="productPath" class="product-card__params-btn">
           Опции
         </ButtonBase>
       </div>
       <div class="product-card__line">
-        <div class="product-card__price">{{ formatPrice(price) }}</div>
+        <div class="product-card__price">{{ formatPrice(price || '') }}</div>
         <ProductCounter
           v-if="productQuantity"
-          :name="`product-card-counter-${props.id}`"
+          :name="`product-card-counter-${props.product.id}`"
           v-model="productQuantity"
           :minValue="0"
         />

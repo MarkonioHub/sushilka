@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue'
-import IconSvg from "@/shared/ui/IconSvg.vue"
-import ModalLayer from '@/shared/ui/ModalLayer.vue'
-import { useModalsStore } from '@/app/store/modals.ts'
+import { IconSvg } from '@/shared/ui'
+import { ModalLayer } from '@/shared/ui'
+import { useModalsStore } from '@/shared/store'
 
 const props = defineProps({
   className: { type: String, default: '' },
@@ -29,11 +29,10 @@ watch(isModalActive, (newValue) => {
   }
 })
 
-function closeModal () {
+function closeModal() {
   emit('close')
   modalsStore.toggleModal(props.id)
 }
-
 </script>
 
 <template>
@@ -45,7 +44,8 @@ function closeModal () {
           :name="'close'"
           class="modal-custom__close"
           @click="closeModal"
-          :width="'24px'" :height="'24px'"
+          :width="'24px'"
+          :height="'24px'"
         />
         <slot></slot>
       </div>

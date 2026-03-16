@@ -7,8 +7,8 @@ import router from './routes'
 const pinia = createPinia()
 
 import './styles/index.sass'
-import vClickOutside from "@/shared/directives/click-outside.ts"
-import i18n from '@/app/i18n.ts'
+import { vClickOutside } from '@/shared/directives'
+import { i18n } from '@/shared/store'
 
 const app = createApp(App)
 app.directive('click-outside', vClickOutside)

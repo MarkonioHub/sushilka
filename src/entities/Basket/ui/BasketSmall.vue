@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { formatPrice } from '@/shared/helpers/formatPrice.ts'
+import { formatPrice } from '@/shared/lib'
 import { computed } from 'vue'
-import { usePriceFull } from '@/shared/composables/useBasketPrice.ts'
-import IconSvg from '@/shared/ui/IconSvg.vue'
+import { usePriceFull } from '@/entities/Basket'
+import { IconSvg } from '@/shared/ui'
 
 const { priceFull } = usePriceFull()
 
 const categoriesLineBasketClassName = computed(() => {
-  return priceFull.value !== 0 ? "basket-small active" : "basket-small"
+  return priceFull.value !== 0 ? 'basket-small active' : 'basket-small'
 })
 </script>
 

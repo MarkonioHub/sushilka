@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import type { Basket } from "@/entities/Basket/model/types.ts"
-import { getLocalStorageItem } from '@/shared/helpers/getLocalStorageItem.ts'
+import { getLocalStorageItem } from '@/shared/lib'
 
 export const useBasketStore = defineStore('Basket', {
   state: (): Basket => ({

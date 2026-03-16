@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TitleBase from '@/shared/ui/TitleBase.vue'
-import ModalCustom from '@/shared/ui/ModalCustom.vue'
+import { TitleBase } from '@/shared/ui'
+import { ModalCustom } from '@/shared/ui'
 import type { LngLat } from '@yandex/ymaps3-types'
 import {
   YandexMap,
@@ -10,11 +10,11 @@ import {
   YandexMapMarker,
 } from 'vue-yandex-maps'
 import { reactive, ref, watch } from 'vue'
-import LabelWithIcon from '@/shared/ui/LabelWithIcon/ui/LabelWithIcon.vue'
-import ButtonBase from '@/shared/ui/ButtonBase.vue'
-import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
+import LabelWithIcon from '@/shared/ui/LabelWithIcon.vue'
+import { ButtonBase } from '@/shared/ui'
+import { useDeliveryStore } from '@/entities/Delivery'
 import { storeToRefs } from 'pinia'
-import { useModalsStore } from '@/app/store/modals.ts'
+import { useModalsStore } from '@/shared/store'
 import type { AddressOption } from '@/entities/Delivery/model/types'
 const modalsStore = useModalsStore()
 const deliveryStore = useDeliveryStore()
@@ -38,14 +38,14 @@ async function getAddress(event: any) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function setAddress (addressOption: any) {
+function setAddress(addressOption: any) {
   addressCoordinates.value = addressOption.geometry.coordinates as []
   addressText.value = addressOption.properties.name
   mapCenter.value = addressCoordinates.value
   zoom.value = 16
 }
 
-function saveAddress () {
+function saveAddress() {
   if (addressCoordinates.value) {
     deliveryStore.setDeliveryAddress(addressText.value)
     deliveryStore.setDeliveryRestaurantId('')
@@ -54,9 +54,11 @@ function saveAddress () {
 }
 
 watch(addressText, async (newSearchText) => {
-  addressOptions.value = newSearchText ? (await ymaps3.search({
-    text: `${newSearchText}, ${deliveryCity.value.text}`,
-  })) as [] : []
+  addressOptions.value = newSearchText
+    ? ((await ymaps3.search({
+        text: `${newSearchText}, ${deliveryCity.value.text}`,
+      })) as [])
+    : []
 })
 
 const events = reactive({
@@ -78,7 +80,7 @@ function debounce<T extends Function>(func: T, delay: number): (...args: any[]) 
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 const createEvent = <T extends keyof typeof events, E = keyof (typeof events)[T]>(
   category: T,
   type: E | boolean,
@@ -111,9 +113,9 @@ const createEvent = <T extends keyof typeof events, E = keyof (typeof events)[T]
         :icon="'placemark'"
         :note="'Адрес доставки'"
         :placeholder="' '"
-        @focus="() => isShowAddressHint = true"
+        @focus="() => (isShowAddressHint = true)"
         v-model.lazy="addressText"
-        v-click-outside="() => isShowAddressHint = false"
+        v-click-outside="() => (isShowAddressHint = false)"
       />
       <div class="home-modal__hint">
         <div class="home-modal__select" v-if="isShowAddressHint">
@@ -156,7 +158,9 @@ const createEvent = <T extends keyof typeof events, E = keyof (typeof events)[T]
           />
         </yandex-map>
       </div>
-      <ButtonBase @click="saveAddress" :className="'button-orange button-orange_big'">Подтвердить</ButtonBase>
+      <ButtonBase @click="saveAddress" :className="'button-orange button-orange_big'"
+        >Подтвердить</ButtonBase
+      >
     </div>
   </ModalCustom>
 </template>

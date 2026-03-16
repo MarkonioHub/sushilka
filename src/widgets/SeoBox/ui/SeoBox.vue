@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CardBase from "@/shared/ui/CardBase.vue"
+import { CardBase } from '@/shared/ui'
 
 const props = defineProps({
   title: { type: String, required: true },
@@ -11,8 +11,8 @@ const props = defineProps({
   <section class="seo-box">
     <div class="cont">
       <CardBase class="seo-box__area">
-        <h1 class="seo-box__title">{{props.title}}</h1>
-        <p class="seo-box__description">{{props.description}}</p>
+        <h1 class="seo-box__title">{{ props.title }}</h1>
+        <p class="seo-box__description">{{ props.description }}</p>
       </CardBase>
     </div>
   </section>

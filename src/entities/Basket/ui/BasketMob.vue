@@ -2,12 +2,12 @@
 import { computed } from "vue"
 import { storeToRefs } from "pinia"
 
-import { useBasketStore } from "@/entities/Basket/model/store.ts"
-import { usePriceFull } from "@/shared/composables/useBasketPrice.ts"
-import { formatPrice } from "@/shared/helpers/formatPrice.ts"
+import { useBasketStore } from "@/entities/Basket"
+import { usePriceFull } from "@/entities/Basket"
+import { formatPrice } from "@/shared/lib"
 
-import ButtonBase from "@/shared/ui/ButtonBase.vue"
-import {pluralize} from "@/shared/helpers/pluralize.ts"
+import { ButtonBase } from '@/shared/ui'
+import { pluralize } from "@/shared/lib"
 
 const basket = useBasketStore()
 const { productsBasket } = storeToRefs(basket)

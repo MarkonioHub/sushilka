@@ -3,18 +3,18 @@ import {
   createRouter,
   type RouterScrollBehavior,
 } from 'vue-router'
-import { useAccessStore } from '@/app/store/access.ts'
+import { useAccessStore } from '@/shared/store'
 
-const HomePage = () => import('@/pages/HomePage.vue')
-const StocksPage = () => import('@/pages/StocksPage.vue')
-const NotFoundPage = () => import('@/pages/NotFoundPage.vue')
-const BasketPage = () => import("@/pages/BasketPage.vue")
-const ContentPage = () => import("@/pages/ContentPage.vue")
-const ReviewsPage = () => import("@/pages/ReviewsPage.vue")
-const VacanciesPage = () => import("@/pages/VacanciesPage.vue")
-const VacancyPage = () => import("@/pages/VacancyPage.vue")
-const AboutPage = () => import("@/pages/AboutPage.vue")
-const CheckoutPage = () => import("@/pages/CheckoutPage.vue")
+import { HomePage } from '../../pages/Home'
+import { StocksPage } from '../../pages/Stocks'
+import { NotFoundPage } from '../../pages/NotFound'
+import { BasketPage } from '../../pages/Basket'
+import { ContentPage } from '../../pages/Content'
+import { ReviewsPage } from '../../pages/Reviews'
+import { VacanciesPage } from '../../pages/Vacancies'
+import { VacancyPage } from '../../pages/Vacancy'
+import { AboutPage } from '../../pages/About'
+import { CheckoutPage } from '../../pages/Checkout'
 
 const routes = [
   {

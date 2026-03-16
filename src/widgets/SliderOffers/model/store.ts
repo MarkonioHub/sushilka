@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import type {SliderOffer} from "./types.ts"
-import { fetchData } from "@/shared/helpers/fetchData.ts"
+import { fetchData } from "@/shared/lib"
 
 export const useSliderOffersStore = defineStore('SliderOffers', {
   state: () => ({

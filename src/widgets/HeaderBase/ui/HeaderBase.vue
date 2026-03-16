@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import IconSvg from '@/shared/ui/IconSvg.vue'
-import ButtonBase from '@/shared/ui/ButtonBase.vue'
-import { useModalsStore } from "@/app/store/modals.ts"
-import { useDeliveryStore } from '@/entities/Delivery/model/store.ts'
+import { IconSvg } from '@/shared/ui'
+import { ButtonBase } from '@/shared/ui'
+import { useModalsStore } from '@/shared/store'
+import { useDeliveryStore } from '@/entities/Delivery'
 import { storeToRefs } from 'pinia'
-import { useLangStore } from '@/widgets/LangModal/model/store.ts'
+import { useLangStore } from '@/shared/store'
 
 const modalsStore = useModalsStore()
 const deliveryStore = useDeliveryStore()
@@ -22,11 +22,15 @@ const { currentLang } = storeToRefs(langStore)
         </RouterLink>
         <div class="header__list">
           <div class="header__item">
-            <ButtonBase :className="'button-underline'" @click="modalsStore.toggleModal('DeliveryCity')">
+            <ButtonBase
+              :className="'button-underline'"
+              @click="modalsStore.toggleModal('DeliveryCity')"
+            >
               <IconSvg
                 :name="'placemark'"
                 :margin="'0 8px 0 0'"
-                :width="'16px'" :height="'16px'"
+                :width="'16px'"
+                :height="'16px'"
                 :className="'icon-orange-fill'"
               />
               <span v-if="deliveryCity?.text">{{ deliveryCity.text }}</span>
@@ -34,11 +38,15 @@ const { currentLang } = storeToRefs(langStore)
             </ButtonBase>
           </div>
           <div class="header__item">
-            <ButtonBase :className="'button-underline uppercase'" @click="modalsStore.toggleModal('LangModal')">
+            <ButtonBase
+              :className="'button-underline uppercase'"
+              @click="modalsStore.toggleModal('LangModal')"
+            >
               <IconSvg
                 :name="'lang'"
                 :margin="'0 8px 0 0'"
-                :width="'16px'" :height="'16px'"
+                :width="'16px'"
+                :height="'16px'"
                 :className="'icon-orange-fill'"
               />
               <span>{{ currentLang }}</span>
@@ -49,19 +57,37 @@ const { currentLang } = storeToRefs(langStore)
           +7(8332)436-436
           <IconSvg :name="'phone'" :className="'header__phone-icon icon-orange-fill'" />
         </a>
-        <ButtonBase :className="'header__login button-underline'" @click="() => modalsStore.toggleModal('LoginModal')" >
-          <IconSvg :name="'login'" :className="'icon-orange-fill'" :width="'32px'"
-                   :height="'32px'" :margin="'0 10px 0 0'" />
+        <ButtonBase
+          :className="'header__login button-underline'"
+          @click="() => modalsStore.toggleModal('LoginModal')"
+        >
+          <IconSvg
+            :name="'login'"
+            :className="'icon-orange-fill'"
+            :width="'32px'"
+            :height="'32px'"
+            :margin="'0 10px 0 0'"
+          />
           <span>{{ $t('HeaderBase.login') }}</span>
         </ButtonBase>
       </div>
       <div class="header__mob">
         <div class="header__burger" @click="modalsStore.toggleModal('MobileMenu')">
-          <IconSvg :name="'burger'" :className="'icon-orange-stroke'" :width="'24px'" :height="'24px'" />
+          <IconSvg
+            :name="'burger'"
+            :className="'icon-orange-stroke'"
+            :width="'24px'"
+            :height="'24px'"
+          />
         </div>
         <div class="header__btns">
           <div class="header__btn" @click="() => modalsStore.toggleModal('DeliveryModal')">
-            <IconSvg :name="'info'" :className="'icon-orange-stroke'" :width="'24px'" :height="'24px'" />
+            <IconSvg
+              :name="'info'"
+              :className="'icon-orange-stroke'"
+              :width="'24px'"
+              :height="'24px'"
+            />
           </div>
         </div>
       </div>

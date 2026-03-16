@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import IconSvg from "@/shared/ui/IconSvg.vue"
-import { computed } from "vue"
-import InputBase from '@/shared/ui/InputBase.vue'
+import { IconSvg } from '@/shared/ui'
+import { computed } from 'vue'
+import { InputBase } from '@/shared/ui'
 
 const props = defineProps({
   name: { type: String, required: true },
@@ -12,11 +12,11 @@ const props = defineProps({
 
 const model = defineModel<number>()
 
-function increment () {
+function increment() {
   if (model.value) model.value++
 }
 
-function decrement () {
+function decrement() {
   if (model.value) model.value--
 }
 
@@ -35,12 +35,17 @@ const minusClass = computed(() => {
 const plusClass = computed(() => {
   return disablePlus.value ? 'icon-btn disabled' : 'icon-btn'
 })
-
 </script>
 
 <template>
   <div class="product-counter">
-    <IconSvg :name="'minus'" :className="minusClass" @click="decrement" :width="'20px'" :height="'20px'" />
+    <IconSvg
+      :name="'minus'"
+      :className="minusClass"
+      @click="decrement"
+      :width="'20px'"
+      :height="'20px'"
+    />
     <InputBase
       type="text"
       class="product-counter__value"
@@ -48,7 +53,13 @@ const plusClass = computed(() => {
       :name="props.name"
       v-model="model"
     />
-    <IconSvg :name="'plus'" :className="plusClass" @click="increment" :width="'20px'" :height="'20px'" />
+    <IconSvg
+      :name="'plus'"
+      :className="plusClass"
+      @click="increment"
+      :width="'20px'"
+      :height="'20px'"
+    />
   </div>
 </template>
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import ModalCustom from "@/shared/ui/ModalCustom.vue"
-import ButtonBase from "@/shared/ui/ButtonBase.vue"
-import LabelWithIcon from "@/shared/ui/LabelWithIcon/ui/LabelWithIcon.vue"
-import { useModalsStore } from '@/app/store/modals.ts'
+import { ModalCustom } from '@/shared/ui'
+import { ButtonBase } from '@/shared/ui'
+import LabelWithIcon from '@/shared/ui/LabelWithIcon.vue'
+import { useModalsStore } from '@/shared/store'
 const phone = ref('')
 const modalsStore = useModalsStore()
 
@@ -11,16 +11,16 @@ const isValid = computed(() => {
   return phone.value && phone.value.length === 18
 })
 
-function loginWithPhone () {
+function loginWithPhone() {
   alert(`Логин через телефон по номеру ${phone.value}`)
   phone.value = ''
-  modalsStore.toggleModal("LoginModal")
+  modalsStore.toggleModal('LoginModal')
 }
 
-function loginWithTg () {
+function loginWithTg() {
   alert(`Логин через телеграм по номеру ${phone.value}`)
   phone.value = ''
-  modalsStore.toggleModal("LoginModal")
+  modalsStore.toggleModal('LoginModal')
 }
 </script>
 
@@ -53,7 +53,8 @@ function loginWithTg () {
         :disabled="!isValid"
         class="login-modal__button"
         @click="loginWithTg"
-      >телеграм</ButtonBase>
+        >телеграм</ButtonBase
+      >
       <div class="login-modal__policy">
         Продолжая, вы даете согласие на обработку персональных данных и соглашаетесь с
         <RouterLink :to="`/content/agreement`" class="vacancy-modal__privacy-link">

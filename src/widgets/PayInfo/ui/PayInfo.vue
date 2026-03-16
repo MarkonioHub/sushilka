@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {defineAsyncComponent} from "vue"
-import CardBase from "@/shared/ui/CardBase.vue"
+import { defineAsyncComponent } from 'vue'
+import { CardBase } from '@/shared/ui'
 
 const ic_visa = defineAsyncComponent(() => import('../images/ic_visa.svg'))
 const ic_master_card = defineAsyncComponent(() => import('../images/ic_master_card.svg'))
@@ -10,17 +10,18 @@ const ic_sbr = defineAsyncComponent(() => import('../images/ic_sbr.svg'))
 const payInfo = [
   {
     title: 'Наличный расчёт',
-    text: 'Оплата производится наличными курьеру при доставке заказа или самовывозом из точки продаж. ' +
-      'При оформлении заказа укажите сумму, с которой Вам необходима сдача.'
+    text:
+      'Оплата производится наличными курьеру при доставке заказа или самовывозом из точки продаж. ' +
+      'При оформлении заказа укажите сумму, с которой Вам необходима сдача.',
   },
   {
     title: 'Картой',
-    text: 'Оплата производится банковской картой курьеру при доставке заказа или при самовывозе из точки продаж.'
+    text: 'Оплата производится банковской картой курьеру при доставке заказа или при самовывозе из точки продаж.',
   },
   {
     title: 'Online на сайте',
     text: 'Вы можете оплатить свой заказ на сайте онлайн с помощью карты любого банка.',
-    icons: [ ic_visa, ic_master_card, ic_mir, ic_sbr ]
+    icons: [ic_visa, ic_master_card, ic_mir, ic_sbr],
   },
 ]
 </script>

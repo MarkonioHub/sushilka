@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useModalsStore } from '@/app/store/modals.ts'
-import ModalCustom from '@/shared/ui/ModalCustom.vue'
-import IconSvg from '@/shared/ui/IconSvg.vue'
-import TitleBase from '@/shared/ui/TitleBase.vue'
-import { useIsAtLeastOneShopOpen } from '@/shared/composables/useIsAtLeastOneShopOpen.ts'
+import { useModalsStore } from '@/shared/store'
+import { ModalCustom } from '@/shared/ui'
+import { IconSvg } from '@/shared/ui'
+import { TitleBase } from '@/shared/ui'
+import { useIsAtLeastOneShopOpen } from '@/entities/Delivery'
 const { isAtLeastOneShopOpen } = useIsAtLeastOneShopOpen()
 
 const modalsStore = useModalsStore()

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {useContentPagesStore} from "@/widgets/ContentPage/model/store.ts";
-import {storeToRefs} from "pinia";
+import { useContentPagesStore } from "@/entities/ContentPage"
+import { storeToRefs } from "pinia"
 
 const store = useContentPagesStore()
 const { pages } = storeToRefs(store)
@@ -10,7 +10,13 @@ const { pages } = storeToRefs(store)
   <footer class="footer">
     <div class="cont">
       <div class="footer__list">
-        <RouterLink :to="`/content/${page.slug}`" class="footer__link" activeClass="active" v-for="(page) in pages">
+        <RouterLink
+          :to="`/content/${page.slug}`"
+          class="footer__link"
+          activeClass="active"
+          v-for="(page) in pages"
+          :key="page.slug"
+        >
           {{ page.name }}
         </RouterLink>
       </div>

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { fetchData } from '@/shared/helpers/fetchData.ts'
+import { fetchData } from '@/shared/lib'
 import type { City, Shop } from './types.ts'
-import { getLocalStorageItem } from '@/shared/helpers/getLocalStorageItem.ts'
+import { getLocalStorageItem } from '@/shared/lib'
 
 export const useDeliveryStore = defineStore('delivery', {
   state: () => ({

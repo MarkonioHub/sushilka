@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import type { Product } from './types'
-import { fetchData } from "@/shared/helpers/fetchData.ts"
+import { fetchData } from "@/shared/lib"
 
 export const useProductsStore = defineStore('Products', {
   state: () => ({
